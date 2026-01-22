@@ -78,5 +78,4 @@ def test_create_asset(test_client, sensor_payload, location_payload, asset_paylo
   assert response.status_code == 201
   assert response.json()["qr_id"] == asset_payload["qr_id"]
   assert response.json()["name"] == asset_payload["name"]
-  assert response.json()["category"] == asset_payload["category"]
   assert response.json()["last_maintenance"] == asset_payload["last_maintenance"]

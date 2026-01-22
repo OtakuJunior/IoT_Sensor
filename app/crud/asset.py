@@ -7,7 +7,6 @@ def CreateAsset(db : Session, asset : AssetCreate):
   db_asset = Asset_Model(
   qr_id = asset.qr_id,
   name = asset.name,
-  category = asset.category,
   last_maintenance = asset.last_maintenance,
   location_id = asset.location_id
   )

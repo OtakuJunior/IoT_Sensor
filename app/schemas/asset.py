@@ -5,7 +5,6 @@ from datetime import datetime
 class AssetBase(BaseModel):
   qr_id : int 
   name : str
-  category : str 
   last_maintenance : datetime
   location_id : int
 

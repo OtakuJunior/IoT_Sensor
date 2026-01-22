@@ -21,7 +21,6 @@ def test_get_asset(test_client, asset_payload, location_payload):
   assert asset_response.json()['id'] == asset_id
   assert asset_response.json()['qr_id'] == asset_payload["qr_id"]
   assert asset_response.json()['name'] == asset_payload["name"]
-  assert asset_response.json()['category'] == asset_payload["category"]
   assert asset_response.json()['last_maintenance'] == asset_payload["last_maintenance"]
 
 def test_get_location(test_client, location_payload):

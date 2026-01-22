@@ -61,7 +61,6 @@ def asset_payload(location_payload):
     return {
         "qr_id" : 12345,
         "name" : "asset1",
-        "category" : "HVAC",
         "last_maintenance" : "2026-01-15T16:00:00",
         "location_id" : location_payload["id"]
     }
@@ -79,7 +78,7 @@ def sensor_payload(location_payload):
       "id" : 2,
       "name" : "Lab1 temperature sensor",
       "type" : "Temperature",
-      "unit" : "Celsius", 
+      "unit" : "°C", 
       "min_warning" : -10.0,
       "max_warning" : 40.0,
       "min_critical" : -20.0,

@@ -8,7 +8,6 @@ class Asset(Base):
   id = Column(Integer, primary_key=True, index=True)
   qr_id = Column(Integer, nullable=False)
   name = Column(String)
-  category = Column(String)
   last_maintenance = Column(DateTime(timezone=True), nullable=False)
   location_id = Column(Integer, ForeignKey("locations.id")) 
 

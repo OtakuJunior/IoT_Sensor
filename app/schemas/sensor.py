@@ -1,10 +1,11 @@
 from pydantic import BaseModel, ConfigDict
+from typing import  Literal
 
 # Base sensor model
 class SensorBase(BaseModel):
   name : str
-  type : str
-  unit : str
+  type : Literal['Temperature', 'Pressure', 'Humidity', 'Gaz', 'Smoke']
+  unit : Literal['°C', 'hPa', '%', 'ppm']
   min_warning : float | None = None
   max_warning : float | None = None
   min_critical : float | None = None
