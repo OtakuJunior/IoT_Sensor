@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from app.schemas.sensor_data import SensorDataCreate
 from app.models.sensor_data import SensorData as SensorData_Model
 from app.crud import sensor as sensor_crud
-from app.utils import sensor_data_processing as sd_process
+from app.services import sensor_data_processing as sd_process
 from datetime import datetime
 
 def CreateSensorData(db : Session, sensor_data : SensorDataCreate):
