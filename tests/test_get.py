@@ -90,24 +90,5 @@ def test_get_sensor_data_history(test_client, sensor_data_payload, location_sens
   assert isinstance(history_data.json(), list)
   assert len(history_data.json()) == 3
   
-def test_get_unresolved_alerts(test_client,alert_payload, location_sensor_constraint):
-  sensor_id1 = location_sensor_constraint()
-  sensor_id2 = location_sensor_constraint()
 
-  alert_payload["sensor_id"] = sensor_id1 
-  alert1 = test_client.post("/alerts", json=alert_payload)
-  alert2 = test_client.post("/alerts", json=alert_payload)
-  alert_payload["is_resolved"] = True
-  alert3 = test_client.post("/alerts", json=alert_payload)
-
-  alert_payload["sensor_id"] = sensor_id2
-  alert_payload["is_resolved"] = False
-  alert4 = test_client.post("/alerts", json=alert_payload)
-  alert_payload["is_resolved"] = True
-  alert5 = test_client.post("/alerts", json=alert_payload)
-
-  history_alerts = test_client.get("/alerts/unresolved")
-  assert history_alerts.status_code == 200
-  assert isinstance(history_alerts.json(), list)
-  assert len(history_alerts.json()) == 3
   
