@@ -19,7 +19,7 @@ def test_get_asset(test_client, asset_payload, location_payload):
   asset_response = test_client.get(f"/assets/{asset_id}")
   assert asset_response.status_code == 200
   assert asset_response.json()['id'] == asset_id
-  assert asset_response.json()['qr_id'] == asset_payload["qr_id"]
+  assert asset_response.json()["qr_id"] is not None
   assert asset_response.json()['name'] == asset_payload["name"]
   assert asset_response.json()['last_maintenance'] == asset_payload["last_maintenance"]
 

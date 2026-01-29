@@ -12,6 +12,6 @@ class UserCreate(UserBase):
 
 # Model to read an user
 class User(UserBase):
-  id : int
+  id : str
 
   model_config = ConfigDict(from_attributes=True)

@@ -78,4 +78,8 @@ def test_one_alert_for_critical_value(test_client, sensor_data_payload, location
   assert data.status_code == 201
   db_alert = db_session.query(Alert_Model).filter(Alert_Model.sensor_id == sensor_id).all()
   assert len(db_alert) == 1
+  alert_created = db_alert[0]
+  assert alert_created.direction == "Low"
+  assert alert_created.is_resolved == False
+  assert alert_created.severity == 'Critical'
 

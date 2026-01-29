@@ -5,7 +5,7 @@ from datetime import datetime
 class SensorDataBase(BaseModel):
   value : float
   time : datetime 
-  sensor_id : int
+  sensor_id : str
 
 # Model to create a sensor data
 class SensorDataCreate(SensorDataBase):
@@ -13,5 +13,5 @@ class SensorDataCreate(SensorDataBase):
 
 # Model to read a sensor data
 class SensorData(SensorDataBase):
-  id : int
+  id : str
   model_config = ConfigDict(from_attributes=True)

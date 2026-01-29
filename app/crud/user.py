@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 from app.schemas.user import UserCreate
-from app.models.user import User as User_Model
+from app.models.user import User as user_model
 
-def CreateUser(db: Session, user : UserCreate):
-  db_user = User_Model(
+def create_user(db: Session, user : UserCreate):
+  db_user = user_model(
     name = user.name,
     email = user.email,
     phone_number = user.phoneNumber,
@@ -15,11 +15,11 @@ def CreateUser(db: Session, user : UserCreate):
 
   return db_user
 
-def GetUser(db: Session, user_id : int):
-  return db.query(User_Model).filter(User_Model.id == user_id).first()
+def get_user(db: Session, user_id : str):
+  return db.query(user_model).filter(user_model.id == user_id).first()
 
-def DeleteUser(db: Session, user_id : int):
-  db_user = db.query(User_Model).filter(User_Model.id == user_id).first()
+def delete_user(db: Session, user_id : str):
+  db_user = db.query(user_model).filter(user_model.id == user_id).first()
   
   if db_user:
     db.delete(db_user)

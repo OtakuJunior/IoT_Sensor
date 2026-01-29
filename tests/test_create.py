@@ -21,7 +21,7 @@ def test_create_sensor(test_client, location_payload, sensor_payload):
   response_json = response.json()
   assert response.status_code == 201
   assert response_json["name"] == sensor_payload["name"]
-  assert response_json["type"] == sensor_payload["type"]
+  assert response_json["sensor_type"] == sensor_payload["sensor_type"]
   assert response_json["unit"] == sensor_payload["unit"]
   assert isinstance(response_json["min_warning"], float)
   assert isinstance(response_json["max_warning"], float)
@@ -73,9 +73,10 @@ def test_create_asset(test_client, sensor_payload, location_payload, asset_paylo
   sensor_response = test_client.post("/sensors", json=sensor_payload)
   sensor_id = sensor_response.json()['id']
   asset_payload["sensor_id"] = sensor_id
+  asset_payload['location_id'] = location_id
 
   response = test_client.post("/assets", json=asset_payload)
   assert response.status_code == 201
-  assert response.json()["qr_id"] == asset_payload["qr_id"]
   assert response.json()["name"] == asset_payload["name"]
   assert response.json()["last_maintenance"] == asset_payload["last_maintenance"]
+  assert response.json()["qr_id"] is not None

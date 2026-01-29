@@ -4,6 +4,7 @@ def test_user_not_found(test_client):
 
 def test_delete_user(test_client, user_payload):
   user_response = test_client.post("/users", json=user_payload)
+  assert user_response.status_code == 201
   user_id = user_response.json()["id"]
   user_delete = test_client.delete(f"/users/{user_id}")
   assert user_delete.status_code == 204

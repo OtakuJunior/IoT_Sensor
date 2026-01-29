@@ -5,13 +5,14 @@ from fastapi.testclient import TestClient
 from app.main import app
 from app.database import Base, get_db
 from sqlalchemy.pool import StaticPool
+from app.services import enums
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
     connect_args={"check_same_thread": False},
-    poolclass=StaticPool,
+    poolclass=StaticPool
 )
 
 @event.listens_for(engine, "connect")
@@ -57,33 +58,30 @@ def user_payload():
     }
 
 @pytest.fixture()
-def asset_payload(location_payload):
+def asset_payload():
     return {
-        "qr_id" : 12345,
         "name" : "asset1",
+        "status" : enums.AssetStatus.OPERATIONAL,
         "last_maintenance" : "2026-01-15T16:00:00",
-        "location_id" : location_payload["id"]
     }
 
 @pytest.fixture()
 def location_payload():
     return {
-        "id" : 1,
         "name" : "Lab1"
     }
     
 @pytest.fixture()
-def sensor_payload(location_payload):
+def sensor_payload():
     return {
-      "id" : 2,
       "name" : "Lab1 temperature sensor",
-      "type" : "Temperature",
-      "unit" : "°C", 
+      "sensor_type" : enums.SensorType.TEMPERATURE,
+      "unit" : enums.Units.CELSIUS, 
+      "status" : enums.SensorStatus.ACTIVE,
       "min_warning" : -10.0,
       "max_warning" : 40.0,
       "min_critical" : -20.0,
       "max_critical" : 50.0,
-      "location_id" : location_payload["id"]
     }
 
 @pytest.fixture()
@@ -94,13 +92,13 @@ def sensor_data_payload():
     }
 
 @pytest.fixture()
-def alert_payload(sensor_payload):
+def alert_payload():
     return {
         "severity" : "Warning",
+        "direction" : "High",
         "message" : "high temperature detected in lab1",
         "time" : "2026-01-15T16:00:00",
         "is_resolved" : False,
-        "sensor_id" : sensor_payload["id"]
     }
 
 @pytest.fixture()

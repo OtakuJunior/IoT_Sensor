@@ -1,16 +1,17 @@
 from pydantic import BaseModel, ConfigDict
-from typing import  Literal
-
+from app.services.enums import SensorStatus, Units, SensorType
 # Base sensor model
 class SensorBase(BaseModel):
   name : str
-  type : Literal['Temperature', 'Pressure', 'Humidity', 'Gaz', 'Smoke']
-  unit : Literal['°C', 'hPa', '%', 'ppm']
+  sensor_type : SensorType
+  unit : Units
+  status : SensorStatus = SensorStatus.ACTIVE
   min_warning : float | None = None
   max_warning : float | None = None
   min_critical : float | None = None
   max_critical : float | None = None
-  location_id : int
+  location_id : str | None = None
+  asset_id : str | None = None
 
 # Model to create a sensor
 class SensorCreate(SensorBase):
@@ -18,17 +19,26 @@ class SensorCreate(SensorBase):
 
 # Model to read a sensor
 class Sensor(SensorBase): 
-  id : int
+  id : str
 
   model_config = ConfigDict(from_attributes=True)
 
 # Model to update a sensor
 class SensorUpdate(BaseModel): 
   name : str | None = None
-  type : str | None = None
-  unit : str | None = None
+  sensor_type : SensorType | None = None
+  unit : Units | None = None
+  status : SensorStatus | None = None
   min_warning : float | None = None
   max_warning : float | None = None
   min_critical : float | None = None
   max_critical : float | None = None
-  location_id : int | None = None
+  location_id : str | None = None
+  asset_id : str | None = None
+
+class SensorAsset(BaseModel):
+  id : str
+  name : str
+  status : SensorStatus = SensorStatus.ACTIVE
+
+  model_config = ConfigDict(from_attributes=True)

@@ -1,17 +1,19 @@
 from sqlalchemy.orm import Session
 from app.schemas.sensor import SensorCreate, SensorUpdate
-from app.models.sensor import Sensor as Sensor_Model
+from app.models.sensor import Sensor as sensor_model
 
-def CreateSensor(db : Session, sensor : SensorCreate ):
-  db_sensor = Sensor_Model(
+def create_sensor(db : Session, sensor : SensorCreate ):
+  db_sensor = sensor_model(
   name = sensor.name,
-  type = sensor.type,
+  sensor_type = sensor.sensor_type,
   unit = sensor.unit,
+  status = sensor.status,
   min_warning = sensor.min_warning,
   max_warning = sensor.max_warning,
   min_critical = sensor.min_critical,
   max_critical = sensor.max_critical,
-  location_id = sensor.location_id
+  location_id = sensor.location_id,
+  asset_id = sensor.asset_id
   )
 
   db.add(db_sensor)
@@ -20,11 +22,11 @@ def CreateSensor(db : Session, sensor : SensorCreate ):
 
   return db_sensor
 
-def GetSensor(db: Session, sensor_id : int):
-  return db.query(Sensor_Model).filter(Sensor_Model.id == sensor_id).first()
+def get_sensor(db: Session, sensor_id : str):
+  return db.query(sensor_model).filter(sensor_model.id == sensor_id).first()
 
-def DeleteSensor(db: Session, sensor_id : int):
-  db_sensor = db.query(Sensor_Model).filter(Sensor_Model.id == sensor_id).first()
+def delete_sensor(db: Session, sensor_id : str):
+  db_sensor = db.query(sensor_model).filter(sensor_model.id == sensor_id).first()
   
   if db_sensor:
     db.delete(db_sensor)
@@ -33,8 +35,8 @@ def DeleteSensor(db: Session, sensor_id : int):
   
   return False
 
-def UpdateSensor(db : Session, sensor_id : int, updated_sensor : SensorUpdate):
-  db_sensor = db.query(Sensor_Model).filter(Sensor_Model.id == sensor_id).first()
+def update_sensor(db : Session, sensor_id : str, updated_sensor : SensorUpdate):
+  db_sensor = db.query(sensor_model).filter(sensor_model.id == sensor_id).first()
 
   if db_sensor:
     update_data = updated_sensor.model_dump(exclude_unset=True)

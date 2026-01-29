@@ -1,12 +1,14 @@
-from sqlalchemy import Column, Integer, DateTime, Float, ForeignKey
+from sqlalchemy import Column, DateTime, Float, ForeignKey, String
 from app.database import Base
 from sqlalchemy.orm import relationship
+import uuid
+
 
 class SensorData(Base):
   __tablename__ = "sensor_data"
 
-  id = Column(Integer, primary_key=True, index=True)
-  sensor_id = Column(Integer, ForeignKey("sensors.id")) 
+  id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+  sensor_id = Column(String, ForeignKey("sensors.id")) 
   value = Column(Float, nullable=False)
   time = Column(DateTime(timezone=True))
   

@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 from app.schemas.location import LocationCreate
-from app.models.location import Location as Location_Model
+from app.models.location import Location as location_model
 
-def CreateLocation(db : Session, location : LocationCreate):
-  db_location = Location_Model(
+def create_location(db : Session, location : LocationCreate):
+  db_location = location_model(
     name = location.name
   )
 
@@ -13,11 +13,11 @@ def CreateLocation(db : Session, location : LocationCreate):
 
   return db_location
 
-def GetLocation(db : Session, location_id : int):
-  return db.query(Location_Model).filter(Location_Model.id == location_id).first()
+def get_location(db : Session, location_id : str):
+  return db.query(location_model).filter(location_model.id == location_id).first()
 
-def DeleteLocation(db: Session, location_id : int):
-  db_location = db.query(Location_Model).filter(Location_Model.id == location_id).first()
+def delete_location(db: Session, location_id : str):
+  db_location = db.query(location_model).filter(location_model.id == location_id).first()
   
   if db_location:
     db.delete(db_location)
