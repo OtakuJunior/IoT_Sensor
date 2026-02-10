@@ -12,21 +12,21 @@ from app.services.mqtt_handler import mqtt
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("DEBUG: 🟢 Début du lifespan")
     await mqtt.mqtt_startup()
     try:
         database.Base.metadata.create_all(bind=database.engine)
         init_timescale()
     except Exception as e:
-        print(f"ERROR: {e}")
+        print(f"Error: {e}")
     
     try:
         mqtt.mqtt_startup
     except Exception as e:
-        print(f"ERROR: {e}")
+        print(f"Error: {e}")
     
     yield
     mqtt.mqtt_shutdown()
+    print("Shutting down the app")
 
 app = FastAPI(
     docs_url= None if settings.PRODUCTION else '/docs',

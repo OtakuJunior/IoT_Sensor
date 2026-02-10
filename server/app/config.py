@@ -9,10 +9,11 @@ class Settings(BaseSettings):
   MQTT_PASS: str | None = None 
   TOPIC_PREFIX: str ="factory/sensors/+/data"
 
+
   model_config = SettingsConfigDict(
 
     # Load environment variables from .env
-    env_file=".env",
+    env_file="../.env",
 
     # If a variable is empty in the .env file, ignore it and use the default value
     env_ignore_empty=True, 
