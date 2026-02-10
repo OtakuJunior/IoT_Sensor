@@ -10,7 +10,7 @@ router = APIRouter(
   responses={404: {"description": "Not found"}}
 )
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("", status_code=status.HTTP_201_CREATED)
 def create_location(location : LocationCreate, db : Session = Depends(get_db)):
   return location_crud.create_location(db=db, location=location)
 
@@ -20,3 +20,7 @@ def get_location(location_id : str, db : Session = Depends(get_db)):
   if db_location is None:
     raise HTTPException(status_code=404, detail="Location not found")
   return db_location
+
+@router.get("")
+def get_locations(db : Session = Depends(get_db)):
+  return location_crud.get_locations(db=db)

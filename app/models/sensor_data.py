@@ -10,6 +10,6 @@ class SensorData(Base):
   id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
   sensor_id = Column(String, ForeignKey("sensors.id")) 
   value = Column(Float, nullable=False)
-  time = Column(DateTime(timezone=True))
+  time = Column(DateTime(timezone=True), primary_key=True)
   
   sensor = relationship("Sensor", back_populates="data")

@@ -16,6 +16,9 @@ def create_location(db : Session, location : LocationCreate):
 def get_location(db : Session, location_id : str):
   return db.query(location_model).filter(location_model.id == location_id).first()
 
+def get_locations(db : Session):
+  return db.query(location_model).all()
+
 def delete_location(db: Session, location_id : str):
   db_location = db.query(location_model).filter(location_model.id == location_id).first()
   

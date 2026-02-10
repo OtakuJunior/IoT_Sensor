@@ -17,7 +17,7 @@ class AssetStatus(str, enum.Enum):
 
 class SensorType(str, enum.Enum):
   TEMPERATURE = 'Temperature'
-  PRESSION = 'Pression'
+  PRESSURE = 'Pressure'
   HUMIDITY = 'Humidity'
   GAZ = 'Gaz'
   SMOKE = 'Smoke'

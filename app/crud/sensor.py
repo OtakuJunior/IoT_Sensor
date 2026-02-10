@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import desc
 from app.schemas.sensor import SensorCreate, SensorUpdate
 from app.models.sensor import Sensor as sensor_model
+from app.services.enums import SensorStatus, SensorType
 
 def create_sensor(db : Session, sensor : SensorCreate ):
   db_sensor = sensor_model(
@@ -50,3 +52,13 @@ def update_sensor(db : Session, sensor_id : str, updated_sensor : SensorUpdate):
     return db_sensor
   
   return None
+
+def get_sensors(db : Session, sensor_type : SensorType | None = None, sensor_status: SensorStatus | None = None):
+  query = db.query(sensor_model)
+
+  if sensor_type is not None: 
+    query = query.filter(sensor_model.sensor_type == sensor_type)
+  if sensor_status is not None:
+    query = query.filter(sensor_model.status == sensor_status)
+  
+  return query.all()

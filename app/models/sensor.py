@@ -17,8 +17,8 @@ class Sensor(Base):
   max_warning = Column(Float)
   min_critical = Column(Float)
   max_critical = Column(Float)
-  location_id = Column(String, ForeignKey("locations.id"))
-  asset_id = Column(String, ForeignKey("assets.id"))
+  location_id = Column(String, ForeignKey("locations.id"), nullable= True)
+  asset_id = Column(String, ForeignKey("assets.id"), nullable= True)
 
   alerts = relationship("Alert", back_populates="message_sensor")
   sensor_location = relationship("Location", back_populates="sensors")

@@ -47,7 +47,7 @@ A new alert is triggered if :
 def check_alert_is_ok(severity : str, previous_alert : alert_model):
   minutes_delay = 30
   time_passed  = datetime.now() - timedelta(minutes=minutes_delay)
-  if previous_alert.time < time_passed:
+  if previous_alert.time.replace(tzinfo=None) < time_passed.replace(tzinfo=None):
     return True
   if previous_alert.severity == "Warning" and severity == "Critical":
     return True
@@ -94,6 +94,8 @@ def create_alert_if_severity(db : Session, sensor : sensor_model) -> None:
       
       alert_crud.create_alert(db=db, alert=alert)
 
+      return alert
+
   # if the value does not exceed threshold, there is not severity
   else: 
 
@@ -106,6 +108,8 @@ def create_alert_if_severity(db : Session, sensor : sensor_model) -> None:
 
         db.commit()
         db.refresh(previous_alert)
+        
+    return None
 
 def can_resolve_alert(sensor : sensor_model, previous_alert : alert_model, value : float):
     # Determine the type of the previous alert (High value vs Low value)
