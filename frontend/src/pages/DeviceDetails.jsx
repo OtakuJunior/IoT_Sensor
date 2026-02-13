@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSensorData } from "../state/sensorData";
 
@@ -16,13 +16,11 @@ export default function DeviceDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { history, currentValue, setInitialHistory, addSensorValue, clear } =
-    useSensorData();
-  const [sensor, setSensor] = useState(null);
+  const [sensorInfo, setSensorInfo] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isLive, setIsLive] = useState(false);
 
-  const ws = useRef(null);
+  const sensorData = useSensorData((state) => state.dataBySensor[id]);
+  const setInitialHistory = useSensorData((state) => state.setInitialHistory);
 
   useEffect(() => {
     const fetchSensorAndHistory = async () => {
@@ -35,7 +33,7 @@ export default function DeviceDetail() {
         const sensorDataFetched = await sensorRes.json();
         const historyData = await historyRes.json();
 
-        setSensor(sensorDataFetched);
+        setSensorInfo(sensorDataFetched);
 
         const formattedHistory = historyData.map((point) => ({
           time: new Date(point.time).toLocaleTimeString([], {
@@ -47,7 +45,7 @@ export default function DeviceDetail() {
           rawTime: point.time,
         }));
 
-        setInitialHistory(formattedHistory);
+        setInitialHistory(id, formattedHistory);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching initial data:", error);
@@ -56,50 +54,16 @@ export default function DeviceDetail() {
     };
 
     fetchSensorAndHistory();
-
-    if (!ws.current || ws.current.readyState === WebSocket.CLOSED) {
-      ws.current = new WebSocket(`ws://localhost:8000/ws/${id}`);
-
-      ws.current.onopen = () => {
-        console.log("✅ WebSocket Connected");
-        setIsLive(true);
-      };
-
-      ws.current.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-
-          if (String(data.sensor_id) === String(id)) {
-            addSensorValue({
-              time: new Date(data.time).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-              }),
-              value: data.value,
-              rawTime: data.time,
-            });
-          }
-        } catch (err) {
-          console.error("WebSocket Message Error:", err);
-        }
-      };
-
-      ws.current.onclose = () => setIsLive(false);
-    }
-
-    return () => {
-      if (ws.current) {
-        ws.current.close();
-        ws.current = null;
-      }
-      clear();
-    };
-  }, [id, setInitialHistory, addSensorValue, clear]);
+  }, [id, setInitialHistory]);
 
   if (loading)
     return <div className="p-8 text-slate-500">Loading details...</div>;
-  if (!sensor) return <div className="p-8 text-red-500">Sensor not found.</div>;
+  if (!sensorInfo)
+    return <div className="p-8 text-red-500">Sensor not found.</div>;
+
+  const history = sensorData?.history || [];
+  const currentValue = sensorData?.current || null;
+  const isLive = true;
 
   return (
     <div className="space-y-6">
@@ -111,7 +75,9 @@ export default function DeviceDetail() {
           >
             ← Back to list
           </button>
-          <h1 className="text-3xl font-bold text-slate-800">{sensor.name}</h1>
+          <h1 className="text-3xl font-bold text-slate-800">
+            {sensorInfo.name}
+          </h1>
         </div>
         <div className="flex gap-2">
           <span
@@ -136,23 +102,21 @@ export default function DeviceDetail() {
             Last Update
           </h3>
           <div className="text-lg font-semibold text-slate-600">
-            {currentValue?.rawTime
-              ? new Date(currentValue.rawTime).toLocaleString("fr-FR")
-              : "--"}
+            {currentValue?.time ? currentValue.time : "--"}
           </div>
         </div>
 
         <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
           <h3 className="text-gray-500 text-sm font-medium">Sensor Type</h3>
           <div className="text-2xl font-semibold text-slate-700 mt-2 capitalize">
-            {sensor.sensor_type || "Generic"}
+            {sensorInfo.sensor_type || "Generic"}
           </div>
         </div>
 
         <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
           <h3 className="text-gray-500 text-sm font-medium">Database ID</h3>
           <div className="text-2xl font-mono text-slate-400 mt-2">
-            #{sensor.id}
+            #{sensorInfo.id}
           </div>
         </div>
       </div>
@@ -160,7 +124,7 @@ export default function DeviceDetail() {
       {/* CHART SECTION */}
       <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
         <h3 className="text-lg font-bold text-slate-800 mb-6">
-          Real-time History
+          Real-time History ({history.length} points)
         </h3>
         <div className="h-64 w-full">
           <ResponsiveContainer width="100%" height="100%">

@@ -62,11 +62,11 @@ async def favicon():
 def read_root():
     return {"Iot sensor project backend is running"}
 
-@app.websocket("/ws/{sensor_id}")
-async def websocket_endpoint(websocket: WebSocket, sensor_id : str):
-    await manager.connect(websocket, sensor_id=sensor_id)
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket,):
+    await manager.connect(websocket)
     try:
         while True:
             await websocket.receive_json()
     except WebSocketDisconnect:
-        manager.disconnect(websocket, sensor_id=sensor_id)
+        manager.disconnect(websocket)

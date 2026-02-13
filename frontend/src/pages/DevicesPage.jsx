@@ -45,11 +45,8 @@ export default function Dashboard() {
             </h3>
             <div className="space-y-3">
               {devices.map((device) => (
-                <Link to={`/devices/${device.id}`}>
-                  <div
-                    key={device.id}
-                    className="flex justify-between items-center p-3 bg-slate-50 rounded-lg"
-                  >
+                <Link to={`/devices/${device.id}`} key={device.id}>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
                     <span className="font-medium text-slate-700">
                       {device.name}
                     </span>

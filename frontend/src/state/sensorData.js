@@ -1,19 +1,37 @@
 import { create } from "zustand";
 
 export const useSensorData = create((set) => ({
-  history: [],
-  currentValue: null,
+  dataBySensor: {},
+  setInitialHistory: (id, data) =>
+    set((state) => ({
+      dataBySensor: {
+        ...state.dataBySensor,
+        [id]: {
+          history: data.slice(-50),
+          current: data[data.length - 1] || null,
+        },
+      },
+    })),
 
-  setInitialHistory: (data) => set({ history: data }),
-
-  addSensorValue: (point) =>
+  addSensorValue: (id, point) =>
     set((state) => {
-      const newHistory = [...state.history, point].slice(-50);
+      const existingData = state.dataBySensor[id] || {
+        history: [],
+        current: null,
+      };
+
+      const newHistory = [...existingData.history, point].slice(-50);
+
       return {
-        history: newHistory,
-        currentValue: point,
+        dataBySensor: {
+          ...state.dataBySensor,
+          [id]: {
+            history: newHistory,
+            current: point,
+          },
+        },
       };
     }),
 
-  clear: () => set({ history: [], currentValue: null }),
+  clear: () => set({ dataBySensor: {} }),
 }));

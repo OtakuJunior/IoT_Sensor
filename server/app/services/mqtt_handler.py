@@ -28,13 +28,13 @@ def connect(client, flags: int, rc: int, properties = None):
 @mqtt.on_message()
 async def message(client, topic, payload, qos, properties):
     data = json.loads(payload.decode())
-    sensor_id = str(data.get("sensor_id"))
-
     if topic.startswith("alerts/"):
         data["is_alert"] = True 
-        await manager.broadcast(data, sensor_id=sensor_id)
+    else:
+        data["is_data"] = True
+        await manager.broadcast(data)
         return
 
     print(f"📥 MQTT reçu: {data}")
-    await manager.broadcast(data, sensor_id=sensor_id)
+    await manager.broadcast(data)
     print(f"📤 Broadcast à {len(manager.active_connections)} clients") 

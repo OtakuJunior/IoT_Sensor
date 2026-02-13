@@ -7,7 +7,7 @@ from paho.mqtt.client import CallbackAPIVersion
 import json
 
 API_URL = "http://127.0.0.1:8000"
-DELAY = 1
+DELAY = 0.5
 
 def get_sensors():
   response = requests.get(f"{API_URL}/sensors")
