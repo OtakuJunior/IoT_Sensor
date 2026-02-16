@@ -21,16 +21,16 @@ it returns the severity and a message or None
 """
 def check_value(value : float, sensor : sensor_model):
   if sensor.min_critical is not None and value <= sensor.min_critical :
-    return "Critical", "Low", f"Low critical value detected : {value}"
+    return "Critical", "Low", f"Low critical value detected : {value:.2f}"
   
   if sensor.max_critical is not None and value >= sensor.max_critical :
-    return "Critical", "High", f"High critical value detected : {value}"
+    return "Critical", "High", f"High critical value detected : {value:.2f}"
   
   if sensor.min_warning is not None and value <= sensor.min_warning :
-    return "Warning", "Low", f"Low warning value detected : {value}"
+    return "Warning", "Low", f"Low warning value detected : {value:.2f}"
   
   if sensor.max_warning is not None and value >= sensor.max_warning :
-    return "Warning", "High", f"High warning value detected : {value}"
+    return "Warning", "High", f"High warning value detected : {value:.2f}"
   
   return None, None, None
 

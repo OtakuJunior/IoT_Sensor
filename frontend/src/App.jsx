@@ -6,33 +6,53 @@ import DevicesPage from "./pages/DevicesPage";
 import AlertsPage from "./pages/AlertsPage";
 import DeviceDetail from "./pages/DeviceDetails";
 import { useSensorData } from "./state/sensorData";
+import { useAlerts } from "./state/alert";
 import { initSocket } from "./services/socket";
+import { ToastContainer, toast } from "react-toastify";
 
-function App() {
+export default function App() {
   const addSensorValue = useSensorData((state) => state.addSensorValue);
+  const push = useAlerts((state) => state.push);
 
   useEffect(() => {
     initSocket((data) => {
-      if (data.value === undefined || data.value === null) {
-        return;
+      if (data.is_data === true) {
+        if (data.value === undefined || data.value === null) {
+          return;
+        }
+        addSensorValue(data.sensor_id, {
+          time: new Date(data.time).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }),
+          value: data.value,
+          rawTime: data.time,
+        });
       }
-
-      addSensorValue(data.sensor_id, {
-        time: new Date(data.time).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        }),
-        value: data.value,
-        rawTime: data.time,
-      });
-      console.log(data.value);
+      if (data.is_alert === true) {
+        push(data);
+        const toast_severity = {
+          Critical: toast.error,
+          Warning: toast.warning,
+        };
+        const alert_notif =
+          toast_severity[data.severity] || toast.info("Erreur Alerte");
+        const [title, detail] = data.message.split(",");
+        alert_notif(
+          <div>
+            <div className="font-bold">{title}</div>
+            {detail && <div className="text-sm mt-1">{detail.trim()}</div>}
+          </div>
+        );
+      }
     });
-  }, [addSensorValue]);
+  }, [addSensorValue, push]);
 
   return (
     <div className="flex min-h-screen bg-slate-50">
       <SideBar />
+      <ToastContainer autoClose={false} limit={3} width={"1000px"} />
 
       <main className="flex-1 p-8 transition-all duration-300">
         <Routes>
@@ -51,5 +71,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
