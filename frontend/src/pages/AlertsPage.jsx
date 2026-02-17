@@ -1,133 +1,308 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useMemo, useEffect } from "react";
+import { useAlerts } from "../state/alert";
 
-export default function AlertsPage() {
-  const [alerts, setAlerts] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function AlertsLog() {
+  const { log, acked, audit, ack, clear } = useAlerts();
 
+  const [q, setQ] = useState("");
+  const [severityFilter, setSeverityFilter] = useState("");
+  const [windowMin, setWindowMin] = useState(0);
+  const [now, setNow] = useState(() => Date.now());
+  const ackedSet = useMemo(() => new Set(acked), [acked]);
   useEffect(() => {
-    const fetchAlerts = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/alerts/");
-        const data = await response.json();
-
-        setAlerts(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching alerts:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchAlerts();
+    const interval = setInterval(() => setNow(Date.now()), 30000);
+    return () => clearInterval(interval);
   }, []);
+  const filtered = useMemo(() => {
+    return log.filter((item) => {
+      const matchesSearch =
+        item.sensor_id?.toLowerCase().includes(q.toLowerCase()) ||
+        item.message?.toLowerCase().includes(q.toLowerCase());
 
-  const formatDate = (dateString) => {
-    if (!dateString) return "-";
-    return new Date(dateString).toLocaleString("fr-FR", {
-      day: "2-digit",
-      month: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
+      const matchesSeverity = severityFilter
+        ? item.severity === severityFilter
+        : true;
+
+      const itemTime = new Date(item.time || item.timestamp).getTime();
+
+      const matchesTime =
+        windowMin === 0 ? true : now - itemTime < windowMin * 60 * 1000;
+
+      return matchesSearch && matchesSeverity && matchesTime;
     });
+  }, [log, q, severityFilter, windowMin, now]);
+
+  const summary = {
+    total: filtered.length,
+    unacked: filtered.filter((i) => !ackedSet.has(i.id)).length,
+    latest:
+      filtered.length > 0
+        ? new Date(
+            filtered[0].time || filtered[0].timestamp
+          ).toLocaleTimeString()
+        : "-",
+  };
+
+  const exportCSV = () => {
+    try {
+      const header = [
+        "Time",
+        "ID",
+        "Sensor",
+        "Value",
+        "Severity",
+        "Message",
+        "Acked",
+      ];
+      const lines = [header.join(",")];
+      filtered.forEach((a) => {
+        lines.push(
+          [
+            new Date(a.time || a.timestamp).toISOString(),
+            a.id,
+            a.sensor_id,
+            a.value,
+            a.severity,
+            `"${a.message}"`,
+            ackedSet.has(a.id) ? "Yes" : "No",
+          ].join(",")
+        );
+      });
+      const blob = new Blob([lines.join("\n")], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const el = document.createElement("a");
+      el.href = url;
+      el.download = "alerts_export.csv";
+      el.click();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const exportJSON = () => {
+    const blob = new Blob(
+      [JSON.stringify({ logs: filtered, audit }, null, 2)],
+      { type: "application/json" }
+    );
+    const url = URL.createObjectURL(blob);
+    const el = document.createElement("a");
+    el.href = url;
+    el.download = "alerts_export.json";
+    el.click();
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-slate-800 flex items-center gap-3">
-          🚨 Alerts History
-        </h1>
-        <span className="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded">
-          {alerts.filter((a) => !a.is_resolved).length} Unresolved
-        </span>
+    <div className="space-y-6 min-w-0 w-full overflow-hidden">
+      {/* --- PANEL 1 : HEADER & FILTRES --- */}
+      <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-[0_8px_20px_rgba(15,23,42,0.06)]">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+          <h2 className="text-lg font-bold text-slate-800">Alerts Log</h2>
+
+          <div className="flex flex-wrap gap-3 w-full md:w-auto">
+            <input
+              className="bg-white border border-slate-200 text-slate-900 text-sm rounded-[10px] px-3 py-2.5 focus:outline-blue-600 focus:border-blue-600 w-full md:w-64 transition-shadow"
+              placeholder="Filter device/metric..."
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+            />
+
+            <select
+              className="bg-white border border-slate-200 text-slate-900 text-sm rounded-[10px] px-3 py-2.5 focus:outline-blue-600 focus:border-blue-600 cursor-pointer"
+              value={severityFilter}
+              onChange={(e) => setSeverityFilter(e.target.value)}
+            >
+              <option value="">All Levels</option>
+              <option value="Critical">Critical</option>
+              <option value="Warning">Warning</option>
+            </select>
+
+            <select
+              className="bg-white border border-slate-200 text-slate-900 text-sm rounded-[10px] px-3 py-2.5 focus:outline-blue-600 focus:border-blue-600 cursor-pointer"
+              value={windowMin}
+              onChange={(e) => setWindowMin(Number(e.target.value))}
+            >
+              <option value={0}>Window: All</option>
+              <option value={15}>15 min</option>
+              <option value={60}>1 hour</option>
+              <option value={360}>6 hours</option>
+              <option value={1440}>24 hours</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t border-slate-50">
+          <button
+            onClick={() => clear("Operator")}
+            className="bg-slate-50 border border-slate-200 text-red-600 hover:bg-red-50 hover:border-red-200 rounded-[10px] px-3.5 py-2.5 text-sm font-medium transition-colors"
+          >
+            Clear Log
+          </button>
+          <div className="grow"></div>
+          <button
+            onClick={exportCSV}
+            className="bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 rounded-[10px] px-3.5 py-2.5 text-sm font-medium transition-colors"
+          >
+            Export CSV
+          </button>
+          <button
+            onClick={exportJSON}
+            className="bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 rounded-[10px] px-3.5 py-2.5 text-sm font-medium transition-colors"
+          >
+            Export JSON
+          </button>
+        </div>
       </div>
 
-      {loading && (
-        <p className="text-slate-500 animate-pulse">Loading alerts...</p>
-      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-center min-h-25">
+          <span className="text-slate-500 font-semibold text-sm">
+            Total Alerts
+          </span>
+          <span className="text-2xl font-bold text-slate-800 mt-1">
+            {summary.total}
+          </span>
+        </div>
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-center min-h-25">
+          <span className="text-orange-600 font-semibold text-sm">No Ack</span>
+          <span className="text-2xl font-bold text-orange-600 mt-1">
+            {summary.unacked}
+          </span>
+        </div>
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-center min-h-25">
+          <span className="text-slate-500 font-semibold text-sm">
+            Latest Alert
+          </span>
+          <span className="text-xl font-bold text-slate-800 mt-1">
+            {summary.latest}
+          </span>
+        </div>
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-center min-h-25">
+          <span className="text-slate-500 font-semibold text-sm">Window</span>
+          <span className="text-xl font-bold text-slate-800 mt-1">
+            {windowMin ? `${windowMin} min` : "All time"}
+          </span>
+        </div>
+      </div>
 
-      {!loading && (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-          <table className="w-full text-left">
-            <thead className="bg-slate-50 text-slate-700 font-semibold border-b border-slate-200">
-              <tr>
-                <th className="p-4">Time</th>
-                <th className="p-4">Severity</th>
-                <th className="p-4">Sensor</th>
-                <th className="p-4">Details</th>
-                <th className="p-4">Status</th>
-                <th className="p-4">Action</th>
+      <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-[0_8px_20px_rgba(15,23,42,0.06)] overflow-hidden">
+        <h3 className="text-lg font-bold text-slate-800 mb-4">All Alerts</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse min-w-full">
+            <thead>
+              <tr className="border-b border-slate-200">
+                <th className="p-3 text-sm font-semibold text-slate-500">
+                  Time
+                </th>
+                <th className="p-3 text-sm font-semibold text-slate-500">
+                  Device
+                </th>
+                <th className="p-3 text-sm font-semibold text-slate-500">
+                  Metric
+                </th>
+                <th className="p-3 text-sm font-semibold text-slate-500">
+                  Level
+                </th>
+                <th className="p-3 text-sm font-semibold text-slate-500 text-center">
+                  Ack
+                </th>
+                <th className="p-3 text-sm font-semibold text-slate-500">
+                  Action
+                </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
-              {alerts.map((alert) => (
-                <tr
-                  key={alert.id}
-                  className="hover:bg-slate-50 transition-colors"
-                >
-                  <td className="p-4 text-slate-600 whitespace-nowrap">
-                    {formatDate(alert.time)}
+            <tbody className="divide-y divide-slate-50">
+              {filtered.length === 0 && (
+                <tr>
+                  <td
+                    colSpan="7"
+                    className="text-center text-slate-400 italic text-sm"
+                  >
+                    No alerts found.
                   </td>
-
-                  <td className="p-4">
+                </tr>
+              )}
+              {filtered.map((a) => (
+                <tr
+                  key={a.id}
+                  className="hover:bg-slate-50/80 transition-colors"
+                >
+                  <td className="p-3 text-sm text-slate-700 whitespace-nowrap">
+                    {a.time
+                      ? new Date(a.time).toLocaleString()
+                      : new Date(a.timestamp).toLocaleString()}
+                  </td>
+                  <td className="p-3 text-sm font-medium text-slate-800">
+                    {a.sensor_id}
+                  </td>
+                  <td
+                    className="p-3 text-sm text-slate-500 max-w-xs truncate"
+                    title={a.message}
+                  >
+                    {a.message}
+                  </td>
+                  <td className="p-3">
                     <span
-                      className={`px-3 py-1 rounded-full text-xs font-bold border ${
-                        alert.severity === "Critical"
-                          ? "bg-red-50 text-red-700 border-red-200"
-                          : "bg-orange-50 text-orange-700 border-orange-200"
+                      className={`px-2 py-0.5 rounded-full text-xs font-medium border ${
+                        a.severity === "Critical"
+                          ? "bg-red-50 text-red-600 border-red-200"
+                          : "bg-amber-50 text-amber-600 border-amber-200"
                       }`}
                     >
-                      {alert.severity}
+                      {a.severity}
                     </span>
                   </td>
-
-                  <td className="p-4 font-mono text-xs text-slate-500">
-                    {alert.sensor_id}
-                  </td>
-
-                  <td className="p-4 text-slate-700">
-                    <div className="font-medium text-xs">
-                      {alert.message || "No message"}
-                    </div>
-                    <div className="text-xs text-slate-500 mt-1">
-                      Direction:{" "}
-                      <span className="font-semibold">{alert.direction}</span>
-                    </div>
-                  </td>
-
-                  <td className="p-4">
-                    {alert.is_resolved ? (
-                      <span className="text-green-600 flex items-center gap-1 text-sm font-medium">
-                        ✓ Resolved
-                      </span>
-                    ) : (
-                      <span className="text-red-600 flex items-center gap-1 text-sm font-medium animate-pulse">
-                        ● Active
+                  <td className="p-3 text-center">
+                    {ackedSet.has(a.id) && (
+                      <span className="text-green-500 font-bold text-lg">
+                        ✓
                       </span>
                     )}
                   </td>
-
-                  <td className="p-4">
-                    <Link
-                      to={`/devices/${alert.sensor_id}`}
-                      className="text-blue-600 hover:text-blue-800 text-sm font-semibold hover:underline"
+                  <td className="p-3">
+                    <button
+                      onClick={() => ack(a.id, "Operator")}
+                      disabled={ackedSet.has(a.id)}
+                      className={`px-3 py-1.5 rounded-[10px] text-xs font-medium transition-colors border ${
+                        ackedSet.has(a.id)
+                          ? "bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed"
+                          : "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
+                      }`}
                     >
-                      View Device
-                    </Link>
+                      {ackedSet.has(a.id) ? "Acked" : "Ack"}
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-
-          {!loading && alerts.length === 0 && (
-            <div className="p-12 text-center text-slate-400">
-              No alerts found in the database. Good job! 🎉
-            </div>
-          )}
         </div>
-      )}
+      </div>
+
+      <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-[0_8px_20px_rgba(15,23,42,0.06)]">
+        <h3 className="text-lg font-bold text-slate-800 mb-4">Audit Trail</h3>
+        <div className="space-y-0 divide-y divide-slate-100 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+          {(!audit || audit.length === 0) && (
+            <p className="text-sm text-slate-400 italic">No audit entries.</p>
+          )}
+          {audit.map((e, idx) => (
+            <div
+              key={idx}
+              className="flex flex-wrap justify-between items-center text-xs py-2 hover:bg-slate-50 px-2 rounded"
+            >
+              <span className="font-mono text-slate-500 w-32">
+                {new Date(e.ts).toLocaleTimeString()}
+              </span>
+              <span className="text-blue-600 font-bold uppercase w-16">
+                {e.action}
+              </span>
+              <span className="text-slate-600 flex-1 truncate px-2">
+                {e.id ? `ID: ${e.id.slice(0, 8)}...` : "System"}
+              </span>
+              <span className="text-slate-400">{e.user || "Unknown"}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

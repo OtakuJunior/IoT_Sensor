@@ -52,9 +52,9 @@ export default function App() {
   return (
     <div className="flex min-h-screen bg-slate-50">
       <SideBar />
-      <ToastContainer autoClose={false} limit={3} width={"1000px"} />
+      <ToastContainer autoClose={false} limit={3} />
 
-      <main className="flex-1 p-8 transition-all duration-300">
+      <main className="flex-1 min-w-0 p-8 transition-all duration-300">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/devices" element={<DevicesPage />} />
