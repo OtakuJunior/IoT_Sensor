@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSensorData } from "../state/sensorData";
+import { api } from "../services/api";
 
 import {
   LineChart,
@@ -25,15 +26,12 @@ export default function DeviceDetail() {
   useEffect(() => {
     const fetchSensorAndHistory = async () => {
       try {
-        const [sensorRes, historyRes] = await Promise.all([
-          fetch(`http://127.0.0.1:8000/sensors/${id}`),
-          fetch(`http://127.0.0.1:8000/sensor_data/${id}/history`),
+        const [sensorData, historyData] = await Promise.all([
+          api.getSensor(id),
+          api.getSensorHistory(id),
         ]);
 
-        const sensorDataFetched = await sensorRes.json();
-        const historyData = await historyRes.json();
-
-        setSensorInfo(sensorDataFetched);
+        setSensorInfo(sensorData);
 
         const formattedHistory = historyData.map((point) => ({
           time: new Date(point.time).toLocaleTimeString([], {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../services/api";
 
 export default function Dashboard() {
   const [devices, setDevices] = useState([]);
@@ -8,8 +9,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/sensors");
-        const data = await response.json();
+        const data = await api.getSensors();
 
         setDevices(data);
         setLoading(false);

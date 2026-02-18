@@ -37,7 +37,7 @@ export default function App() {
           Warning: toast.warning,
         };
         const alert_notif =
-          toast_severity[data.severity] || toast.info("Erreur Alerte");
+          toast_severity[data.severity] || toast.info("Alert Error");
         const [title, detail] = data.message.split(",");
         alert_notif(
           <div>
