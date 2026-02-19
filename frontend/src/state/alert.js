@@ -35,6 +35,17 @@ export const useAlerts = create(
           return { acked: prev, audit };
         });
       },
+      clear: (user) => {
+        const ts = Date.now();
+        set((s) => ({
+          log: [],
+          acked: [],
+          audit: [
+            { action: "clear", id: null, user, ts },
+            ...(s.audit || []),
+          ].slice(0, 500),
+        }));
+      },
     }),
     { name: "alerts-log" }
   )

@@ -1,7 +1,10 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useAlerts } from "../state/alert";
+import { useSensor } from "../state/sensor";
+import { getSensorInfos } from "../lib/sensorInfos";
 
 export default function AlertsLog() {
+  const sensors = useSensor((state) => state.sensors);
   const { log, acked, audit, ack, clear } = useAlerts();
 
   const [q, setQ] = useState("");
@@ -196,7 +199,7 @@ export default function AlertsLog() {
                   Device
                 </th>
                 <th className="p-3 text-sm font-semibold text-slate-500">
-                  Metric
+                  Message
                 </th>
                 <th className="p-3 text-sm font-semibold text-slate-500">
                   Level
@@ -210,68 +213,69 @@ export default function AlertsLog() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
-              {filtered.length === 0 && (
+              {filtered.length === 0 ? (
                 <tr>
                   <td
-                    colSpan="7"
+                    colSpan="6"
                     className="text-center text-slate-400 italic text-sm"
                   >
                     No alerts found.
                   </td>
                 </tr>
-              )}
-              {filtered.map((a) => (
-                <tr
-                  key={a.id}
-                  className="hover:bg-slate-50/80 transition-colors"
-                >
-                  <td className="p-3 text-sm text-slate-700 whitespace-nowrap">
-                    {a.time
-                      ? new Date(a.time).toLocaleString()
-                      : new Date(a.timestamp).toLocaleString()}
-                  </td>
-                  <td className="p-3 text-sm font-medium text-slate-800">
-                    {a.sensor_id}
-                  </td>
-                  <td
-                    className="p-3 text-sm text-slate-500 max-w-xs truncate"
-                    title={a.message}
+              ) : (
+                filtered.map((a) => (
+                  <tr
+                    key={a.id}
+                    className="hover:bg-slate-50/80 transition-colors"
                   >
-                    {a.message}
-                  </td>
-                  <td className="p-3">
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-xs font-medium border ${
-                        a.severity === "Critical"
-                          ? "bg-red-50 text-red-600 border-red-200"
-                          : "bg-amber-50 text-amber-600 border-amber-200"
-                      }`}
+                    <td className="p-3 text-sm text-slate-700 whitespace-nowrap">
+                      {a.time
+                        ? new Date(a.time).toLocaleString()
+                        : new Date(a.timestamp).toLocaleString()}
+                    </td>
+                    <td className="p-3 text-sm font-medium text-slate-800">
+                      {getSensorInfos(sensors, a.sensor_id)?.name}
+                    </td>
+                    <td
+                      className="p-3 text-sm text-slate-500"
+                      title={a.message}
                     >
-                      {a.severity}
-                    </span>
-                  </td>
-                  <td className="p-3 text-center">
-                    {ackedSet.has(a.id) && (
-                      <span className="text-green-500 font-bold text-lg">
-                        ✓
+                      {a.message}
+                    </td>
+                    <td className="p-3">
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-xs font-medium border ${
+                          a.severity === "Critical"
+                            ? "bg-red-50 text-red-600 border-red-200"
+                            : "bg-amber-50 text-amber-600 border-amber-200"
+                        }`}
+                      >
+                        {a.severity}
                       </span>
-                    )}
-                  </td>
-                  <td className="p-3">
-                    <button
-                      onClick={() => ack(a.id, "Operator")}
-                      disabled={ackedSet.has(a.id)}
-                      className={`px-3 py-1.5 rounded-[10px] text-xs font-medium transition-colors border ${
-                        ackedSet.has(a.id)
-                          ? "bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed"
-                          : "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
-                      }`}
-                    >
-                      {ackedSet.has(a.id) ? "Acked" : "Ack"}
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="p-3 text-center">
+                      {ackedSet.has(a.id) && (
+                        <span className="text-green-500 font-bold text-lg">
+                          ✓
+                        </span>
+                      )}
+                    </td>
+                    <td className="p-3">
+                      <button
+                        onClick={() => ack(a.id, "Operator")}
+                        disabled={ackedSet.has(a.id)}
+                        className={`px-3 py-1.5 rounded-[10px] text-xs font-medium transition-colors border ${
+                          ackedSet.has(a.id)
+                            ? "bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed"
+                            : "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
+                        }`}
+                      >
+                        {ackedSet.has(a.id) ? "Acked" : "Ack"}
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

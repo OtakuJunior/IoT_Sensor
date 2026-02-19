@@ -6,7 +6,6 @@ import { MdOutlineMonitorHeart } from "react-icons/md";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { MdWebAsset } from "react-icons/md";
 import { MdDehaze } from "react-icons/md";
-/*import { useState } from "react";*/
 
 export default function SideBar() {
   {
@@ -15,12 +14,11 @@ export default function SideBar() {
       { to: "/devices", icon: <MdImportantDevices />, label: "Devices" },
       { to: "/alerts", icon: <LuBellRing />, label: "Alerts" },
       { to: "/assets", icon: <MdWebAsset />, label: "Assets" },
-      { to: "/locations", icon: <MdOutlineLocationOn />, label: "Locations" },
       { to: "/health", icon: <MdOutlineMonitorHeart />, label: "Data Health" },
     ];
 
     return (
-      <div className="w-1/5 flex flex-col md:border-r">
+      <div className="w-1/6 flex flex-col md:border-r">
         <div className="flex align-middle py-2 pt-4 text-2xl justify-center items-center">
           <button className="text-3xl w-1/4">
             <MdDehaze />

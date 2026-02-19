@@ -9,13 +9,16 @@ import { useSensorData } from "./state/sensorData";
 import { useAlerts } from "./state/alert";
 import { initSocket } from "./services/socket";
 import { ToastContainer, toast } from "react-toastify";
+import { useSensor } from "./state/sensor";
 
 export default function App() {
   const addSensorValue = useSensorData((state) => state.addSensorValue);
   const push = useAlerts((state) => state.push);
+  const loadSensors = useSensor((state) => state.loadSensors);
 
   useEffect(() => {
-    initSocket((data) => {
+    loadSensors();
+    const socket = initSocket((data) => {
       if (data.is_data === true) {
         if (data.value === undefined || data.value === null) {
           return;
@@ -37,7 +40,7 @@ export default function App() {
           Warning: toast.warning,
         };
         const alert_notif =
-          toast_severity[data.severity] || toast.info("Alert Error");
+          toast_severity[data.severity] || (() => toast.info("Alert Error"));
         const [title, detail] = data.message.split(",");
         alert_notif(
           <div>
@@ -47,7 +50,8 @@ export default function App() {
         );
       }
     });
-  }, [addSensorValue, push]);
+    return () => socket?.disconnect?.();
+  }, [loadSensors, addSensorValue, push]);
 
   return (
     <div className="flex min-h-screen bg-slate-50">
