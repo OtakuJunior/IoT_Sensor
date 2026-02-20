@@ -2,6 +2,16 @@ import React, { useState, useMemo, useEffect } from "react";
 import { useAlerts } from "../state/alert";
 import { useSensor } from "../state/sensor";
 import { getSensorInfos } from "../lib/sensorInfos";
+import KpiCard from "../components/kpiCard";
+
+const windowLabels = {
+  0: "All time",
+  15: "15 min",
+  60: "1 hour",
+  360: "6 hours",
+  1440: "24 hours",
+  10080: "1 week",
+};
 
 export default function AlertsLog() {
   const sensors = useSensor((state) => state.sensors);
@@ -42,7 +52,12 @@ export default function AlertsLog() {
       filtered.length > 0
         ? new Date(
             filtered[0].time || filtered[0].timestamp
-          ).toLocaleTimeString()
+          ).toLocaleDateString("fr-FR", {
+            day: "2-digit",
+            month: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+          })
         : "-",
   };
 
@@ -128,6 +143,7 @@ export default function AlertsLog() {
               <option value={60}>1 hour</option>
               <option value={360}>6 hours</option>
               <option value={1440}>24 hours</option>
+              <option value={10080}>1 week</option>
             </select>
           </div>
         </div>
@@ -156,34 +172,18 @@ export default function AlertsLog() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-center min-h-25">
-          <span className="text-slate-500 font-semibold text-sm">
-            Total Alerts
-          </span>
-          <span className="text-2xl font-bold text-slate-800 mt-1">
-            {summary.total}
-          </span>
-        </div>
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-center min-h-25">
-          <span className="text-orange-600 font-semibold text-sm">No Ack</span>
-          <span className="text-2xl font-bold text-orange-600 mt-1">
-            {summary.unacked}
-          </span>
-        </div>
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-center min-h-25">
-          <span className="text-slate-500 font-semibold text-sm">
-            Latest Alert
-          </span>
-          <span className="text-xl font-bold text-slate-800 mt-1">
-            {summary.latest}
-          </span>
-        </div>
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-center min-h-25">
-          <span className="text-slate-500 font-semibold text-sm">Window</span>
-          <span className="text-xl font-bold text-slate-800 mt-1">
-            {windowMin ? `${windowMin} min` : "All time"}
-          </span>
-        </div>
+        <KpiCard title="Total Alerts" value={summary.total} />
+        <KpiCard
+          title="No Ack"
+          value={summary.unacked}
+          titleColor="text-orange-600"
+          valueColor="text-orange-600"
+        />
+        <KpiCard title="Latest Alert" value={summary.latest} />
+        <KpiCard
+          title="Window"
+          value={windowLabels[windowMin] || `${windowMin} min`}
+        />
       </div>
 
       <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-[0_8px_20px_rgba(15,23,42,0.06)] overflow-hidden">
@@ -217,7 +217,7 @@ export default function AlertsLog() {
                 <tr>
                   <td
                     colSpan="6"
-                    className="text-center text-slate-400 italic text-sm"
+                    className="text-center text-slate-400 italic text-sm pt-3"
                   >
                     No alerts found.
                   </td>

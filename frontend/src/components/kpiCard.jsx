@@ -1,9 +1,13 @@
-export default function KpiCard({ title, value, subtitle, color }) {
+export default function KpiCard({
+  title = "Error loading",
+  value = "Error loading",
+  titleColor = "text-slate-500",
+  valueColor = "text-slate-800",
+}) {
   return (
-    <div className="bg-white border border-slate-100 rounded-2xl p-5">
-      <span className="text-slate-500 text-sm">{title}</span>
-      <div className={`text-3xl font-bold mt-1 ${color}`}>{value}</div>
-      <span className="text-slate-400 text-xs">{subtitle}</span>
+    <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+      <span className={`font-semibold text-sm ${titleColor}`}>{title}</span>
+      <div className={`text-2xl text-center mt-1 ${valueColor}`}>{value}</div>
     </div>
   );
 }

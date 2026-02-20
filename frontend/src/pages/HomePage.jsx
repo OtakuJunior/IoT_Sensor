@@ -1,25 +1,27 @@
 import React from "react";
+import KpiCard from "../components/kpiCard";
 
 export default function Dashboard() {
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-slate-800">Tableau de Bord</h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <h3 className="text-gray-500 text-sm font-medium">Active sensors</h3>
-          <p className="text-3xl font-bold text-blue-600 mt-2">10/10</p>
-        </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <h3 className="text-gray-500 text-sm font-medium">Critical alerts</h3>
-          <p className="text-3xl font-bold text-red-500 mt-2">0</p>
-        </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <h3 className="text-gray-500 text-sm font-medium">
-            Average Temperature
-          </h3>
-          <p className="text-3xl font-bold text-emerald-600 mt-2">21.5°C</p>
-        </div>
+      <h1 className="text-3xl font-bold text-slate-800">Dashboard</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <KpiCard title="Alerts" value="Number alerts" color="text-blue-600" />
+        <KpiCard
+          title="Active sensors"
+          value="Number sensors"
+          titleColor="text-green-600"
+        />
+        <KpiCard
+          title="Acked Alerts"
+          value="alerts / total alerts"
+          titleColor="text-red-600"
+        />
+        <KpiCard
+          title="Last alert"
+          value="time last alert"
+          titleColor="text-purple-600"
+        />
       </div>
     </div>
   );
