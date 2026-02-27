@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSensorData } from "../state/sensorData";
 import { api } from "../services/api";
 import { useSensor } from "../state/sensor";
+import { useAlerts } from "../state/alert";
 import { getSensorInfos } from "../lib/sensorInfos";
+import KpiCard from "../components/kpiCard";
 import {
   LineChart,
   Line,
@@ -18,6 +20,10 @@ export default function DeviceDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const { log } = useAlerts();
+  const hasActiveAlert = log.some(
+    (alert) => alert.sensor_id === id && !alert.is_resolved
+  );
   const sensors = useSensor((state) => state.sensors);
   const sensorInfo = getSensorInfos(sensors, id);
   const [loading, setLoading] = useState(true);
@@ -25,18 +31,34 @@ export default function DeviceDetail() {
   const sensorData = useSensorData((state) => state.dataBySensor[id]);
   const setInitialHistory = useSensorData((state) => state.setInitialHistory);
 
+  const sensorAlerts = useMemo(() => {
+    return log.filter((alert) => alert.sensor_id === id);
+  }, [id, log]);
+
+  const latestAlertTime =
+    sensorAlerts.length > 0
+      ? new Date(
+          sensorAlerts[0].time || sensorAlerts[0].timestamp
+        ).toLocaleDateString("fr-FR", {
+          day: "2-digit",
+          month: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "--";
+
   useEffect(() => {
     const fetchSensorAndHistory = async () => {
       try {
         const historyData = await api.getSensorHistory(id);
         const formattedHistory = historyData.map((point) => ({
-          time: new Date(point.time).toLocaleTimeString([], {
+          time: new Date(point.ts).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
             second: "2-digit",
           }),
           value: point.value,
-          rawTime: point.time,
+          rawTime: point.ts,
         }));
 
         setInitialHistory(id, formattedHistory);
@@ -86,46 +108,39 @@ export default function DeviceDetail() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <h3 className="text-gray-500 text-sm font-medium">Current Value</h3>
-          <div className="text-4xl font-bold text-slate-900 mt-2">
-            {currentValue ? currentValue.value.toFixed(2) : "--"}
-          </div>
-          <h3 className="text-gray-500 text-sm font-medium mt-4">
-            Last Update
-          </h3>
-          <div className="text-lg font-semibold text-slate-600">
-            {currentValue?.time ? currentValue.time : "--"}
-          </div>
-        </div>
-
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <h3 className="text-gray-500 text-sm font-medium">Sensor Type</h3>
-          <div className="text-2xl font-semibold text-slate-700 mt-2 capitalize">
-            {sensorInfo.sensor_type || "Generic"}
-          </div>
-        </div>
-
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <h3 className="text-gray-500 text-sm font-medium">Database ID</h3>
-          <div className="text-2xl font-mono text-slate-400 mt-2">
-            #{sensorInfo.id}
-          </div>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <KpiCard
+          title="Current Value"
+          value={currentValue ? currentValue.value.toFixed(2) : "--"}
+        />
+        <KpiCard
+          title="Last Update"
+          value={currentValue?.time ? currentValue.time : "--"}
+        />
+        <KpiCard
+          title="Alert"
+          value={hasActiveAlert ? "Active" : "Inactive"}
+          titleColor={hasActiveAlert ? "text-red-600" : "text-green-600"}
+          valueColor={hasActiveAlert ? "text-red-600" : "text-green-600"}
+        />
+        <KpiCard
+          title="Last Alert"
+          value={latestAlertTime}
+          titleColor="text-blue-700"
+          valueColor="text-blue-700"
+        />
       </div>
 
-      {/* CHART SECTION */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+      <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 w-1/2">
         <h3 className="text-lg font-bold text-slate-800 mb-6">
-          Real-time History ({history.length} points)
+          Real-time History
         </h3>
         <div className="h-64 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={history}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
               <XAxis dataKey="time" stroke="#94a3b8" fontSize={12} />
-              <YAxis stroke="#94a3b8" fontSize={12} domain={["auto", "auto"]} />
+              <YAxis stroke="#94a3b8" fontSize={12} domain={[10, 70]} />
               <Tooltip />
               <Line
                 type="monotone"

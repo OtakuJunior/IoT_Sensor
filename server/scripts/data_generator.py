@@ -1,13 +1,13 @@
 import time 
 import random
 import requests
-from datetime import datetime
+from datetime import datetime, timezone
 import paho.mqtt.client as mqtt
 from paho.mqtt.client import CallbackAPIVersion
 import json
 
 API_URL = "http://127.0.0.1:8000"
-DELAY = 0.1
+DELAY = 0.5
 
 def get_sensors():
   response = requests.get(f"{API_URL}/sensors")
@@ -34,19 +34,19 @@ def generate_data():
   while True:
     try:
       for s_id in sensors_id:
-        val = 20.0 + random.uniform(-5, 5)
+        val = 20.0 + random.uniform(-2, 2)
         if random.random() < 0.05:
           val = 50.0 + random.uniform(0, 25)
 
         payload = {
           "sensor_id": s_id,
           "value": round(val, 2),
-          "time": datetime.now().isoformat() 
+          "time": datetime.now(timezone.utc).isoformat() 
         }
 
         topic = f"factory/sensors/{s_id}/data"
         client.publish(topic, json.dumps(payload), qos=1)
-      print("data generated at ", datetime.now().isoformat())
+      print("data generated at ", datetime.now(timezone.utc).isoformat())
       time.sleep(DELAY)
     except KeyboardInterrupt:
       client.loop_stop()

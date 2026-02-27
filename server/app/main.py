@@ -5,7 +5,7 @@ from app import models
 from app.routes import users, sensors, sensor_data, locations, assets, alerts
 from app.config import settings
 from fastapi.middleware.cors import CORSMiddleware
-from app.timescale import init_timescale
+from app.timescale import init_timescale, init_continuous_aggregates
 from app.services.ws import manager
 from app.services.mqtt_handler import mqtt
 
@@ -16,6 +16,7 @@ async def lifespan(app: FastAPI):
     try:
         database.Base.metadata.create_all(bind=database.engine)
         init_timescale()
+        init_continuous_aggregates()
     except Exception as e:
         print(f"Error: {e}")
     
@@ -25,7 +26,7 @@ async def lifespan(app: FastAPI):
         print(f"Error: {e}")
     
     yield
-    mqtt.mqtt_shutdown()
+    await mqtt.mqtt_shutdown()
     print("Shutting down the app")
 
 app = FastAPI(

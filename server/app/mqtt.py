@@ -33,6 +33,7 @@ def on_message(client, userdata, msg):
     print(f"Saved: {sensor_data.value} at {sensor_data.time}")
     if alert_created:
       alert = {
+        "id" : alert_created.id,
         "sensor_id" : alert_created.sensor_id,
         "severity" : alert_created.severity,
         "direction" : alert_created.direction,

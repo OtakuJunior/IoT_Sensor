@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from app.models.sensor_data import SensorData as sensor_data_model
 from app.models.alert import Alert as alert_model
 from app.models.sensor import Sensor as sensor_model
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from app.crud import alert as alert_crud
 
 """
@@ -46,8 +46,8 @@ A new alert is triggered if :
 """
 def check_alert_is_ok(severity : str, previous_alert : alert_model):
   minutes_delay = 30
-  time_passed  = datetime.now() - timedelta(minutes=minutes_delay)
-  if previous_alert.time.replace(tzinfo=None) < time_passed.replace(tzinfo=None):
+  time_passed  = datetime.now(timezone.utc) - timedelta(minutes=minutes_delay)
+  if previous_alert.time < time_passed:
     return True
   if previous_alert.severity == "Warning" and severity == "Critical":
     return True
@@ -83,18 +83,20 @@ def create_alert_if_severity(db : Session, sensor : sensor_model) -> None:
 
         #We resolve the previous alert to avoid duplicate
         previous_alert.is_resolved = True
+        
+      db.commit()
 
       alert = alert_model(
         sensor_id = sensor.id,
         severity = severity,
         direction = alert_direction,
         message = f"{severity} value on the {sensor.name}, {alert_message}",
-        time = datetime.now(),
+        time = datetime.now(timezone.utc),
         is_resolved = False)
       
-      alert_crud.create_alert(db=db, alert=alert)
+      created_alert = alert_crud.create_alert(db=db, alert=alert)
 
-      return alert
+      return created_alert
 
   # if the value does not exceed threshold, there is not severity
   else: 

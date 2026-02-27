@@ -14,7 +14,7 @@ mqtt_config = MQTTConfig(
 mqtt = FastMQTT(
     config=mqtt_config
     )
-print("⚙️ MQTT Handler chargé") 
+print("MQTT Handler chargé") 
 
 @mqtt.on_connect()
 def connect(client, flags: int, rc: int, properties = None):
