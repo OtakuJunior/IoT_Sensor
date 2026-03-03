@@ -7,7 +7,7 @@ from paho.mqtt.client import CallbackAPIVersion
 import json
 
 API_URL = "http://127.0.0.1:8000"
-DELAY = 5
+DELAY = 1
 
 def get_sensors():
   response = requests.get(f"{API_URL}/sensors")
@@ -35,7 +35,7 @@ def generate_data():
     try:
       for s_id in sensors_id:
         val = 20.0 + random.uniform(-2, 2)
-        if random.random() < 0.05:
+        if random.random() < 0.01:
           val = 50.0 + random.uniform(0, 25)
 
         payload = {

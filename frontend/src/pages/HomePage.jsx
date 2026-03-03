@@ -6,7 +6,11 @@ export default function Dashboard() {
     <div className="space-y-6">
       <h1 className="text-3xl font-bold text-slate-800">Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <KpiCard title="Alerts" value="Number alerts" color="text-blue-600" />
+        <KpiCard
+          title="Total Alerts"
+          value="Number alerts"
+          color="text-blue-600"
+        />
         <KpiCard
           title="Active sensors"
           value="Number sensors"

@@ -7,7 +7,7 @@ export const useSensorData = create((set) => ({
       dataBySensor: {
         ...state.dataBySensor,
         [id]: {
-          history: data.slice(-100),
+          history: data.slice(-75),
           current: data[data.length - 1] || null,
         },
       },
@@ -20,7 +20,7 @@ export const useSensorData = create((set) => ({
         current: null,
       };
 
-      const newHistory = [...existingData.history, point].slice(-100);
+      const newHistory = [...existingData.history, point].slice(-75);
 
       return {
         dataBySensor: {

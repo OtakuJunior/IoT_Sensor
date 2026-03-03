@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useMemo, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSensorData } from "../state/sensorData";
 import { api } from "../services/api";
@@ -38,11 +38,31 @@ export default function DeviceDetail() {
   );
   const sensors = useSensor((state) => state.sensors);
   const sensorInfo = getSensorInfos(sensors, id);
-  const [loading, setLoading] = useState(true);
 
   const sensorData = useSensorData((state) => state.dataBySensor[id]);
   const setInitialHistory = useSensorData((state) => state.setInitialHistory);
-  const [kpis, setKpis] = useState(null);
+  const clear = useSensorData((state) => state.clear);
+  const loading = !sensorData?.history?.length;
+
+  //const [kpis, setKpis] = useState(null);
+
+  const localKpis = useMemo(() => {
+    const history = sensorData?.history;
+    if (!history || history.length === 0) {
+      return { min: null, max: null, avg: null };
+    }
+    const values = history.map((item) => item.value);
+
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const avg = values.reduce((acc, curr) => acc + curr, 0) / values.length;
+
+    return {
+      min: Number(min.toFixed(2)),
+      max: Number(max.toFixed(2)),
+      avg: Number(avg.toFixed(2)),
+    };
+  }, [sensorData?.history]);
 
   const sensorAlerts = useMemo(() => {
     return (log || []).filter((alert) => alert.sensor_id === id);
@@ -60,29 +80,28 @@ export default function DeviceDetail() {
         })
       : "--";
 
-  useEffect(() => {
-    const fetchSensorAndHistory = async () => {
-      try {
-        const historyData = await api.getSensorHistory(id);
-        const formattedHistory = historyData.map((point) => ({
-          time: new Date(point.ts).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          }),
-          value: point.value,
-          rawTime: point.ts,
-        }));
+  const fetchSensorAndHistory = useCallback(async () => {
+    if (sensorData?.history?.length > 0) {
+      return;
+    }
+    try {
+      const historyData = await api.getSensorHistory(id);
+      const formattedHistory = historyData.map((point) => ({
+        time: new Date(point.ts).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
+        value: point.value,
+        rawTime: point.ts,
+      }));
+      setInitialHistory(id, formattedHistory);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [id, setInitialHistory, sensorData?.history]);
 
-        setInitialHistory(id, formattedHistory);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-      }
-    };
-
-    const fetchkpis = async () => {
+  /* const fetchkpis = async () => {
       const startOfDay = new Date();
       startOfDay.setHours(0, 0, 0, 0);
       try {
@@ -94,20 +113,29 @@ export default function DeviceDetail() {
       } catch (error) {
         console.error(error);
       }
-    };
+    }; */
 
+  //fetchkpis();
+
+  useEffect(() => {
     fetchSensorAndHistory();
-    fetchkpis();
-  }, [id, setInitialHistory]);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        clear();
+        fetchSensorAndHistory();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [fetchSensorAndHistory, clear]);
 
   if (loading)
     return <div className="p-8 text-slate-500">Loading details...</div>;
   if (!sensorInfo)
     return <div className="p-8 text-red-500">Sensor not found.</div>;
-
-  const history = sensorData?.history || [];
   const currentValue = sensorData?.current || null;
-  const isLive = true;
+  const history = sensorData?.history;
 
   return (
     <div className="space-y-6">
@@ -119,27 +147,47 @@ export default function DeviceDetail() {
           >
             ← Back to list
           </button>
-          <h1 className="text-3xl font-bold text-slate-800">
-            {sensorInfo.name}
-          </h1>
-        </div>
-        <div className="flex gap-2">
-          <span
-            className={`px-4 py-2 rounded-full text-sm font-bold border ${
-              isLive
-                ? "bg-green-100 text-green-800 border-green-300"
-                : "bg-gray-100 text-gray-500"
-            }`}
-          >
-            {isLive ? "📡 LIVE" : "🔌 CONNECTING..."}
-          </span>
+          <div className="flex flex-row justify-start">
+            <h1 className="text-3xl font-bold text-slate-800">
+              {sensorInfo.name}
+            </h1>
+            <span className="self-center ml-6">
+              Sensor type: {sensorInfo.sensor_type}
+            </span>
+            <div className="flex flex-row justify-between gap-3 font-light self-center pl-6">
+              <span>
+                min warning:{" "}
+                {sensorInfo?.min_warning
+                  ? sensorInfo.min_warning.toFixed(2)
+                  : "/"}
+              </span>
+              <span>
+                min critical:{" "}
+                {sensorInfo?.min_critical
+                  ? sensorInfo.min_critical.toFixed(2)
+                  : "/"}
+              </span>
+              <span>
+                max warning:{" "}
+                {sensorInfo?.max_warning
+                  ? sensorInfo.max_warning.toFixed(2)
+                  : "/"}
+              </span>
+              <span>
+                max critical:{" "}
+                {sensorInfo?.max_critical
+                  ? sensorInfo.max_critical.toFixed(2)
+                  : "/"}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <KpiCard
           title="Current Value"
-          value={currentValue?.value ? currentValue.value : "--"}
+          value={currentValue?.value ? currentValue.value.toFixed(2) : "--"}
         />
         <KpiCard
           title="Last Update"
@@ -161,10 +209,8 @@ export default function DeviceDetail() {
 
       <div className="grid grid-cols-2 gap-3">
         <div className=" bg-white p-2 rounded-xl shadow-sm border border-slate-200">
-          <h3 className="text-lg font-bold text-slate-800 mb-6">
-            Real-time History
-          </h3>
-          <div className="h-64 w-full">
+          <h3 className="text-lg font-bold text-slate-800 mb-6 p-2">History</h3>
+          <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={history}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -186,14 +232,23 @@ export default function DeviceDetail() {
         <div>
           <GaugeTile
             title="Average"
-            value={kpis?.avg ?? "--"}
+            value={localKpis?.avg ? localKpis.avg : "--"}
             unit={sensorInfo.unit || ""}
             color="#3b82f6"
             min={0}
             max={100}
           />
-          <KpiCard title="Min" value={kpis?.min ?? "--"} />
-          <KpiCard title="Max" value={kpis?.max ?? "--"} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+            {" "}
+            <KpiCard
+              title="Min Value"
+              value={localKpis?.min ? localKpis.min : "--"}
+            />
+            <KpiCard
+              title="Max Value"
+              value={localKpis?.max ? localKpis.max : "--"}
+            />
+          </div>
         </div>
       </div>
     </div>
