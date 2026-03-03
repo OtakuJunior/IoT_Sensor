@@ -34,8 +34,11 @@ export const api = {
     return response.data;
   },
 
-  getSensorKpis: async (sensorId) => {
-    const response = await apiC.get(`sensor_data/${sensorId}/kpis`);
+  getSensorKpis: async (sensorId, { fromTime, endTime } = {}) => {
+    const params = new URLSearchParams();
+    if (fromTime) params.append("from_time", fromTime);
+    if (endTime) params.append("to_time", endTime);
+    const response = await apiC.get(`/sensor_data/${sensorId}/kpis?${params}`);
     return response.data;
   },
 };
