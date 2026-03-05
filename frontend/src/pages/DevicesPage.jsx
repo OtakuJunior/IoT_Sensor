@@ -1,19 +1,71 @@
-import React, { useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSensor } from "../state/sensor";
 import { useAlerts } from "../state/alert";
 import { useSensorData } from "../state/sensorData";
 import KpiCard from "../components/kpiCard";
+import { api } from "../services/api";
 
 export default function DevicePage() {
   const sensors = useSensor((state) => state.sensors);
+  const [locations, setLocations] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { log } = useAlerts();
-
   const [q, setQ] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [sensorStatusFilter, setSensorStatusFilter] = useState("");
 
   const dataBySensor = useSensorData((state) => state.dataBySensor);
+  const setInitialHistory = useSensorData((state) => state.setInitialHistory);
 
+  // 1. useEffect pour les localisations (existant)
+  useEffect(() => {
+    let isMounted = true;
+    const fetchLocations = async () => {
+      try {
+        const response = await api.getLocations();
+        if (isMounted) setLocations(response || []);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+    fetchLocations();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const dataBySensorRef = useRef(dataBySensor);
+  useEffect(() => {
+    dataBySensorRef.current = dataBySensor;
+  }, [dataBySensor]);
+
+  useEffect(() => {
+    if (sensors.length === 0) return;
+    const fetchAllHistories = async () => {
+      const sensorsToFetch = sensors.filter(
+        (s) => !dataBySensorRef.current[s.id]?.history
+      );
+      if (sensorsToFetch.length === 0) return;
+      await Promise.all(
+        sensorsToFetch.map(async (sensor) => {
+          try {
+            const historyData = await api.getSensorHistory(sensor.id);
+            const formatted = historyData.map((point) => ({
+              time: point.ts,
+              value: point.value,
+            }));
+            setInitialHistory(sensor.id, formatted);
+          } catch (e) {
+            console.error(`Error loading history for ${sensor.id}`, e);
+          }
+        })
+      );
+    };
+    fetchAllHistories();
+  }, [sensors, setInitialHistory]);
   const activeAlerts = useMemo(() => {
     return (log || []).filter((alert) => !alert.is_resolved);
   }, [log]);
@@ -33,9 +85,12 @@ export default function DevicePage() {
           ? !isAlerting
           : true;
 
-      return matchesSearch && matchesStatus;
+      const matchesDeviceStatus =
+        sensorStatusFilter === "" ? true : sensor.status === sensorStatusFilter;
+
+      return matchesSearch && matchesStatus && matchesDeviceStatus;
     });
-  }, [sensors, q, statusFilter, activeAlerts]);
+  }, [sensors, q, statusFilter, activeAlerts, sensorStatusFilter]);
 
   const summary = useMemo(() => {
     const total = filteredSensors.length;
@@ -46,6 +101,10 @@ export default function DevicePage() {
 
     return { total, ok, alerting };
   }, [filteredSensors, activeAlerts]);
+
+  if (loading) {
+    return <div>Loading locations...</div>;
+  }
 
   return (
     <div className="space-y-6 min-w-0 w-full overflow-hidden">
@@ -63,10 +122,23 @@ export default function DevicePage() {
 
             <select
               className="bg-white border border-slate-200 text-slate-900 text-sm rounded-[10px] px-3 py-2.5 focus:outline-blue-600 focus:border-blue-600 cursor-pointer"
+              value={sensorStatusFilter}
+              onChange={(e) => setSensorStatusFilter(e.target.value)}
+            >
+              <option value="">All States</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+              <option value="Bypass">Bypass</option>
+              <option value="Deregisted">Deregistered</option>
+              <option value="Error">Error</option>
+            </select>
+
+            <select
+              className="bg-white border border-slate-200 text-slate-900 text-sm rounded-[10px] px-3 py-2.5 focus:outline-blue-600 focus:border-blue-600 cursor-pointer"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >
-              <option value="">All Statuses</option>
+              <option value="">All Alerts</option>
               <option value="OK">OK</option>
               <option value="Alert">In Alert</option>
             </select>
@@ -96,15 +168,20 @@ export default function DevicePage() {
           <table className="w-full text-left border-collapse min-w-full">
             <thead>
               <tr className="border-b border-slate-200">
-                <th className="p-3 text-sm font-semibold text-slate-500">ID</th>
                 <th className="p-3 text-sm font-semibold text-slate-500">
                   Name
+                </th>
+                <th className="p-3 text-sm font-semibold text-slate-500">
+                  Location
                 </th>
                 <th className="p-3 text-sm font-semibold text-slate-500">
                   Average
                 </th>
                 <th className="p-3 text-sm font-semibold text-slate-500">
-                  Status
+                  Alert
+                </th>
+                <th className="p-3 text-sm font-semibold text-slate-500">
+                  Device Status
                 </th>
                 <th className="p-3 text-sm font-semibold text-slate-500 text-right"></th>
               </tr>
@@ -113,7 +190,7 @@ export default function DevicePage() {
               {filteredSensors.length === 0 ? (
                 <tr>
                   <td
-                    colSpan="5"
+                    colSpan="6"
                     className="text-center text-slate-400 italic text-sm pt-3"
                   >
                     No devices found.
@@ -124,6 +201,12 @@ export default function DevicePage() {
                   const isAlerting = activeAlerts.some(
                     (a) => a.sensor_id === sensor.id
                   );
+                  const locationObj = locations.find(
+                    (loc) => loc.id === sensor.location_id
+                  );
+                  const locationName = locationObj
+                    ? locationObj.name
+                    : "Unknown Location";
                   const history = dataBySensor[sensor.id]?.history;
                   let average = "--";
                   if (history && history.length > 0) {
@@ -139,11 +222,11 @@ export default function DevicePage() {
                       key={sensor.id}
                       className="hover:bg-slate-50/80 transition-colors"
                     >
-                      <td className="p-3 text-sm text-slate-500 font-mono">
-                        {sensor.id}
+                      <td className="p-3 text-sm font-medium text-slate-800 font-mono">
+                        {sensor.name}
                       </td>
                       <td className="p-3 text-sm font-medium text-slate-800">
-                        {sensor.name}
+                        {locationName}
                       </td>
                       <td className="p-3 text-sm text-slate-500">
                         {average !== "--"
@@ -159,6 +242,11 @@ export default function DevicePage() {
                           }`}
                         >
                           {isAlerting ? "Alert" : "OK"}
+                        </span>
+                      </td>
+                      <td className="p-3 text-sm font-medium text-slate-800">
+                        <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs">
+                          {sensor.status || "Unknown"}
                         </span>
                       </td>
                       <td className="p-3 text-right">

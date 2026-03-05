@@ -6,87 +6,120 @@ API_URL = "http://127.0.0.1:8000"
 
 LOCATIONS = [
   "Lab 1",
-  "Lab 2", 
-  "Lab 3"
+  "Lab 2"
 ]
 
 ASSETS_CONFIG = [
     {
-        "name": "3D Printer Prusa",
+        "name": "IAQ Monitor Lab 1",
         "status": "Operational",
         "last_maintenance": (datetime.now() - timedelta(days=5)).isoformat(),
         "location_ref": "Lab 1"
-    },
-    {
-        "name": "Soldering Station A",
+    },  {
+        "name": "IAQ Monitor Lab 2",
         "status": "Operational",
-        "last_maintenance": (datetime.now() - timedelta(days=60)).isoformat(),
-        "location_ref": "Lab 1"
-    },
-    
-    {
-        "name": "Incubator BIO-200",
-        "status": "Operational",
-        "last_maintenance": (datetime.now() - timedelta(days=2)).isoformat(),
+        "last_maintenance": (datetime.now() - timedelta(days=5)).isoformat(),
         "location_ref": "Lab 2"
-    },
-    {
-        "name": "Centrifuge C500",
-        "status": "Maintenance", 
-        "last_maintenance": (datetime.now() - timedelta(days=120)).isoformat(),
-        "location_ref": "Lab 2"
-    },
-
-    {
-        "name": "Electron Microscope",
-        "status": "Operational",
-        "last_maintenance": None, 
-        "location_ref": "Lab 3"
     }
 ]
 
 
 SENSORS_CONFIG = [
     {
-        "name": "Nozzle Temp",
+        "name": "Temperature Sensor",
         "sensor_type": 'Temperature',
         "unit": "°C",          
-        "asset_ref": "3D Printer Prusa",
-        "location_ref": None,
-        "min": 10, "max": 40
+        "asset_ref": "IAQ Monitor",
+        "location_ref": "Lab 1",
+        "min_critical": 15.0,
+        "min_warning": 18.0,
+        "max_warning": 26.0,
+        "max_critical": 30.0,
+        "status": "Active"
     },
     {
-        "name": "Incubator Temp",
-        "sensor_type": 'Temperature',
-        "unit": "°C",
-        "asset_ref": "Incubator BIO-200",
-        "location_ref": None,
-        "min": 35, "max": 39
+        "name": "Humidity Sensor",
+        "sensor_type": 'Humidity',
+        "unit": "%",          
+        "asset_ref": "IAQ Monitor",
+        "location_ref": "Lab 1",
+        "min_critical": 20.0,
+        "min_warning": 30.0,
+        "max_warning": 60.0,
+        "max_critical": 70.0,
+        "status": "Active"
     },
     {
         "name": "CO2 Level",
         "sensor_type": "Gaz",
         "unit": "ppm", 
-        "asset_ref": "Incubator BIO-200",
-        "location_ref": None,
-        "min": 4.5, "max": 5.5
+        "asset_ref": "IAQ Monitor",
+        "location_ref": "Lab 1",
+        "min_critical": 0.0,
+        "min_warning": 0.0,
+        "max_warning": 1000.0,
+        "max_critical": 1500.0,
+        "status": "Active" 
     },
-    
     {
         "name": "Lab Pressure",
         "sensor_type": "Pressure",
         "unit": "hPa",       
         "asset_ref": None,
-        "location_ref": "Lab 3",
-        "min": 1000, "max": 1020
+        "location_ref": "Lab 1",
+        "min_critical": 950.0,
+        "min_warning": 980.0,
+        "max_warning": 1040.0,
+        "max_critical": 1050.0,
+        "status": "Active"    
+    },
+        {
+        "name": "Temperature Sensor",
+        "sensor_type": 'Temperature',
+        "unit": "°C",          
+        "asset_ref": "IAQ Monitor",
+        "location_ref": "Lab 2",
+        "min_critical": 15.0,
+        "min_warning": 18.0,
+        "max_warning": 26.0,
+        "max_critical": 30.0,
+        "status": "Active"
+    },
+    {
+        "name": "Humidity Sensor",
+        "sensor_type": 'Humidity',
+        "unit": "%",          
+        "asset_ref": "IAQ Monitor",
+        "location_ref": "Lab 2",
+        "min_critical": 20.0,
+        "min_warning": 30.0,
+        "max_warning": 60.0,
+        "max_critical": 70.0,
+        "status": "Active"
+    },
+    {
+        "name": "CO2 Level",
+        "sensor_type": "Gaz",
+        "unit": "ppm", 
+        "asset_ref": "IAQ Monitor",
+        "location_ref": "Lab 2",
+        "min_critical": 0.0,
+        "min_warning": 0.0,
+        "max_warning": 1000.0,
+        "max_critical": 1500.0,
+        "status": "Active" 
     },
     {
         "name": "Fire Alarm",
         "sensor_type": 'Smoke',
         "unit": "ppm",        
         "asset_ref": None,
-        "location_ref": "Lab 2",
-        "min": 0, "max": 1
+        "location_ref": "Lab 1",
+        "min_critical": 0.0,
+        "min_warning": 0.0,
+        "max_warning": 30.0,
+        "max_critical": 50.0,
+        "status": "Active"  
     },
 ]
 
@@ -125,31 +158,34 @@ def run_seed():
             "name": sensor["name"],
             "sensor_type": sensor["sensor_type"],
             "unit": sensor["unit"],
-            "min_critical": sensor["min"],
-            "max_critical": sensor["max"],
-            "status": "Active"
+            "min_warning": sensor["min_warning"],
+            "max_warning": sensor["max_warning"],
+            "min_critical": sensor["min_critical"],
+            "max_critical": sensor["max_critical"],
+            "status": sensor["status"],
+            "asset_id": None,
+            "location_id": None
         }
 
         valid_config = False
 
-        if sensor["asset_ref"]:
+        if sensor.get("asset_ref"):
             asset_uuid = asset_map.get(sensor["asset_ref"])
             if asset_uuid:
                 payload["asset_id"] = asset_uuid
-                payload["location_id"] = None
                 valid_config = True
         
-        elif sensor["location_ref"]:
+        if sensor.get("location_ref"):
             loc_uuid = location_map.get(sensor["location_ref"])
             if loc_uuid:
                 payload["location_id"] = loc_uuid
-                payload["asset_id"] = None
                 valid_config = True
         
         if valid_config:
             res = requests.post(f"{API_URL}/sensors", json=payload)
             if res.status_code == 201:
                 sensor_ids.append(res.json()["id"])
+                sensor["id"] = res.json()["id"]
 
     start_time = datetime.now() - timedelta(days=1)
     hours_duration = 5
@@ -158,14 +194,17 @@ def run_seed():
     for i in range(total_data):
         current_time = start_time + timedelta(minutes=i)
         
-        for s_id in sensor_ids:
-            val = 20.0 + random.uniform(-5, 5)
+        for sensor in SENSORS_CONFIG:
+            val =  random.uniform(sensor["min_warning"], sensor["max_warning"])
             
             if random.random() < 0.05:
-                val = 50.0 + random.uniform(0, 25)
+                val = random.uniform(sensor['max_warning'], sensor["max_critical"])
+            if random.random() < 0.02:
+                val = random.uniform(sensor['max_critical'],sensor['max_critical']+5)
+            
 
             payload = {
-                "sensor_id": s_id,
+                "sensor_id": sensor["id"],
                 "value": round(val, 2),
                 "time": current_time.isoformat()
             }

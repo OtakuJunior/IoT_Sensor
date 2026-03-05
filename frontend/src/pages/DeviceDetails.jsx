@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSensorData } from "../state/sensorData";
 import { api } from "../services/api";
@@ -7,8 +7,10 @@ import { useAlerts } from "../state/alert";
 import { getSensorInfos } from "../lib/sensorInfos";
 import KpiCard from "../components/kpiCard";
 import GaugeTile from "../components/gaugeTile";
+import { MdOutlineLocationOn } from "react-icons/md";
 import {
   LineChart,
+  ReferenceLine,
   Line,
   XAxis,
   YAxis,
@@ -38,14 +40,12 @@ export default function DeviceDetail() {
   );
   const sensors = useSensor((state) => state.sensors);
   const sensorInfo = getSensorInfos(sensors, id);
-
+  const [locations, setLocations] = useState([]);
   const sensorData = useSensorData((state) => state.dataBySensor[id]);
   const setInitialHistory = useSensorData((state) => state.setInitialHistory);
   const clear = useSensorData((state) => state.clear);
-  const loading = !sensorData?.history?.length;
-
+  const loading = sensorData?.history === undefined;
   //const [kpis, setKpis] = useState(null);
-
   const localKpis = useMemo(() => {
     const history = sensorData?.history;
     if (!history || history.length === 0) {
@@ -81,7 +81,7 @@ export default function DeviceDetail() {
       : "--";
 
   const fetchSensorAndHistory = useCallback(async () => {
-    if (sensorData?.history?.length > 0) {
+    if (sensorData?.history !== undefined) {
       return;
     }
     try {
@@ -130,6 +130,24 @@ export default function DeviceDetail() {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, [fetchSensorAndHistory, clear]);
 
+  const locationName = useMemo(() => {
+    if (!sensorInfo || !locations.length) return "Unassigned";
+    const loc = locations.find((l) => l.id === sensorInfo.location_id);
+    return loc ? loc.name : "Unknown Location";
+  }, [sensorInfo, locations]);
+
+  useEffect(() => {
+    async function fetchLocations() {
+      try {
+        const data = await api.getLocations();
+        setLocations(data);
+      } catch (error) {
+        console.error("Erreur lors du chargement des localisations:", error);
+      }
+    }
+    fetchLocations();
+  }, []);
+
   if (loading)
     return <div className="p-8 text-slate-500">Loading details...</div>;
   if (!sensorInfo)
@@ -140,7 +158,7 @@ export default function DeviceDetail() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div>
+        <div className="bg-white border border-slate-100 rounded-2xl p-4 shadow-[0_8px_20px_rgba(15,23,42,0.06)] w-full">
           <button
             onClick={() => navigate(-1)}
             className="text-sm text-slate-500 hover:text-blue-600 mb-2"
@@ -148,38 +166,12 @@ export default function DeviceDetail() {
             ← Back to list
           </button>
           <div className="flex flex-row justify-start">
-            <h1 className="text-3xl font-bold text-slate-800">
+            <h1 className="text-lg font-bold text-slate-800">
               {sensorInfo.name}
             </h1>
             <span className="self-center ml-6">
-              Sensor type: {sensorInfo.sensor_type}
+              <MdOutlineLocationOn className="ml-2.5" /> {locationName}
             </span>
-            <div className="flex flex-row justify-between gap-3 font-light self-center pl-6">
-              <span>
-                min warning:{" "}
-                {sensorInfo?.min_warning
-                  ? sensorInfo.min_warning.toFixed(2)
-                  : "/"}
-              </span>
-              <span>
-                min critical:{" "}
-                {sensorInfo?.min_critical
-                  ? sensorInfo.min_critical.toFixed(2)
-                  : "/"}
-              </span>
-              <span>
-                max warning:{" "}
-                {sensorInfo?.max_warning
-                  ? sensorInfo.max_warning.toFixed(2)
-                  : "/"}
-              </span>
-              <span>
-                max critical:{" "}
-                {sensorInfo?.max_critical
-                  ? sensorInfo.max_critical.toFixed(2)
-                  : "/"}
-              </span>
-            </div>
           </div>
         </div>
       </div>
@@ -213,10 +205,83 @@ export default function DeviceDetail() {
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={history}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="time" stroke="#94a3b8" fontSize={12} />
-                <YAxis stroke="#94a3b8" fontSize={12} domain={[10, 70]} />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke="#e2e8f0"
+                />
+                <XAxis
+                  dataKey="time"
+                  stroke="#94a3b8"
+                  fontSize={12}
+                  axisLine={false}
+                />
+                {/* On retire le domaine fixe [10, 70] pour s'assurer que les seuils sont visibles */}
+                <YAxis
+                  stroke="#94a3b8"
+                  fontSize={12}
+                  domain={["auto", "auto"]}
+                  axisLine={false}
+                  tickLine={false}
+                />
                 <Tooltip />
+
+                {/* --- SEUILS MINIMUM --- */}
+                {sensorInfo?.min_critical && (
+                  <ReferenceLine
+                    y={sensorInfo.min_critical}
+                    stroke="#ef4444"
+                    strokeDasharray="5 5"
+                    label={{
+                      position: "right",
+                      value: "Min Crit",
+                      fill: "#ef4444",
+                      fontSize: 10,
+                    }}
+                  />
+                )}
+                {sensorInfo?.min_warning && (
+                  <ReferenceLine
+                    y={sensorInfo.min_warning}
+                    stroke="#eab308"
+                    strokeDasharray="5 5"
+                    label={{
+                      position: "right",
+                      value: "Min Warn",
+                      fill: "#eab308",
+                      fontSize: 10,
+                    }}
+                  />
+                )}
+
+                {/* --- SEUILS MAXIMUM --- */}
+                {sensorInfo?.max_warning && (
+                  <ReferenceLine
+                    y={sensorInfo.max_warning}
+                    stroke="#eab308"
+                    strokeDasharray="5 5"
+                    label={{
+                      position: "right",
+                      value: "Max Warn",
+                      fill: "#eab308",
+                      fontSize: 10,
+                    }}
+                  />
+                )}
+                {sensorInfo?.max_critical && (
+                  <ReferenceLine
+                    y={sensorInfo.max_critical}
+                    stroke="#ef4444"
+                    strokeDasharray="5 5"
+                    label={{
+                      position: "right",
+                      value: "Max Crit",
+                      fill: "#ef4444",
+                      fontSize: 10,
+                    }}
+                  />
+                )}
+
                 <Line
                   type="monotone"
                   dataKey="value"

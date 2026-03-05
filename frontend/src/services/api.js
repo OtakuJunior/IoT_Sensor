@@ -41,4 +41,9 @@ export const api = {
     const response = await apiC.get(`/sensor_data/${sensorId}/kpis?${params}`);
     return response.data;
   },
+
+  getLocations: async () => {
+    const response = await apiC.get("/locations");
+    return response.data;
+  },
 };

@@ -14,7 +14,6 @@ export default function SideBar() {
       { to: "/devices", icon: <MdImportantDevices />, label: "Devices" },
       { to: "/alerts", icon: <LuBellRing />, label: "Alerts" },
       { to: "/assets", icon: <MdWebAsset />, label: "Assets" },
-      { to: "/health", icon: <MdOutlineMonitorHeart />, label: "Data Health" },
     ];
 
     return (

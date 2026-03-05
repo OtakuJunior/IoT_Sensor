@@ -7,13 +7,12 @@ from paho.mqtt.client import CallbackAPIVersion
 import json
 
 API_URL = "http://127.0.0.1:8000"
-DELAY = 1
+DELAY = 3
 
 def get_sensors():
   response = requests.get(f"{API_URL}/sensors")
   if response.status_code == 200:
-    sensors = response.json()
-    return [sensor["id"] for sensor in sensors]
+    return response.json()
   return []
 
 def on_connect(client, userdata, flags, reason_code, properties = None):
@@ -21,38 +20,45 @@ def on_connect(client, userdata, flags, reason_code, properties = None):
     print(f"Connected with result code {reason_code}")
 
 def generate_data():
-  sensors_id = get_sensors()
-  if not sensors_id:
+  sensors = get_sensors()
+  if not sensors:
     return 
   
   # MQTT setup
   client = mqtt.Client(CallbackAPIVersion.VERSION2)  
-  client.on_connect = on_connect
-  client.connect("localhost", 1883)
-  client.loop_start()
+  client.on_connect = on_connect  
+  try:
+    client.connect("localhost", 1883)
+    client.loop_start()
+  except Exception as e:
+    print(f"{e}")
+    return
+  try:
+    while True:
+      for s in sensors:
+        if (s['status'] == "Active"):
+          val = random.uniform(s["min_warning"], s["max_warning"])
+          if random.random() < 0.01:
+            val = random.uniform(s['max_warning'], s["max_critical"])
+          if random.random() < 0.02:
+            val = random.uniform(s['max_critical'],s['max_critical']+5)
 
-  while True:
-    try:
-      for s_id in sensors_id:
-        val = 20.0 + random.uniform(-2, 2)
-        if random.random() < 0.01:
-          val = 50.0 + random.uniform(0, 25)
+          payload = {
+            "sensor_id": s["id"],
+            "value": round(val, 2),
+            "time": datetime.now(timezone.utc).isoformat() 
+          }
 
-        payload = {
-          "sensor_id": s_id,
-          "value": round(val, 2),
-          "time": datetime.now(timezone.utc).isoformat() 
-        }
-
-        topic = f"factory/sensors/{s_id}/data"
-        client.publish(topic, json.dumps(payload), qos=1)
-      print("data generated at ", datetime.now(timezone.utc).isoformat())
+          topic = f"factory/sensors/{s['id']}/data"
+          client.publish(topic, json.dumps(payload), qos=1)
+          print("data generated at ", datetime.now(timezone.utc).isoformat())
       time.sleep(DELAY)
-    except KeyboardInterrupt:
-      client.loop_stop()
-      client.disconnect()
-      print("\ndata generation interrupted")
-      break
+  except KeyboardInterrupt:
+    print("\ndata generation interrupted")
+  finally:
+    client.loop_stop()
+    client.disconnect()
+      
 
 if __name__ == "__main__":
   generate_data()

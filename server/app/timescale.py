@@ -94,17 +94,17 @@ def query_series(sensor_id : str, bucket_ms : int = 0, from_time : datetime | No
       """), {"sensor_id" : sensor_id, "from_time" : from_time, "end_time" : end_time}).fetchall()
 
   elif bucket_ms and bucket_ms > 0:
-    interval = f"{bucket_ms} milliseconds"
+    seconds = int(bucket_ms/1000)
     with engine.connect() as connection:
-      return connection.execute(text("""
-        SELECT time_bucket(:interval::interval, time) AS ts,
+      return connection.execute(text(f"""
+        SELECT time_bucket('{seconds} seconds'::interval, time) AS ts,
         count(*) AS count, avg(value) AS avg, min(value) AS min, max(value) AS max 
         FROM sensor_data 
         WHERE sensor_id = :sensor_id 
         AND time BETWEEN :from_time AND :end_time 
         GROUP BY ts 
         ORDER BY ts ASC
-      """), {"interval" : interval,"sensor_id" : sensor_id, "from_time" : from_time, "end_time" : end_time}).fetchall()
+      """), {"sensor_id" : sensor_id, "from_time" : from_time, "end_time" : end_time}).fetchall()
   
   else:
     print(f"query_series: sensor_id={sensor_id}, from_time={from_time}, end_time={end_time}")
