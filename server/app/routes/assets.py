@@ -38,5 +38,5 @@ def assign_sensor_to_asset(asset_id : str, sensor_id : str, db : Session = Depen
   return assigned_sensor
 
 @router.get('/', response_model=list[Asset])
-def get_assets_by_status(asset_status : AssetStatus | None = None, skip : int = 0, limit : int = 100, db : Session = Depends(get_db)):
-  return asset_crud.get_assets_by_status(db=db, skip=skip, limit=limit, asset_status=asset_status)
+def get_assets(db : Session = Depends(get_db)):
+  return asset_crud.get_assets(db=db)

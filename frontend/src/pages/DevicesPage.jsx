@@ -18,7 +18,6 @@ export default function DevicePage() {
   const dataBySensor = useSensorData((state) => state.dataBySensor);
   const setInitialHistory = useSensorData((state) => state.setInitialHistory);
 
-  // 1. useEffect pour les localisations (existant)
   useEffect(() => {
     let isMounted = true;
     const fetchLocations = async () => {

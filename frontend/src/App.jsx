@@ -5,6 +5,7 @@ import Dashboard from "./pages/HomePage";
 import DevicesPage from "./pages/DevicesPage";
 import AlertsPage from "./pages/AlertsPage";
 import DeviceDetail from "./pages/DeviceDetails";
+import AssetsPage from "./pages/AssetsPage";
 import { useSensorData } from "./state/sensorData";
 import { useAlerts } from "./state/alert";
 import { initSocket } from "./services/socket";
@@ -56,7 +57,7 @@ export default function App() {
   return (
     <div className="flex min-h-screen bg-slate-50">
       <SideBar />
-      <ToastContainer autoClose={10000} limit={3} />
+      <ToastContainer autoClose={5000} limit={3} />
 
       <main className="flex-1 min-w-0 p-8 transition-all duration-300">
         <Routes>
@@ -64,6 +65,7 @@ export default function App() {
           <Route path="/devices" element={<DevicesPage />} />
           <Route path="/device/:id" element={<DeviceDetail />} />
           <Route path="/alerts" element={<AlertsPage />} />
+          <Route path="/assets" element={<AssetsPage />} />
           <Route path="*" element={<div className="text-slate-400"></div>} />
         </Routes>
       </main>

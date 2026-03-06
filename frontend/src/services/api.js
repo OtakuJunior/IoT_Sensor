@@ -46,4 +46,25 @@ export const api = {
     const response = await apiC.get("/locations");
     return response.data;
   },
+
+  getAssets: async () => {
+    const response = await apiC.get("/assets");
+    return response.data;
+  },
+
+  addSensor: async (payload) => {
+    return await apiC.post("/sensors", payload);
+  },
+
+  deleteSensor: async (id) => {
+    return await apiC.delete(`/sensors/${id}`);
+  },
+
+  addLocation: async (payload) => {
+    return await apiC.post("/locations", payload);
+  },
+
+  addUser: async (payload) => {
+    return await apiC.post("/users", payload);
+  },
 };

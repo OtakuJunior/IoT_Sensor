@@ -1,6 +1,7 @@
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Enum
 from app.database import Base
 import uuid
+from app.services.enums import UserRole
 
 
 class User(Base):
@@ -10,4 +11,4 @@ class User(Base):
   name = Column(String, nullable=False)
   email = Column(String, nullable=False)
   phone_number = Column(String)
-  role = Column(String)
+  role = Column(Enum(UserRole), nullable=False)

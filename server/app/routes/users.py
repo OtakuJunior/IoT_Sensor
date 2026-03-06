@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.crud import user as user_crud
-from app.schemas.user import UserCreate
+from app.schemas.user import UserCreate, User
+from app.services import enums
 
 router = APIRouter(
   prefix="/users",
@@ -29,3 +30,8 @@ def delete_user(user_id : str, db : Session = Depends(get_db)):
   if deleteUser:
     return {'message' : 'User deleted'} 
   return False 
+
+@router.get("/users", response_model=list[User])
+def read_users(role: enums.UserRole, db: Session = Depends(get_db)):
+  users = user_crud.get_users(db, role=role)
+  return users

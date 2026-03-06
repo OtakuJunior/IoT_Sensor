@@ -32,3 +32,7 @@ def get_sensor(sensor_id : str, db : Session = Depends(get_db)):
 @router.get("/", response_model=list[Sensor])
 def get_sensors(sensor_type : enums.SensorType | None = None, sensor_status: enums.SensorStatus | None = None, db : Session = Depends(get_db)):
   return sensor_crud.get_sensors(db=db, sensor_type=sensor_type, sensor_status=sensor_status)
+
+@router.delete("/{sensor_id}")
+def delete_sensor(sensor_id: str, db:Session = Depends(get_db)):
+  return sensor_crud.delete_sensor(db=db, sensor_id=sensor_id)

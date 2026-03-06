@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app.schemas.user import UserCreate
 from app.models.user import User as user_model
+from app.services.enums import UserRole
 
 def create_user(db: Session, user : UserCreate):
   db_user = user_model(
@@ -27,3 +28,11 @@ def delete_user(db: Session, user_id : str):
     return True
   
   return False
+
+def get_users(db: Session, role: UserRole | None = None):
+    query = db.query(user_model)
+
+    if role is not None:
+        query = query.filter(user_model.role == role)
+    
+    return query.all()

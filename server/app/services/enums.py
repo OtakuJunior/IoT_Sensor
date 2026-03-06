@@ -28,6 +28,13 @@ class Units(str, enum.Enum):
   HECTOPASCAL = 'hPa'
   PARTS_PER_MILLION = 'ppm'
 
+class UserRole(str, enum.Enum):
+    MASTER = 'Master'
+    ADMIN = 'Admin'
+    TECHNICIAN = 'Technician'
+    GUEST = 'Guest'
+
+
 
 
 

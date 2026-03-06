@@ -22,11 +22,9 @@ def create_asset(db : Session, asset : AssetCreate):
 def get_asset_by_id(db : Session, asset_id : str): 
   return db.query(asset_model).filter(asset_model.id == asset_id).first()
 
-def get_assets_by_status(db : Session, skip : int, limit : int, asset_status : AssetStatus | None = None):
-  if asset_status is None : 
-    return db.query(asset_model).offset(skip).limit(limit).all()
+def get_assets(db : Session):
+  return db.query(asset_model).all()
   
-  return db.query(asset_model).filter(asset_model.status == asset_status).offset(skip).limit(limit).all()
 
 def delete_asset(db: Session, asset_id : str):
   db_asset = db.query(asset_model).filter(asset_model.id == asset_id).first()
