@@ -37,21 +37,20 @@ def delete_sensor(db: Session, sensor_id : str):
   
   return False
 
-def update_sensor(db : Session, sensor_id : str, updated_sensor : SensorUpdate):
-  db_sensor = db.query(sensor_model).filter(sensor_model.id == sensor_id).first()
-
-  if db_sensor:
-    update_data = updated_sensor.model_dump(exclude_unset=True)
-
-    for key, value in update_data.items():
-      setattr(db_sensor, key, value) 
-      
-    db.commit()
-    db.refresh(db_sensor)
-
-    return db_sensor
-  
-  return None
+def update_sensor(db: Session, sensor_id: str, updated_sensor: SensorUpdate):
+    db_sensor = db.query(sensor_model).filter(sensor_model.id == sensor_id).first()
+    if not db_sensor:
+        return None
+    try:
+        update_data = updated_sensor.model_dump(exclude_unset=True)
+        for key, value in update_data.items():
+            setattr(db_sensor, key, value)
+        db.commit()
+        db.refresh(db_sensor)
+        return db_sensor
+    except Exception as e:
+        db.rollback()
+        raise e
 
 def get_sensors(db : Session, sensor_type : SensorType | None = None, sensor_status: SensorStatus | None = None):
   query = db.query(sensor_model)

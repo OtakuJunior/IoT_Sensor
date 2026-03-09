@@ -98,6 +98,7 @@ export default function DeviceDetail() {
       setInitialHistory(id, formattedHistory);
     } catch (error) {
       console.error(error);
+      setInitialHistory(id, []);
     }
   }, [id, setInitialHistory, sensorData?.history]);
 
@@ -153,7 +154,7 @@ export default function DeviceDetail() {
   if (!sensorInfo)
     return <div className="p-8 text-red-500">Sensor not found.</div>;
   const currentValue = sensorData?.current || null;
-  const history = sensorData?.history;
+  const history = sensorData?.history || [];
 
   return (
     <div className="space-y-6">
@@ -216,7 +217,6 @@ export default function DeviceDetail() {
                   fontSize={12}
                   axisLine={false}
                 />
-                {/* On retire le domaine fixe [10, 70] pour s'assurer que les seuils sont visibles */}
                 <YAxis
                   stroke="#94a3b8"
                   fontSize={12}
@@ -226,7 +226,6 @@ export default function DeviceDetail() {
                 />
                 <Tooltip />
 
-                {/* --- SEUILS MINIMUM --- */}
                 {sensorInfo?.min_critical && (
                   <ReferenceLine
                     y={sensorInfo.min_critical}
@@ -254,7 +253,6 @@ export default function DeviceDetail() {
                   />
                 )}
 
-                {/* --- SEUILS MAXIMUM --- */}
                 {sensorInfo?.max_warning && (
                   <ReferenceLine
                     y={sensorInfo.max_warning}

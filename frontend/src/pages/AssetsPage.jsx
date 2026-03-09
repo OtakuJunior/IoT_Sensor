@@ -4,6 +4,7 @@ import { api } from "../services/api";
 import { SensorType, SensorUnit } from "../lib/enums";
 import { toast } from "react-toastify";
 import { MdOutlineWarningAmber } from "react-icons/md";
+import { MdOutlineClose } from "react-icons/md";
 
 export default function AssetsPage() {
   const [activeTab, setActiveTab] = useState("devices");
@@ -12,11 +13,16 @@ export default function AssetsPage() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [assets, setAssets] = useState([]);
-
   const sensors = useSensor((state) => state.sensors);
   const loadSensors = useSensor((state) => state.loadSensors);
-
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedSensorId, setSelectedSensorId] = useState(null);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [expandedAssetId, setExpandedAssetId] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
   const [isSensorModalOpen, setIsSensorModalOpen] = useState(false);
+  const [isAddLocationModalOpen, setIsAddLocationModalOpen] = useState(false);
+
   const [sensorFormData, setsensorFormData] = useState({
     name: "",
     sensor_type: "",
@@ -29,20 +35,35 @@ export default function AssetsPage() {
     max_critical: "",
     status: "Active",
   });
+  const [locationFormData, setLocationFormData] = useState({ name: "" });
 
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [selectedSensorId, setSelectedSensorId] = useState(null);
-
-  const openEditModal = (sensor) => {
+  const openLocationModal = (location) => {
+    setSelectedLocation(location);
+    setExpandedAssetId(null);
+    setIsLocationModalOpen(true);
+  };
+  const openSensorEditModal = (sensor) => {
     setIsEditMode(true);
     setSelectedSensorId(sensor.id);
     setsensorFormData({
       ...sensor,
       asset_id: sensor.asset_id ?? "",
-      min_critical: sensor.min_critical ?? "",
-      min_warning: sensor.min_warning ?? "",
-      max_warning: sensor.max_warning ?? "",
-      max_critical: sensor.max_critical ?? "",
+      min_critical:
+        sensor.min_critical !== null && sensor.min_critical !== undefined
+          ? sensor.min_critical
+          : "",
+      min_warning:
+        sensor.min_warning !== null && sensor.min_warning !== undefined
+          ? sensor.min_warning
+          : "",
+      max_warning:
+        sensor.max_warning !== null && sensor.max_warning !== undefined
+          ? sensor.max_warning
+          : "",
+      max_critical:
+        sensor.max_critical !== null && sensor.max_critical !== undefined
+          ? sensor.max_critical
+          : "",
     });
     setIsSensorModalOpen(true);
   };
@@ -79,7 +100,25 @@ export default function AssetsPage() {
       toast.error("Failed to delete the sensor.");
     }
   };
-
+  const handleAddLocation = async (e) => {
+    e.preventDefault();
+    try {
+      await api.addLocation(locationFormData);
+      toast.success(
+        `Location "${locationFormData.name}" created successfully!`,
+        {
+          theme: "colored",
+        }
+      );
+      const locRes = await api.getLocations();
+      setLocations(locRes || []);
+      setIsAddLocationModalOpen(false);
+      setLocationFormData({ name: "" });
+    } catch (err) {
+      toast.error("Failed to create location.");
+      console.error(err);
+    }
+  };
   useEffect(() => {
     document.body.style.overflow = isSensorModalOpen ? "hidden" : "unset";
     document.body.style.paddingRight = isSensorModalOpen ? "15px" : "0px";
@@ -104,7 +143,7 @@ export default function AssetsPage() {
           setUsers(userRes || []);
         }
       } catch (error) {
-        console.error("Erreur de chargement des assets:", error);
+        console.error(error);
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -261,30 +300,36 @@ export default function AssetsPage() {
           onChange={(e) => setSearch(e.target.value)}
         />
         <div className="flex gap-2">
-          <button
-            onClick={() => {
-              if (activeTab === "devices") {
-                setIsEditMode(false);
-                setSelectedSensorId(null);
-                setsensorFormData({
-                  name: "",
-                  sensor_type: "",
-                  unit: "",
-                  location_id: "",
-                  asset_id: "",
-                  min_critical: "",
-                  min_warning: "",
-                  max_warning: "",
-                  max_critical: "",
-                  status: "Active",
-                });
-                setIsSensorModalOpen(true);
-              }
-            }}
-            className="px-4 py-2 bg-slate-800 text-white rounded-xl text-sm font-bold hover:bg-slate-700 transition-colors"
-          >
-            + Add {activeTab.slice(0, -1)}
-          </button>
+          {activeTab !== "users" && (
+            <button
+              onClick={() => {
+                if (activeTab === "devices") {
+                  setIsEditMode(false);
+                  setSelectedSensorId(null);
+                  setsensorFormData({
+                    name: "",
+                    sensor_type: "",
+                    unit: "",
+                    location_id: "",
+                    asset_id: "",
+                    min_critical: "",
+                    min_warning: "",
+                    max_warning: "",
+                    max_critical: "",
+                    status: "Active",
+                  });
+                  setIsSensorModalOpen(true);
+                }
+                if (activeTab === "locations") {
+                  setLocationFormData({ name: "" });
+                  setIsAddLocationModalOpen(true);
+                }
+              }}
+              className="px-4 py-2 bg-slate-800 text-white rounded-xl text-sm font-bold hover:bg-slate-700 transition-colors"
+            >
+              + Add {activeTab.slice(0, -1)}
+            </button>
+          )}
         </div>
       </div>
 
@@ -339,10 +384,13 @@ export default function AssetsPage() {
                     User
                   </th>
                   <th className="p-4 text-xs text-center font-bold text-slate-400 uppercase">
-                    Role
+                    Email
                   </th>
                   <th className="p-4 text-xs text-center font-bold text-slate-400 uppercase">
-                    Action
+                    Phone Number
+                  </th>
+                  <th className="p-4 text-xs text-center font-bold text-slate-400 uppercase">
+                    Role
                   </th>
                 </>
               )}
@@ -376,7 +424,6 @@ export default function AssetsPage() {
                     </td>
                     <td className="p-4 text-center">
                       <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-blue-400"></div>
                         <span className="text-sm font-medium text-slate-600">
                           {assets.find((a) => a.id === item.asset_id)?.name ||
                             "No Asset Linked"}
@@ -415,24 +462,35 @@ export default function AssetsPage() {
                         {item.name}
                       </div>
                       <div className="text-xs text-slate-400 text-center">
-                        {item.email}
+                        {item.id}
                       </div>
                     </td>
+                    <td className="p-4 text-sm font-mono text-slate-500 text-center">
+                      {item.email}
+                    </td>
+                    <td className="p-4 text-sm font-mono text-slate-500 text-center">
+                      {item.phone_number}
+                    </td>
                     <td className="p-4">
-                      <span className="px-2 py-1 bg-purple-50 text-purple-600 border border-purple-100 rounded-full text-sm font-bold uppercase text-center">
+                      <span className="p-4 text-sm font-mono text-slate-500 text-center">
                         {item.role || "User"}
                       </span>
                     </td>
                   </>
                 )}
-                <td className="p-4 text-center">
-                  <button
-                    className="text-blue-600 hover:underline text-sm font-bold"
-                    onClick={() => openEditModal(item)}
-                  >
-                    Edit
-                  </button>
-                </td>
+                {activeTab !== "users" && (
+                  <td className="p-4 text-center">
+                    <button
+                      className="text-blue-600 hover:underline text-sm font-bold"
+                      onClick={() => {
+                        if (activeTab === "devices") openSensorEditModal(item);
+                        if (activeTab === "locations") openLocationModal(item);
+                      }}
+                    >
+                      Edit
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
@@ -444,6 +502,7 @@ export default function AssetsPage() {
         )}
       </div>
 
+      {/*=================== SENSOR MODAL =======================*/}
       {isSensorModalOpen && (
         <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto overscroll-contain">
@@ -458,12 +517,11 @@ export default function AssetsPage() {
                   </p>
                 )}
               </div>
-
               <button
                 onClick={() => setIsSensorModalOpen(false)}
                 className="text-slate-400 hover:text-slate-600"
               >
-                ✕
+                <MdOutlineClose />
               </button>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
@@ -682,6 +740,218 @@ export default function AssetsPage() {
                     {isEditMode ? "Update Changes" : "Save Sensor"}
                   </button>
                 </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      {/*=================== LOCATION MODAL =======================*/}
+      {isLocationModalOpen && selectedLocation && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto overscroll-contain">
+            {/* Header */}
+            <div className="p-6 border-b sticky top-0 bg-white z-10 flex justify-between items-center">
+              <div>
+                <h2 className="text-xl font-bold text-slate-800">
+                  {selectedLocation.name}
+                </h2>
+                <p className="text-xs text-slate-400 font-mono mt-0.5">
+                  {selectedLocation.id}
+                </p>
+              </div>
+              <button
+                onClick={() => setIsLocationModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600"
+              >
+                <MdOutlineClose />
+              </button>
+            </div>
+
+            <div className="p-6 border-b grid grid-cols-2 gap-4">
+              {(() => {
+                const stats = getLocationStats(selectedLocation.id);
+                return (
+                  <>
+                    <div className="bg-slate-50 rounded-xl p-4 text-center">
+                      <div className="text-2xl font-bold text-slate-800">
+                        {stats.totalAssets}
+                      </div>
+                      <div className="text-xs text-slate-400 font-bold uppercase mt-1">
+                        Assets
+                      </div>
+                    </div>
+                    <div className="bg-slate-50 rounded-xl p-4 text-center">
+                      <div className="text-2xl font-bold text-slate-800">
+                        {stats.totalDevices}
+                      </div>
+                      <div className="text-xs text-slate-400 font-bold uppercase mt-1">
+                        Devices
+                      </div>
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+
+            <div className="p-6 space-y-3">
+              <div className="text-xs font-bold text-slate-400 uppercase mb-4">
+                Assets in this location
+              </div>
+
+              {assets.filter(
+                (a) => String(a.location_id) === String(selectedLocation.id)
+              ).length === 0 ? (
+                <div className="text-center text-slate-400 italic text-sm py-6">
+                  No assets linked to this location.
+                </div>
+              ) : (
+                assets
+                  .filter(
+                    (a) => String(a.location_id) === String(selectedLocation.id)
+                  )
+                  .map((asset) => {
+                    const linkedSensors = sensors.filter(
+                      (s) => String(s.asset_id) === String(asset.id)
+                    );
+                    const isExpanded = expandedAssetId === asset.id;
+
+                    return (
+                      <div
+                        key={asset.id}
+                        className="border border-slate-100 rounded-xl overflow-hidden"
+                      >
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setExpandedAssetId(isExpanded ? null : asset.id)
+                          }
+                          className="w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-colors text-left"
+                        >
+                          <div>
+                            <div className="font-semibold text-slate-700 text-sm">
+                              {asset.name}
+                            </div>
+                            <div className="text-xs text-slate-400 font-mono">
+                              {asset.id}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <span className="text-xs bg-blue-50 text-blue-500 font-bold px-2 py-1 rounded-full">
+                              {linkedSensors.length} sensor
+                              {linkedSensors.length !== 1 ? "s" : ""}
+                            </span>
+                            <span
+                              className={`text-slate-400 transition-transform duration-200 ${
+                                isExpanded ? "rotate-180" : ""
+                              }`}
+                            >
+                              ▾
+                            </span>
+                          </div>
+                        </button>
+
+                        {isExpanded && (
+                          <div className="border-t border-slate-100 bg-slate-50">
+                            {linkedSensors.length === 0 ? (
+                              <div className="px-4 py-3 text-xs text-slate-400 italic">
+                                No sensors linked to this asset.
+                              </div>
+                            ) : (
+                              linkedSensors.map((sensor) => (
+                                <div
+                                  key={sensor.id}
+                                  className="flex items-center justify-between px-4 py-3 border-b border-slate-100 last:border-0"
+                                >
+                                  <div>
+                                    <div className="text-sm font-semibold text-slate-700">
+                                      {sensor.name}
+                                    </div>
+                                    <div className="text-xs text-slate-400 font-mono">
+                                      {sensor.id}
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-[10px] text-blue-500 font-bold uppercase bg-blue-50 px-2 py-0.5 rounded-full">
+                                      {sensor.sensor_type}
+                                    </span>
+                                    <span
+                                      className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${
+                                        sensor.status === "Active"
+                                          ? "bg-green-50 text-green-600"
+                                          : "bg-slate-100 text-slate-400"
+                                      }`}
+                                    >
+                                      {sensor.status}
+                                    </span>
+                                  </div>
+                                </div>
+                              ))
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })
+              )}
+            </div>
+            <div className="p-6 border-t flex justify-end">
+              <button
+                onClick={() => setIsLocationModalOpen(false)}
+                className="px-6 py-2 border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-50 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/*=================== ADD LOCATION MODAL =======================*/}
+      {isAddLocationModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm">
+            <div className="p-6 border-b flex justify-between items-center">
+              <h2 className="text-xl font-bold text-slate-800">New Location</h2>
+              <button
+                onClick={() => setIsAddLocationModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600"
+              >
+                <MdOutlineClose />
+              </button>
+            </div>
+            <form onSubmit={handleAddLocation} className="p-6 space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                  Name
+                </label>
+                <input
+                  className="w-full px-3 py-2 bg-slate-50 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+                  value={locationFormData.name}
+                  onChange={(e) =>
+                    setLocationFormData({ name: e.target.value })
+                  }
+                  maxLength={50}
+                  required
+                />
+              </div>
+              <div className="flex gap-3 pt-2 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsAddLocationModalOpen(false)}
+                  className="flex-1 px-6 py-2 border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={!locationFormData.name.trim()}
+                  className={`flex-1 px-6 py-2 rounded-xl font-bold transition-all ${
+                    locationFormData.name.trim()
+                      ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-200"
+                      : "bg-slate-200 text-slateate-400 cursor-not-allowed"
+                  }`}
+                >
+                  Save Location
+                </button>
               </div>
             </form>
           </div>

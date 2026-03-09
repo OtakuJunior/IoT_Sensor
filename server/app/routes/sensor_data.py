@@ -40,7 +40,7 @@ def get_sensor_data_history(
         end_time=end_time
     )
     
-    return [dict(row._mapping) for row in result]
+    return [dict(row._mapping) for row in result] 
 
 @router.get('/{sensor_id}/kpis')
 def get_sensor_kpis(sensor_id : str, from_time : datetime | None = None, to_time : datetime | None = None, db : Session = Depends(get_db)):

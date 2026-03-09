@@ -31,7 +31,7 @@ def delete_user(user_id : str, db : Session = Depends(get_db)):
     return {'message' : 'User deleted'} 
   return False 
 
-@router.get("/users", response_model=list[User])
-def read_users(role: enums.UserRole, db: Session = Depends(get_db)):
+@router.get("/", response_model=list[User])
+def read_users(role: enums.UserRole | None = None, db: Session = Depends(get_db)):
   users = user_crud.get_users(db, role=role)
   return users

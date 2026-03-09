@@ -4,7 +4,7 @@ from pydantic import BaseModel, EmailStr, ConfigDict
 class UserBase(BaseModel):
   name: str
   email : EmailStr
-  phoneNumber : str | None = None
+  phone_number : str | None = None
   role : str
 # Model to create an user
 class UserCreate(UserBase): 

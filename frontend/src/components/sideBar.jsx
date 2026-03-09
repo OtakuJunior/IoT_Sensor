@@ -5,7 +5,6 @@ import { LuBellRing } from "react-icons/lu";
 import { MdOutlineMonitorHeart } from "react-icons/md";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { MdWebAsset } from "react-icons/md";
-import { MdDehaze } from "react-icons/md";
 
 export default function SideBar() {
   {
@@ -19,9 +18,6 @@ export default function SideBar() {
     return (
       <div className="w-1/6 flex flex-col md:border-r">
         <div className="flex align-middle py-2 pt-4 text-2xl justify-center items-center">
-          <button className="text-3xl w-1/4">
-            <MdDehaze />
-          </button>
           IoT Sensor
         </div>
 

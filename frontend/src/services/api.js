@@ -67,4 +67,13 @@ export const api = {
   addUser: async (payload) => {
     return await apiC.post("/users", payload);
   },
+
+  updateSensor: async (id, payload) => {
+    return await apiC.patch(`/sensors/${id}`, payload);
+  },
+
+  getUsers: async () => {
+    const response = await apiC.get("/users");
+    return response.data;
+  },
 };
