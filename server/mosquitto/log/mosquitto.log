@@ -3425,3 +3425,1019 @@
 1773021894: New connection from 192.168.65.1:63166 on port 1883.
 1773021894: New client connected from 192.168.65.1:63166 as auto-A3D5A676-E3EE-A8E5-4396-F033DE83CF8F (p2, c1, k60).
 1773021953: Client auto-A3D5A676-E3EE-A8E5-4396-F033DE83CF8F disconnected.
+1773024415: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773025743: Client 49061c0b255e404d85f4e1576cf96482 disconnected.
+1773025744: New connection from 192.168.65.1:42874 on port 1883.
+1773025744: New client connected from 192.168.65.1:42874 as b6c47f73bcb34775894d9884a836de8f (p5, c1, k60).
+1773026216: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773026503: Client b6c47f73bcb34775894d9884a836de8f disconnected.
+1773026527: New connection from 192.168.65.1:63741 on port 1883.
+1773026527: New client connected from 192.168.65.1:63741 as 5ba79f77653245218f84a9b04d27a947 (p5, c1, k60).
+1773026572: Client 5ba79f77653245218f84a9b04d27a947 disconnected.
+1773026572: New connection from 192.168.65.1:36450 on port 1883.
+1773026572: New client connected from 192.168.65.1:36450 as 37d1662cfb974f0bbed4021c618d9bba (p5, c1, k60).
+1773026663: Client 37d1662cfb974f0bbed4021c618d9bba disconnected.
+1773026664: New connection from 192.168.65.1:49690 on port 1883.
+1773026664: New client connected from 192.168.65.1:49690 as aa7400f77ebb4093991e4c556c813c62 (p5, c1, k60).
+1773026704: Client aa7400f77ebb4093991e4c556c813c62 disconnected.
+1773026705: New connection from 192.168.65.1:43814 on port 1883.
+1773026705: New client connected from 192.168.65.1:43814 as 739b04b5a2654d0e8a36cd6de7850ee0 (p5, c1, k60).
+1773026735: Client 739b04b5a2654d0e8a36cd6de7850ee0 disconnected.
+1773026736: New connection from 192.168.65.1:45088 on port 1883.
+1773026736: New client connected from 192.168.65.1:45088 as cb4a2f1dc76b4eed9e469b2db51fd6ac (p5, c1, k60).
+1773026756: Client cb4a2f1dc76b4eed9e469b2db51fd6ac disconnected.
+1773026756: New connection from 192.168.65.1:41429 on port 1883.
+1773026756: New client connected from 192.168.65.1:41429 as bd2d821cf69548e698b84a12f86d5951 (p5, c1, k60).
+1773026775: Client bd2d821cf69548e698b84a12f86d5951 disconnected.
+1773026775: New connection from 192.168.65.1:28971 on port 1883.
+1773026775: New client connected from 192.168.65.1:28971 as e7af278c1914451eb228c929dc796167 (p5, c1, k60).
+1773026820: Client e7af278c1914451eb228c929dc796167 disconnected.
+1773026821: New connection from 192.168.65.1:45246 on port 1883.
+1773026821: New client connected from 192.168.65.1:45246 as 1825f1557c4248c98e6945c819e15b30 (p5, c1, k60).
+1773026894: Client 1825f1557c4248c98e6945c819e15b30 disconnected.
+1773026894: New connection from 192.168.65.1:50154 on port 1883.
+1773026894: New client connected from 192.168.65.1:50154 as e01c7bdc85904baeb17227d669e095dc (p5, c1, k60).
+1773026907: Client e01c7bdc85904baeb17227d669e095dc disconnected.
+1773026907: New connection from 192.168.65.1:57765 on port 1883.
+1773026907: New client connected from 192.168.65.1:57765 as c39626c3c3f94d08b2745f1f86298fc3 (p5, c1, k60).
+1773027213: Client c39626c3c3f94d08b2745f1f86298fc3 disconnected.
+1773027213: New connection from 192.168.65.1:46002 on port 1883.
+1773027213: New client connected from 192.168.65.1:46002 as ed04980b51334d74a13edf0e50ab2f74 (p5, c1, k60).
+1773027267: Client ed04980b51334d74a13edf0e50ab2f74 disconnected.
+1773027268: New connection from 192.168.65.1:64623 on port 1883.
+1773027268: New client connected from 192.168.65.1:64623 as 9d01b062bd684826a2be53f16e0e64dd (p5, c1, k60).
+1773027596: Client 9d01b062bd684826a2be53f16e0e64dd disconnected.
+1773027597: New connection from 192.168.65.1:25295 on port 1883.
+1773027597: New client connected from 192.168.65.1:25295 as a5d438deaf2e486bab59cde4b8d96f47 (p5, c1, k60).
+1773027603: Client a5d438deaf2e486bab59cde4b8d96f47 disconnected.
+1773027604: New connection from 192.168.65.1:51134 on port 1883.
+1773027604: New client connected from 192.168.65.1:51134 as d152b00bbe054235a3dacbeffeeea4b1 (p5, c1, k60).
+1773027626: Client d152b00bbe054235a3dacbeffeeea4b1 disconnected.
+1773027626: New connection from 192.168.65.1:39340 on port 1883.
+1773027626: New client connected from 192.168.65.1:39340 as 3e4e2b1e5224497daa23fbc20dd2423f (p5, c1, k60).
+1773028017: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773031843: Client 3e4e2b1e5224497daa23fbc20dd2423f disconnected.
+1773031844: New connection from 192.168.65.1:28656 on port 1883.
+1773031844: New client connected from 192.168.65.1:28656 as baaa494ecad44c0a9b4ea865b2ab7227 (p5, c1, k60).
+1773031868: Client baaa494ecad44c0a9b4ea865b2ab7227 disconnected.
+1773031868: New connection from 192.168.65.1:50191 on port 1883.
+1773031868: New client connected from 192.168.65.1:50191 as 77a6426bd9af428a819f42cf603388d9 (p5, c1, k60).
+1773031885: Client 77a6426bd9af428a819f42cf603388d9 disconnected.
+1773031885: New connection from 192.168.65.1:37407 on port 1883.
+1773031885: New client connected from 192.168.65.1:37407 as 6f6834f184544768b75ae1eaaede634b (p5, c1, k60).
+1773031891: Client 6f6834f184544768b75ae1eaaede634b disconnected.
+1773031891: New connection from 192.168.65.1:32166 on port 1883.
+1773031891: New client connected from 192.168.65.1:32166 as 50c05c0371854d02a6d110f19506b826 (p5, c1, k60).
+1773032133: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773032171: Client 50c05c0371854d02a6d110f19506b826 disconnected.
+1773032173: New connection from 192.168.65.1:31571 on port 1883.
+1773032173: New client connected from 192.168.65.1:31571 as 9973287566e444b99591ff67451e4574 (p5, c1, k60).
+1773032205: Client 9973287566e444b99591ff67451e4574 disconnected.
+1773032206: New connection from 192.168.65.1:63604 on port 1883.
+1773032206: New client connected from 192.168.65.1:63604 as 3b9296419d5442439f22ee0da9a5f86f (p5, c1, k60).
+1773032251: Client 3b9296419d5442439f22ee0da9a5f86f disconnected.
+1773032253: New connection from 192.168.65.1:57352 on port 1883.
+1773032253: New client connected from 192.168.65.1:57352 as 41c44e6709194e48a65b0b84e2155cc1 (p5, c1, k60).
+1773032910: Client 41c44e6709194e48a65b0b84e2155cc1 disconnected.
+1773032911: New connection from 192.168.65.1:46523 on port 1883.
+1773032911: New client connected from 192.168.65.1:46523 as 69f8f66a8f6241cfbd3c8af030204b02 (p5, c1, k60).
+1773033934: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773035735: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773035755: Client 69f8f66a8f6241cfbd3c8af030204b02 disconnected.
+1773035756: New connection from 192.168.65.1:57912 on port 1883.
+1773035756: New client connected from 192.168.65.1:57912 as e7f0b005e51b49a981e3dd9c3e3d8c85 (p5, c1, k60).
+1773037047: Client e7f0b005e51b49a981e3dd9c3e3d8c85 disconnected.
+1773037048: New connection from 192.168.65.1:30631 on port 1883.
+1773037048: New client connected from 192.168.65.1:30631 as 6f04df4ebaf442a29b05bd5ce6f14f6e (p5, c1, k60).
+1773037079: Client 6f04df4ebaf442a29b05bd5ce6f14f6e disconnected.
+1773037080: New connection from 192.168.65.1:44814 on port 1883.
+1773037080: New client connected from 192.168.65.1:44814 as bbc0f30680e4461683cf6b41dc65a66c (p5, c1, k60).
+1773037223: Client bbc0f30680e4461683cf6b41dc65a66c disconnected.
+1773037224: New connection from 192.168.65.1:32233 on port 1883.
+1773037224: New client connected from 192.168.65.1:32233 as be072eb707ba45199583f003e1c44b26 (p5, c1, k60).
+1773037721: Client be072eb707ba45199583f003e1c44b26 disconnected.
+1773037722: New connection from 192.168.65.1:26393 on port 1883.
+1773037722: New client connected from 192.168.65.1:26393 as 0128d446b0ca47d089e6d27409fbc6e1 (p5, c1, k60).
+1773038037: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773039231: Client 0128d446b0ca47d089e6d27409fbc6e1 disconnected.
+1773039231: New connection from 192.168.65.1:38751 on port 1883.
+1773039231: New client connected from 192.168.65.1:38751 as c5067faad63a49fa8ae04c699b84b2f6 (p5, c1, k60).
+1773039235: Client c5067faad63a49fa8ae04c699b84b2f6 disconnected.
+1773039235: New connection from 192.168.65.1:43459 on port 1883.
+1773039235: New client connected from 192.168.65.1:43459 as a6628639b742411faa816867ab672dbb (p5, c1, k60).
+1773039245: Client a6628639b742411faa816867ab672dbb disconnected.
+1773039246: New connection from 192.168.65.1:27351 on port 1883.
+1773039246: New client connected from 192.168.65.1:27351 as 6938b54a5bd64fbaa422a14944025f02 (p5, c1, k60).
+1773039298: Client 6938b54a5bd64fbaa422a14944025f02 disconnected.
+1773039299: New connection from 192.168.65.1:36878 on port 1883.
+1773039299: New client connected from 192.168.65.1:36878 as c2f36e39923e4723b3bf15a6ca18fa2a (p5, c1, k60).
+1773039385: Client c2f36e39923e4723b3bf15a6ca18fa2a disconnected.
+1773039385: New connection from 192.168.65.1:19044 on port 1883.
+1773039385: New client connected from 192.168.65.1:19044 as 25102e77b1574aea87a420a944ecdb94 (p5, c1, k60).
+1773039424: Client 25102e77b1574aea87a420a944ecdb94 disconnected.
+1773039425: New connection from 192.168.65.1:28201 on port 1883.
+1773039425: New client connected from 192.168.65.1:28201 as 1c899a1b906842af9734af4afe10cb7a (p5, c1, k60).
+1773039481: Client 1c899a1b906842af9734af4afe10cb7a disconnected.
+1773039482: New connection from 192.168.65.1:36886 on port 1883.
+1773039482: New client connected from 192.168.65.1:36886 as 5ceb6b57ef7c407dad5b6f880bf7862c (p5, c1, k60).
+1773039744: Client 5ceb6b57ef7c407dad5b6f880bf7862c disconnected.
+1773039745: New connection from 192.168.65.1:36728 on port 1883.
+1773039745: New client connected from 192.168.65.1:36728 as e23ca66de47046809db48082d96e69d2 (p5, c1, k60).
+1773039838: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773039904: Client e23ca66de47046809db48082d96e69d2 disconnected.
+1773039905: New connection from 192.168.65.1:18707 on port 1883.
+1773039905: New client connected from 192.168.65.1:18707 as 346fdf7671e949349534b7add52f2fab (p5, c1, k60).
+1773039939: Client 346fdf7671e949349534b7add52f2fab disconnected.
+1773041380: New connection from 192.168.65.1:63755 on port 1883.
+1773041380: New client connected from 192.168.65.1:63755 as be94bb5120bc4137919ceb3cd38bc81e (p5, c1, k60).
+1773041409: Client be94bb5120bc4137919ceb3cd38bc81e disconnected.
+1773041410: New connection from 192.168.65.1:36788 on port 1883.
+1773041410: New client connected from 192.168.65.1:36788 as bf9771d046614c399f96a793c1a1dfed (p5, c1, k60).
+1773041430: Client bf9771d046614c399f96a793c1a1dfed disconnected.
+1773041431: New connection from 192.168.65.1:55713 on port 1883.
+1773041431: New client connected from 192.168.65.1:55713 as eab45d350476429e89d7eb28914bd226 (p5, c1, k60).
+1773041459: Client eab45d350476429e89d7eb28914bd226 disconnected.
+1773041461: New connection from 192.168.65.1:65458 on port 1883.
+1773041461: New client connected from 192.168.65.1:65458 as 502b9bf2b41649bba11f0b822f77bcb6 (p5, c1, k60).
+1773041466: New connection from 192.168.65.1:46120 on port 1883.
+1773041466: New client connected from 192.168.65.1:46120 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041466: Client 6e6c225c296047b48e43051584f49436 disconnected.
+1773041466: New connection from 192.168.65.1:43601 on port 1883.
+1773041466: New client connected from 192.168.65.1:43601 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041466: New connection from 192.168.65.1:47304 on port 1883.
+1773041466: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041466: New client connected from 192.168.65.1:47304 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041466: Client 6e6c225c296047b48e43051584f49436 disconnected.
+1773041466: New connection from 192.168.65.1:65292 on port 1883.
+1773041466: New client connected from 192.168.65.1:65292 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041466: New connection from 192.168.65.1:43276 on port 1883.
+1773041466: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041466: New client connected from 192.168.65.1:43276 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041467: New connection from 192.168.65.1:52141 on port 1883.
+1773041467: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041467: New client connected from 192.168.65.1:52141 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041467: New connection from 192.168.65.1:56669 on port 1883.
+1773041467: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041467: New client connected from 192.168.65.1:56669 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041467: New connection from 192.168.65.1:44884 on port 1883.
+1773041467: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041467: New client connected from 192.168.65.1:44884 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041467: New connection from 192.168.65.1:21143 on port 1883.
+1773041467: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041467: New client connected from 192.168.65.1:21143 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041467: New connection from 192.168.65.1:42480 on port 1883.
+1773041467: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041467: New client connected from 192.168.65.1:42480 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041467: New connection from 192.168.65.1:17223 on port 1883.
+1773041467: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041467: New client connected from 192.168.65.1:17223 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041468: New connection from 192.168.65.1:18804 on port 1883.
+1773041468: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041468: New client connected from 192.168.65.1:18804 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041468: Client 6e6c225c296047b48e43051584f49436 disconnected.
+1773041468: New connection from 192.168.65.1:65250 on port 1883.
+1773041468: New client connected from 192.168.65.1:65250 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041468: New connection from 192.168.65.1:26644 on port 1883.
+1773041468: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041468: New client connected from 192.168.65.1:26644 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041468: Client 6e6c225c296047b48e43051584f49436 disconnected.
+1773041468: New connection from 192.168.65.1:21601 on port 1883.
+1773041468: New client connected from 192.168.65.1:21601 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041468: New connection from 192.168.65.1:49444 on port 1883.
+1773041468: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041468: New client connected from 192.168.65.1:49444 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041468: Client 6e6c225c296047b48e43051584f49436 disconnected.
+1773041468: New connection from 192.168.65.1:28691 on port 1883.
+1773041468: New client connected from 192.168.65.1:28691 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041468: New connection from 192.168.65.1:39673 on port 1883.
+1773041468: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041468: New client connected from 192.168.65.1:39673 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041468: New connection from 192.168.65.1:23162 on port 1883.
+1773041468: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041468: New client connected from 192.168.65.1:23162 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041468: New connection from 192.168.65.1:45706 on port 1883.
+1773041468: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041468: New client connected from 192.168.65.1:45706 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041469: New connection from 192.168.65.1:33947 on port 1883.
+1773041469: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041469: New client connected from 192.168.65.1:33947 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041469: New connection from 192.168.65.1:22424 on port 1883.
+1773041469: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041469: New client connected from 192.168.65.1:22424 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041469: New connection from 192.168.65.1:24986 on port 1883.
+1773041469: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041469: New client connected from 192.168.65.1:24986 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041469: New connection from 192.168.65.1:32190 on port 1883.
+1773041469: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041469: New client connected from 192.168.65.1:32190 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041469: New connection from 192.168.65.1:27082 on port 1883.
+1773041469: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041469: New client connected from 192.168.65.1:27082 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041469: New connection from 192.168.65.1:44786 on port 1883.
+1773041469: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041469: New client connected from 192.168.65.1:44786 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041469: Client 6e6c225c296047b48e43051584f49436 disconnected.
+1773041469: New connection from 192.168.65.1:24421 on port 1883.
+1773041469: New client connected from 192.168.65.1:24421 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041470: New connection from 192.168.65.1:25751 on port 1883.
+1773041470: Client 6e6c225c296047b48e43051584f49436 already connected, closing old connection.
+1773041470: New client connected from 192.168.65.1:25751 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041470: Client 6e6c225c296047b48e43051584f49436 disconnected.
+1773041470: New connection from 192.168.65.1:37783 on port 1883.
+1773041470: New client connected from 192.168.65.1:37783 as 6e6c225c296047b48e43051584f49436 (p5, c1, k60).
+1773041470: Client 6e6c225c296047b48e43051584f49436 closed its connection.
+1773041639: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773041676: Client 502b9bf2b41649bba11f0b822f77bcb6 disconnected.
+1773041677: New connection from 192.168.65.1:61222 on port 1883.
+1773041677: New client connected from 192.168.65.1:61222 as 66bab7889de747d38580f8d55632fbb6 (p5, c1, k60).
+1773041681: New connection from 192.168.65.1:21056 on port 1883.
+1773041681: New client connected from 192.168.65.1:21056 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041681: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 disconnected.
+1773041681: New connection from 192.168.65.1:52161 on port 1883.
+1773041681: New client connected from 192.168.65.1:52161 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041682: New connection from 192.168.65.1:44035 on port 1883.
+1773041682: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041682: New client connected from 192.168.65.1:44035 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041682: New connection from 192.168.65.1:47994 on port 1883.
+1773041682: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041682: New client connected from 192.168.65.1:47994 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041682: New connection from 192.168.65.1:40926 on port 1883.
+1773041682: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041682: New client connected from 192.168.65.1:40926 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041682: New connection from 192.168.65.1:48717 on port 1883.
+1773041682: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041682: New client connected from 192.168.65.1:48717 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041682: New connection from 192.168.65.1:51257 on port 1883.
+1773041682: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041682: New client connected from 192.168.65.1:51257 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041683: New connection from 192.168.65.1:19716 on port 1883.
+1773041683: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041683: New client connected from 192.168.65.1:19716 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041683: New connection from 192.168.65.1:37859 on port 1883.
+1773041683: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041683: New client connected from 192.168.65.1:37859 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041683: New connection from 192.168.65.1:44158 on port 1883.
+1773041683: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041683: New client connected from 192.168.65.1:44158 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041683: New connection from 192.168.65.1:37687 on port 1883.
+1773041683: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041683: New client connected from 192.168.65.1:37687 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041683: New connection from 192.168.65.1:54855 on port 1883.
+1773041683: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041683: New client connected from 192.168.65.1:54855 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041684: New connection from 192.168.65.1:64486 on port 1883.
+1773041684: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041684: New client connected from 192.168.65.1:64486 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041684: New connection from 192.168.65.1:44388 on port 1883.
+1773041684: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041684: New client connected from 192.168.65.1:44388 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041684: New connection from 192.168.65.1:55723 on port 1883.
+1773041684: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041684: New client connected from 192.168.65.1:55723 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041684: New connection from 192.168.65.1:31166 on port 1883.
+1773041684: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041684: New client connected from 192.168.65.1:31166 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041684: New connection from 192.168.65.1:33918 on port 1883.
+1773041684: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041684: New client connected from 192.168.65.1:33918 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041684: New connection from 192.168.65.1:64304 on port 1883.
+1773041684: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041684: New client connected from 192.168.65.1:64304 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041684: New connection from 192.168.65.1:64227 on port 1883.
+1773041684: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041684: New client connected from 192.168.65.1:64227 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041685: New connection from 192.168.65.1:41019 on port 1883.
+1773041685: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041685: New client connected from 192.168.65.1:41019 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041685: New connection from 192.168.65.1:54449 on port 1883.
+1773041685: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041685: New client connected from 192.168.65.1:54449 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041685: New connection from 192.168.65.1:22521 on port 1883.
+1773041685: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041685: New client connected from 192.168.65.1:22521 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041685: New connection from 192.168.65.1:24234 on port 1883.
+1773041685: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041685: New client connected from 192.168.65.1:24234 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041685: New connection from 192.168.65.1:31051 on port 1883.
+1773041685: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041685: New client connected from 192.168.65.1:31051 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041685: New connection from 192.168.65.1:63562 on port 1883.
+1773041685: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041685: New client connected from 192.168.65.1:63562 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041685: New connection from 192.168.65.1:18149 on port 1883.
+1773041685: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041685: New client connected from 192.168.65.1:18149 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041686: New connection from 192.168.65.1:56113 on port 1883.
+1773041686: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041686: New client connected from 192.168.65.1:56113 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041686: New connection from 192.168.65.1:21070 on port 1883.
+1773041686: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041686: New client connected from 192.168.65.1:21070 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041686: New connection from 192.168.65.1:21550 on port 1883.
+1773041686: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 already connected, closing old connection.
+1773041686: New client connected from 192.168.65.1:21550 as 28d86e8bb2eb4e3ebfa55ec83915bc02 (p5, c1, k60).
+1773041686: Client 28d86e8bb2eb4e3ebfa55ec83915bc02 closed its connection.
+1773041931: Client 66bab7889de747d38580f8d55632fbb6 disconnected.
+1773041933: New connection from 192.168.65.1:43188 on port 1883.
+1773041933: New client connected from 192.168.65.1:43188 as 72eeb71d8d4a40a9881843c3238cc9a9 (p5, c1, k60).
+1773041948: Client 72eeb71d8d4a40a9881843c3238cc9a9 disconnected.
+1773041949: New connection from 192.168.65.1:50067 on port 1883.
+1773041949: New client connected from 192.168.65.1:50067 as 22481886048c49d183750ae1be0bd95b (p5, c1, k60).
+1773041952: New connection from 192.168.65.1:27930 on port 1883.
+1773041952: New client connected from 192.168.65.1:27930 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041952: Client 1ddf3de947cc49ea99d8c78f330b7121 disconnected.
+1773041952: New connection from 192.168.65.1:29809 on port 1883.
+1773041952: New client connected from 192.168.65.1:29809 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041953: New connection from 192.168.65.1:32615 on port 1883.
+1773041953: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041953: New client connected from 192.168.65.1:32615 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041953: Client 1ddf3de947cc49ea99d8c78f330b7121 disconnected.
+1773041953: New connection from 192.168.65.1:16779 on port 1883.
+1773041953: New client connected from 192.168.65.1:16779 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041953: New connection from 192.168.65.1:21394 on port 1883.
+1773041953: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041953: New client connected from 192.168.65.1:21394 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041953: New connection from 192.168.65.1:35555 on port 1883.
+1773041953: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041953: New client connected from 192.168.65.1:35555 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041953: New connection from 192.168.65.1:56324 on port 1883.
+1773041953: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041953: New client connected from 192.168.65.1:56324 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041953: New connection from 192.168.65.1:30991 on port 1883.
+1773041953: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041953: New client connected from 192.168.65.1:30991 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041953: New connection from 192.168.65.1:55313 on port 1883.
+1773041953: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041953: New client connected from 192.168.65.1:55313 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041954: New connection from 192.168.65.1:34195 on port 1883.
+1773041954: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041954: New client connected from 192.168.65.1:34195 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041954: New connection from 192.168.65.1:37986 on port 1883.
+1773041954: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041954: New client connected from 192.168.65.1:37986 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041954: New connection from 192.168.65.1:51321 on port 1883.
+1773041954: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041954: New client connected from 192.168.65.1:51321 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041954: New connection from 192.168.65.1:58254 on port 1883.
+1773041954: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041954: New client connected from 192.168.65.1:58254 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041954: New connection from 192.168.65.1:38212 on port 1883.
+1773041954: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041954: New client connected from 192.168.65.1:38212 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041954: New connection from 192.168.65.1:47487 on port 1883.
+1773041954: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041954: New client connected from 192.168.65.1:47487 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041954: New connection from 192.168.65.1:54452 on port 1883.
+1773041954: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041954: New client connected from 192.168.65.1:54452 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041955: New connection from 192.168.65.1:41377 on port 1883.
+1773041955: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041955: New client connected from 192.168.65.1:41377 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041955: New connection from 192.168.65.1:42391 on port 1883.
+1773041955: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041955: New client connected from 192.168.65.1:42391 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041955: New connection from 192.168.65.1:35337 on port 1883.
+1773041955: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041955: New client connected from 192.168.65.1:35337 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041955: New connection from 192.168.65.1:52133 on port 1883.
+1773041955: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041955: New client connected from 192.168.65.1:52133 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041955: New connection from 192.168.65.1:39776 on port 1883.
+1773041955: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041955: New client connected from 192.168.65.1:39776 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041955: New connection from 192.168.65.1:42031 on port 1883.
+1773041955: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041955: New client connected from 192.168.65.1:42031 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041955: New connection from 192.168.65.1:42010 on port 1883.
+1773041955: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041955: New client connected from 192.168.65.1:42010 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041956: New connection from 192.168.65.1:59232 on port 1883.
+1773041956: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041956: New client connected from 192.168.65.1:59232 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041956: New connection from 192.168.65.1:41426 on port 1883.
+1773041956: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041956: New client connected from 192.168.65.1:41426 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041956: New connection from 192.168.65.1:54048 on port 1883.
+1773041956: Client 1ddf3de947cc49ea99d8c78f330b7121 already connected, closing old connection.
+1773041956: New client connected from 192.168.65.1:54048 as 1ddf3de947cc49ea99d8c78f330b7121 (p5, c1, k60).
+1773041957: Client 1ddf3de947cc49ea99d8c78f330b7121 closed its connection.
+1773042020: Client 22481886048c49d183750ae1be0bd95b disconnected.
+1773042021: New connection from 192.168.65.1:45884 on port 1883.
+1773042021: New client connected from 192.168.65.1:45884 as 5786bd32d73440f5865c7c01e3ff7297 (p5, c1, k60).
+1773042045: Client 5786bd32d73440f5865c7c01e3ff7297 disconnected.
+1773042046: New connection from 192.168.65.1:19310 on port 1883.
+1773042046: New client connected from 192.168.65.1:19310 as d8181a94dc0c4755858aa44ae69e22b8 (p5, c1, k60).
+1773042064: Client d8181a94dc0c4755858aa44ae69e22b8 disconnected.
+1773042065: New connection from 192.168.65.1:32852 on port 1883.
+1773042065: New client connected from 192.168.65.1:32852 as 3c7865efc8e5405dbe278368c2a14351 (p5, c1, k60).
+1773042088: Client 3c7865efc8e5405dbe278368c2a14351 disconnected.
+1773042089: New connection from 192.168.65.1:30098 on port 1883.
+1773042089: New client connected from 192.168.65.1:30098 as bb816b7cceb44fa5b9ad413974ccc388 (p5, c1, k60).
+1773042117: New connection from 192.168.65.1:50060 on port 1883.
+1773042117: New client connected from 192.168.65.1:50060 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042117: Client 6ea8889642654b799834911f656d8309 disconnected.
+1773042117: New connection from 192.168.65.1:18482 on port 1883.
+1773042117: New client connected from 192.168.65.1:18482 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042117: New connection from 192.168.65.1:46979 on port 1883.
+1773042117: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042117: New client connected from 192.168.65.1:46979 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042117: Client 6ea8889642654b799834911f656d8309 disconnected.
+1773042117: New connection from 192.168.65.1:62008 on port 1883.
+1773042117: New client connected from 192.168.65.1:62008 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042117: New connection from 192.168.65.1:23015 on port 1883.
+1773042117: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042117: New client connected from 192.168.65.1:23015 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042117: New connection from 192.168.65.1:17387 on port 1883.
+1773042117: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042117: New client connected from 192.168.65.1:17387 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042118: New connection from 192.168.65.1:61905 on port 1883.
+1773042118: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042118: New client connected from 192.168.65.1:61905 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042118: New connection from 192.168.65.1:56017 on port 1883.
+1773042118: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042118: New client connected from 192.168.65.1:56017 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042118: New connection from 192.168.65.1:46450 on port 1883.
+1773042118: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042118: New client connected from 192.168.65.1:46450 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042118: New connection from 192.168.65.1:33286 on port 1883.
+1773042118: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042118: New client connected from 192.168.65.1:33286 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042118: New connection from 192.168.65.1:43933 on port 1883.
+1773042118: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042118: New client connected from 192.168.65.1:43933 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042118: New connection from 192.168.65.1:41670 on port 1883.
+1773042118: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042118: New client connected from 192.168.65.1:41670 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042119: New connection from 192.168.65.1:19426 on port 1883.
+1773042119: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042119: New client connected from 192.168.65.1:19426 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042119: New connection from 192.168.65.1:60005 on port 1883.
+1773042119: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042119: New client connected from 192.168.65.1:60005 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042119: New connection from 192.168.65.1:53235 on port 1883.
+1773042119: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042119: New client connected from 192.168.65.1:53235 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042119: New connection from 192.168.65.1:26147 on port 1883.
+1773042119: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042119: New client connected from 192.168.65.1:26147 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042119: New connection from 192.168.65.1:19828 on port 1883.
+1773042119: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042119: New client connected from 192.168.65.1:19828 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042119: New connection from 192.168.65.1:47802 on port 1883.
+1773042119: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042119: New client connected from 192.168.65.1:47802 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042119: New connection from 192.168.65.1:55496 on port 1883.
+1773042119: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042119: New client connected from 192.168.65.1:55496 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042120: New connection from 192.168.65.1:65214 on port 1883.
+1773042120: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042120: New client connected from 192.168.65.1:65214 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042120: New connection from 192.168.65.1:38589 on port 1883.
+1773042120: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042120: New client connected from 192.168.65.1:38589 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042120: New connection from 192.168.65.1:55690 on port 1883.
+1773042120: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042120: New client connected from 192.168.65.1:55690 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042120: New connection from 192.168.65.1:36004 on port 1883.
+1773042120: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042120: New client connected from 192.168.65.1:36004 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042120: New connection from 192.168.65.1:22696 on port 1883.
+1773042120: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042120: New client connected from 192.168.65.1:22696 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042120: New connection from 192.168.65.1:52759 on port 1883.
+1773042120: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042120: New client connected from 192.168.65.1:52759 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042120: New connection from 192.168.65.1:48501 on port 1883.
+1773042120: Client 6ea8889642654b799834911f656d8309 already connected, closing old connection.
+1773042120: New client connected from 192.168.65.1:48501 as 6ea8889642654b799834911f656d8309 (p5, c1, k60).
+1773042121: Client 6ea8889642654b799834911f656d8309 closed its connection.
+1773042668: Client bb816b7cceb44fa5b9ad413974ccc388 disconnected.
+1773042669: New connection from 192.168.65.1:16186 on port 1883.
+1773042669: New client connected from 192.168.65.1:16186 as 6a91f78b5b334a3ba6239e8254314045 (p5, c1, k60).
+1773042675: New connection from 192.168.65.1:31309 on port 1883.
+1773042675: New client connected from 192.168.65.1:31309 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042675: Client e74250a86f1c4bb4bf763bf5ad8d3280 disconnected.
+1773042675: New connection from 192.168.65.1:38448 on port 1883.
+1773042675: New client connected from 192.168.65.1:38448 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042675: New connection from 192.168.65.1:19068 on port 1883.
+1773042675: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042675: New client connected from 192.168.65.1:19068 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042675: Client e74250a86f1c4bb4bf763bf5ad8d3280 disconnected.
+1773042675: New connection from 192.168.65.1:44423 on port 1883.
+1773042675: New client connected from 192.168.65.1:44423 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042675: New connection from 192.168.65.1:42602 on port 1883.
+1773042675: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042675: New client connected from 192.168.65.1:42602 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042675: New connection from 192.168.65.1:59834 on port 1883.
+1773042675: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042675: New client connected from 192.168.65.1:59834 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042675: New connection from 192.168.65.1:58637 on port 1883.
+1773042675: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042675: New client connected from 192.168.65.1:58637 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042676: New connection from 192.168.65.1:38736 on port 1883.
+1773042676: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042676: New client connected from 192.168.65.1:38736 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042676: New connection from 192.168.65.1:16516 on port 1883.
+1773042676: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042676: New client connected from 192.168.65.1:16516 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042676: New connection from 192.168.65.1:19841 on port 1883.
+1773042676: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042676: New client connected from 192.168.65.1:19841 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042676: New connection from 192.168.65.1:63245 on port 1883.
+1773042676: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042676: New client connected from 192.168.65.1:63245 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042676: New connection from 192.168.65.1:44908 on port 1883.
+1773042676: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042676: New client connected from 192.168.65.1:44908 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042676: New connection from 192.168.65.1:36857 on port 1883.
+1773042676: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042676: New client connected from 192.168.65.1:36857 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042677: New connection from 192.168.65.1:51083 on port 1883.
+1773042677: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042677: New client connected from 192.168.65.1:51083 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042677: New connection from 192.168.65.1:49092 on port 1883.
+1773042677: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042677: New client connected from 192.168.65.1:49092 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042677: New connection from 192.168.65.1:53551 on port 1883.
+1773042677: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042677: New client connected from 192.168.65.1:53551 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042677: New connection from 192.168.65.1:27519 on port 1883.
+1773042677: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042677: New client connected from 192.168.65.1:27519 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042677: New connection from 192.168.65.1:35664 on port 1883.
+1773042677: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042677: New client connected from 192.168.65.1:35664 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042677: New connection from 192.168.65.1:39034 on port 1883.
+1773042677: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042677: New client connected from 192.168.65.1:39034 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042677: New connection from 192.168.65.1:61158 on port 1883.
+1773042677: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042677: New client connected from 192.168.65.1:61158 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042678: New connection from 192.168.65.1:60731 on port 1883.
+1773042678: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042678: New client connected from 192.168.65.1:60731 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042678: New connection from 192.168.65.1:37935 on port 1883.
+1773042678: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042678: New client connected from 192.168.65.1:37935 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042678: New connection from 192.168.65.1:36038 on port 1883.
+1773042678: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042678: New client connected from 192.168.65.1:36038 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042678: New connection from 192.168.65.1:46263 on port 1883.
+1773042678: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042678: New client connected from 192.168.65.1:46263 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042678: New connection from 192.168.65.1:47370 on port 1883.
+1773042678: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042678: New client connected from 192.168.65.1:47370 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042678: New connection from 192.168.65.1:35903 on port 1883.
+1773042678: Client e74250a86f1c4bb4bf763bf5ad8d3280 already connected, closing old connection.
+1773042678: New client connected from 192.168.65.1:35903 as e74250a86f1c4bb4bf763bf5ad8d3280 (p5, c1, k60).
+1773042679: Client e74250a86f1c4bb4bf763bf5ad8d3280 closed its connection.
+1773042788: Client 6a91f78b5b334a3ba6239e8254314045 disconnected.
+1773042789: New connection from 192.168.65.1:57790 on port 1883.
+1773042789: New client connected from 192.168.65.1:57790 as e2242c316b4b4a90ab0e43cfe696a97c (p5, c1, k60).
+1773042814: Client e2242c316b4b4a90ab0e43cfe696a97c disconnected.
+1773042814: New connection from 192.168.65.1:19229 on port 1883.
+1773042814: New client connected from 192.168.65.1:19229 as cd53337c6c4e4733840742112c11bdc0 (p5, c1, k60).
+1773042818: Client cd53337c6c4e4733840742112c11bdc0 disconnected.
+1773042819: New connection from 192.168.65.1:21066 on port 1883.
+1773042819: New client connected from 192.168.65.1:21066 as aa8fdb1a7a6d465192cca938d2c1cdb2 (p5, c1, k60).
+1773042825: New connection from 192.168.65.1:22478 on port 1883.
+1773042825: New client connected from 192.168.65.1:22478 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042825: Client 3b4d27a535eb4318b135ad25029d40d9 disconnected.
+1773042825: New connection from 192.168.65.1:50862 on port 1883.
+1773042825: New client connected from 192.168.65.1:50862 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042825: New connection from 192.168.65.1:53211 on port 1883.
+1773042825: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042825: New client connected from 192.168.65.1:53211 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042826: Client 3b4d27a535eb4318b135ad25029d40d9 disconnected.
+1773042826: New connection from 192.168.65.1:45322 on port 1883.
+1773042826: New client connected from 192.168.65.1:45322 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042826: New connection from 192.168.65.1:28249 on port 1883.
+1773042826: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042826: New client connected from 192.168.65.1:28249 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042826: New connection from 192.168.65.1:62782 on port 1883.
+1773042826: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042826: New client connected from 192.168.65.1:62782 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042826: New connection from 192.168.65.1:51354 on port 1883.
+1773042826: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042826: New client connected from 192.168.65.1:51354 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042826: New connection from 192.168.65.1:44458 on port 1883.
+1773042826: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042826: New client connected from 192.168.65.1:44458 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042826: New connection from 192.168.65.1:44213 on port 1883.
+1773042826: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042826: New client connected from 192.168.65.1:44213 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042827: New connection from 192.168.65.1:47610 on port 1883.
+1773042827: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042827: New client connected from 192.168.65.1:47610 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042827: New connection from 192.168.65.1:36349 on port 1883.
+1773042827: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042827: New client connected from 192.168.65.1:36349 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042827: New connection from 192.168.65.1:43177 on port 1883.
+1773042827: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042827: New client connected from 192.168.65.1:43177 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042827: New connection from 192.168.65.1:58153 on port 1883.
+1773042827: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042827: New client connected from 192.168.65.1:58153 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042827: New connection from 192.168.65.1:46924 on port 1883.
+1773042827: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042827: New client connected from 192.168.65.1:46924 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042827: New connection from 192.168.65.1:47517 on port 1883.
+1773042827: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042827: New client connected from 192.168.65.1:47517 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042828: New connection from 192.168.65.1:19495 on port 1883.
+1773042828: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042828: New client connected from 192.168.65.1:19495 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042828: New connection from 192.168.65.1:44049 on port 1883.
+1773042828: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042828: New client connected from 192.168.65.1:44049 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042828: New connection from 192.168.65.1:64261 on port 1883.
+1773042828: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042828: New client connected from 192.168.65.1:64261 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042828: New connection from 192.168.65.1:52757 on port 1883.
+1773042828: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042828: New client connected from 192.168.65.1:52757 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042828: New connection from 192.168.65.1:56967 on port 1883.
+1773042828: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042828: New client connected from 192.168.65.1:56967 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042828: New connection from 192.168.65.1:20350 on port 1883.
+1773042828: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042828: New client connected from 192.168.65.1:20350 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042828: New connection from 192.168.65.1:34139 on port 1883.
+1773042828: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042828: New client connected from 192.168.65.1:34139 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042829: New connection from 192.168.65.1:25497 on port 1883.
+1773042829: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042829: New client connected from 192.168.65.1:25497 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042829: New connection from 192.168.65.1:30588 on port 1883.
+1773042829: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042829: New client connected from 192.168.65.1:30588 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042829: New connection from 192.168.65.1:22798 on port 1883.
+1773042829: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042829: New client connected from 192.168.65.1:22798 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042829: New connection from 192.168.65.1:21013 on port 1883.
+1773042829: Client 3b4d27a535eb4318b135ad25029d40d9 already connected, closing old connection.
+1773042829: New client connected from 192.168.65.1:21013 as 3b4d27a535eb4318b135ad25029d40d9 (p5, c1, k60).
+1773042830: Client 3b4d27a535eb4318b135ad25029d40d9 closed its connection.
+1773042968: Client aa8fdb1a7a6d465192cca938d2c1cdb2 disconnected.
+1773043031: New connection from 192.168.65.1:24668 on port 1883.
+1773043031: New client connected from 192.168.65.1:24668 as e4f77d392b904d66833a8f3477406b57 (p5, c1, k60).
+1773043037: New connection from 192.168.65.1:47083 on port 1883.
+1773043037: New client connected from 192.168.65.1:47083 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043037: Client 35ff5f9f8c704ea4bdca40b8f32a477f disconnected.
+1773043037: New connection from 192.168.65.1:17737 on port 1883.
+1773043037: New client connected from 192.168.65.1:17737 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043038: New connection from 192.168.65.1:22436 on port 1883.
+1773043038: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043038: New client connected from 192.168.65.1:22436 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043038: Client 35ff5f9f8c704ea4bdca40b8f32a477f disconnected.
+1773043038: New connection from 192.168.65.1:45883 on port 1883.
+1773043038: New client connected from 192.168.65.1:45883 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043038: New connection from 192.168.65.1:55339 on port 1883.
+1773043038: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043038: New client connected from 192.168.65.1:55339 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043038: New connection from 192.168.65.1:53453 on port 1883.
+1773043038: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043038: New client connected from 192.168.65.1:53453 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043038: New connection from 192.168.65.1:45594 on port 1883.
+1773043038: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043038: New client connected from 192.168.65.1:45594 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043039: New connection from 192.168.65.1:58659 on port 1883.
+1773043039: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043039: New client connected from 192.168.65.1:58659 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043039: New connection from 192.168.65.1:21799 on port 1883.
+1773043039: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043039: New client connected from 192.168.65.1:21799 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043039: New connection from 192.168.65.1:43546 on port 1883.
+1773043039: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043039: New client connected from 192.168.65.1:43546 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043039: New connection from 192.168.65.1:58518 on port 1883.
+1773043039: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043039: New client connected from 192.168.65.1:58518 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043039: New connection from 192.168.65.1:23165 on port 1883.
+1773043039: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043039: New client connected from 192.168.65.1:23165 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043039: New connection from 192.168.65.1:25962 on port 1883.
+1773043039: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043039: New client connected from 192.168.65.1:25962 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043039: New connection from 192.168.65.1:48811 on port 1883.
+1773043039: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043039: New client connected from 192.168.65.1:48811 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043040: New connection from 192.168.65.1:35695 on port 1883.
+1773043040: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043040: New client connected from 192.168.65.1:35695 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043040: New connection from 192.168.65.1:49976 on port 1883.
+1773043040: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043040: New client connected from 192.168.65.1:49976 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043040: New connection from 192.168.65.1:55108 on port 1883.
+1773043040: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043040: New client connected from 192.168.65.1:55108 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043040: New connection from 192.168.65.1:56689 on port 1883.
+1773043040: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043040: New client connected from 192.168.65.1:56689 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043040: New connection from 192.168.65.1:23704 on port 1883.
+1773043040: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043040: New client connected from 192.168.65.1:23704 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043040: New connection from 192.168.65.1:30268 on port 1883.
+1773043040: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043040: New client connected from 192.168.65.1:30268 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043040: New connection from 192.168.65.1:36548 on port 1883.
+1773043040: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043040: New client connected from 192.168.65.1:36548 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043041: New connection from 192.168.65.1:19504 on port 1883.
+1773043041: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043041: New client connected from 192.168.65.1:19504 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043041: New connection from 192.168.65.1:54740 on port 1883.
+1773043041: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043041: New client connected from 192.168.65.1:54740 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043041: New connection from 192.168.65.1:44832 on port 1883.
+1773043041: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043041: New client connected from 192.168.65.1:44832 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043041: New connection from 192.168.65.1:18187 on port 1883.
+1773043041: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043041: New client connected from 192.168.65.1:18187 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043041: New connection from 192.168.65.1:34585 on port 1883.
+1773043041: Client 35ff5f9f8c704ea4bdca40b8f32a477f already connected, closing old connection.
+1773043041: New client connected from 192.168.65.1:34585 as 35ff5f9f8c704ea4bdca40b8f32a477f (p5, c1, k60).
+1773043042: Client 35ff5f9f8c704ea4bdca40b8f32a477f closed its connection.
+1773043367: New connection from 192.168.65.1:46728 on port 1883.
+1773043367: New client connected from 192.168.65.1:46728 as 44f863e26d994ab6916d0f1c1da6663f (p5, c1, k60).
+1773043368: Client 44f863e26d994ab6916d0f1c1da6663f disconnected.
+1773043379: New connection from 192.168.65.1:63249 on port 1883.
+1773043379: New client connected from 192.168.65.1:63249 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043379: Client 880fb29a5b624501a6b0564abab72476 disconnected.
+1773043379: New connection from 192.168.65.1:28293 on port 1883.
+1773043379: New client connected from 192.168.65.1:28293 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043379: New connection from 192.168.65.1:28417 on port 1883.
+1773043379: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043379: New client connected from 192.168.65.1:28417 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043380: Client 880fb29a5b624501a6b0564abab72476 disconnected.
+1773043380: New connection from 192.168.65.1:30150 on port 1883.
+1773043380: New client connected from 192.168.65.1:30150 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043380: New connection from 192.168.65.1:17469 on port 1883.
+1773043380: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043380: New client connected from 192.168.65.1:17469 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043380: New connection from 192.168.65.1:50248 on port 1883.
+1773043380: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043380: New client connected from 192.168.65.1:50248 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043380: New connection from 192.168.65.1:19151 on port 1883.
+1773043380: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043380: New client connected from 192.168.65.1:19151 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043380: New connection from 192.168.65.1:51509 on port 1883.
+1773043380: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043380: New client connected from 192.168.65.1:51509 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043380: New connection from 192.168.65.1:54438 on port 1883.
+1773043380: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043380: New client connected from 192.168.65.1:54438 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043381: New connection from 192.168.65.1:34861 on port 1883.
+1773043381: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043381: New client connected from 192.168.65.1:34861 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043381: New connection from 192.168.65.1:53640 on port 1883.
+1773043381: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043381: New client connected from 192.168.65.1:53640 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043381: New connection from 192.168.65.1:29873 on port 1883.
+1773043381: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043381: New client connected from 192.168.65.1:29873 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043381: New connection from 192.168.65.1:16006 on port 1883.
+1773043381: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043381: New client connected from 192.168.65.1:16006 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043381: New connection from 192.168.65.1:32679 on port 1883.
+1773043381: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043381: New client connected from 192.168.65.1:32679 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043381: New connection from 192.168.65.1:21215 on port 1883.
+1773043381: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043381: New client connected from 192.168.65.1:21215 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043381: New connection from 192.168.65.1:42113 on port 1883.
+1773043381: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043381: New client connected from 192.168.65.1:42113 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043382: New connection from 192.168.65.1:44552 on port 1883.
+1773043382: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043382: New client connected from 192.168.65.1:44552 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043382: New connection from 192.168.65.1:21733 on port 1883.
+1773043382: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043382: New client connected from 192.168.65.1:21733 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043382: New connection from 192.168.65.1:38277 on port 1883.
+1773043382: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043382: New client connected from 192.168.65.1:38277 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043382: New connection from 192.168.65.1:34860 on port 1883.
+1773043382: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043382: New client connected from 192.168.65.1:34860 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043382: New connection from 192.168.65.1:27578 on port 1883.
+1773043382: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043382: New client connected from 192.168.65.1:27578 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043382: New connection from 192.168.65.1:50657 on port 1883.
+1773043382: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043382: New client connected from 192.168.65.1:50657 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043382: New connection from 192.168.65.1:54244 on port 1883.
+1773043382: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043382: New client connected from 192.168.65.1:54244 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043383: New connection from 192.168.65.1:57452 on port 1883.
+1773043383: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043383: New client connected from 192.168.65.1:57452 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043383: New connection from 192.168.65.1:43852 on port 1883.
+1773043383: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043383: New client connected from 192.168.65.1:43852 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043383: New connection from 192.168.65.1:60213 on port 1883.
+1773043383: Client 880fb29a5b624501a6b0564abab72476 already connected, closing old connection.
+1773043383: New client connected from 192.168.65.1:60213 as 880fb29a5b624501a6b0564abab72476 (p5, c1, k60).
+1773043384: Client 880fb29a5b624501a6b0564abab72476 closed its connection.
+1773043541: Client e4f77d392b904d66833a8f3477406b57 disconnected.
+1773043542: New connection from 192.168.65.1:25686 on port 1883.
+1773043542: New client connected from 192.168.65.1:25686 as ef133f68ccfb406683d7d7e6aba0d389 (p5, c1, k60).
+1773043545: New connection from 192.168.65.1:42682 on port 1883.
+1773043545: New client connected from 192.168.65.1:42682 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043545: Client 5974977dd0ad4d2c880903cf65c9729c disconnected.
+1773043545: New connection from 192.168.65.1:43481 on port 1883.
+1773043545: New client connected from 192.168.65.1:43481 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043545: New connection from 192.168.65.1:54343 on port 1883.
+1773043545: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043545: New client connected from 192.168.65.1:54343 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043546: Client 5974977dd0ad4d2c880903cf65c9729c disconnected.
+1773043546: New connection from 192.168.65.1:63593 on port 1883.
+1773043546: New client connected from 192.168.65.1:63593 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043546: New connection from 192.168.65.1:20817 on port 1883.
+1773043546: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043546: New client connected from 192.168.65.1:20817 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043546: Client 5974977dd0ad4d2c880903cf65c9729c disconnected.
+1773043546: New connection from 192.168.65.1:34240 on port 1883.
+1773043546: New client connected from 192.168.65.1:34240 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043546: New connection from 192.168.65.1:40379 on port 1883.
+1773043546: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043546: New client connected from 192.168.65.1:40379 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043546: Client 5974977dd0ad4d2c880903cf65c9729c disconnected.
+1773043546: New connection from 192.168.65.1:21177 on port 1883.
+1773043546: New client connected from 192.168.65.1:21177 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043546: New connection from 192.168.65.1:37189 on port 1883.
+1773043546: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043546: New client connected from 192.168.65.1:37189 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043546: Client 5974977dd0ad4d2c880903cf65c9729c disconnected.
+1773043546: New connection from 192.168.65.1:26869 on port 1883.
+1773043546: New client connected from 192.168.65.1:26869 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043546: New connection from 192.168.65.1:38210 on port 1883.
+1773043546: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043546: New client connected from 192.168.65.1:38210 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043546: Client 5974977dd0ad4d2c880903cf65c9729c disconnected.
+1773043546: New connection from 192.168.65.1:53974 on port 1883.
+1773043546: New client connected from 192.168.65.1:53974 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043547: New connection from 192.168.65.1:55158 on port 1883.
+1773043547: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043547: New client connected from 192.168.65.1:55158 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043547: New connection from 192.168.65.1:27232 on port 1883.
+1773043547: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043547: New client connected from 192.168.65.1:27232 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043547: New connection from 192.168.65.1:21556 on port 1883.
+1773043547: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043547: New client connected from 192.168.65.1:21556 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043547: New connection from 192.168.65.1:64113 on port 1883.
+1773043547: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043547: New client connected from 192.168.65.1:64113 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043547: New connection from 192.168.65.1:37251 on port 1883.
+1773043547: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043547: New client connected from 192.168.65.1:37251 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043547: New connection from 192.168.65.1:30212 on port 1883.
+1773043547: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043547: New client connected from 192.168.65.1:30212 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043547: New connection from 192.168.65.1:32430 on port 1883.
+1773043547: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043547: New client connected from 192.168.65.1:32430 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043548: New connection from 192.168.65.1:23865 on port 1883.
+1773043548: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043548: New client connected from 192.168.65.1:23865 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043548: New connection from 192.168.65.1:34044 on port 1883.
+1773043548: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043548: New client connected from 192.168.65.1:34044 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043548: New connection from 192.168.65.1:20079 on port 1883.
+1773043548: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043548: New client connected from 192.168.65.1:20079 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043548: New connection from 192.168.65.1:56651 on port 1883.
+1773043548: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043548: New client connected from 192.168.65.1:56651 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043548: New connection from 192.168.65.1:48832 on port 1883.
+1773043548: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043548: New client connected from 192.168.65.1:48832 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043548: New connection from 192.168.65.1:34738 on port 1883.
+1773043548: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043548: New client connected from 192.168.65.1:34738 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043548: New connection from 192.168.65.1:16134 on port 1883.
+1773043548: Client 5974977dd0ad4d2c880903cf65c9729c already connected, closing old connection.
+1773043548: New client connected from 192.168.65.1:16134 as 5974977dd0ad4d2c880903cf65c9729c (p5, c1, k60).
+1773043548: Client 5974977dd0ad4d2c880903cf65c9729c disconnected.
+1773043574: Client ef133f68ccfb406683d7d7e6aba0d389 disconnected.
+1773043574: New connection from 192.168.65.1:18036 on port 1883.
+1773043574: New client connected from 192.168.65.1:18036 as 56916028303847f29a4703c5189bd304 (p5, c1, k60).
+1773043585: New connection from 192.168.65.1:65230 on port 1883.
+1773043585: New client connected from 192.168.65.1:65230 as 4ab74f3b62c0416d878b8b1078c7a27c (p5, c1, k60).
+1773043585: Client 4ab74f3b62c0416d878b8b1078c7a27c disconnected.
+1773043699: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773043720: New connection from 192.168.65.1:52825 on port 1883.
+1773043720: New client connected from 192.168.65.1:52825 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043720: Client c9136e387c154a28b0bafde3c8a9c0a6 disconnected.
+1773043720: New connection from 192.168.65.1:55681 on port 1883.
+1773043720: New client connected from 192.168.65.1:55681 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043720: New connection from 192.168.65.1:19981 on port 1883.
+1773043720: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043720: New client connected from 192.168.65.1:19981 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043720: Client c9136e387c154a28b0bafde3c8a9c0a6 disconnected.
+1773043720: New connection from 192.168.65.1:17967 on port 1883.
+1773043720: New client connected from 192.168.65.1:17967 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043720: New connection from 192.168.65.1:38812 on port 1883.
+1773043720: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043720: New client connected from 192.168.65.1:38812 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043721: New connection from 192.168.65.1:34873 on port 1883.
+1773043721: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043721: New client connected from 192.168.65.1:34873 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043721: New connection from 192.168.65.1:22727 on port 1883.
+1773043721: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043721: New client connected from 192.168.65.1:22727 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043721: New connection from 192.168.65.1:43727 on port 1883.
+1773043721: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043721: New client connected from 192.168.65.1:43727 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043721: New connection from 192.168.65.1:27679 on port 1883.
+1773043721: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043721: New client connected from 192.168.65.1:27679 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043721: New connection from 192.168.65.1:20703 on port 1883.
+1773043721: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043721: New client connected from 192.168.65.1:20703 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043721: New connection from 192.168.65.1:35587 on port 1883.
+1773043721: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043721: New client connected from 192.168.65.1:35587 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043722: New connection from 192.168.65.1:61212 on port 1883.
+1773043722: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043722: New client connected from 192.168.65.1:61212 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043722: New connection from 192.168.65.1:36281 on port 1883.
+1773043722: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043722: New client connected from 192.168.65.1:36281 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043722: New connection from 192.168.65.1:54888 on port 1883.
+1773043722: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043722: New client connected from 192.168.65.1:54888 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043722: New connection from 192.168.65.1:37957 on port 1883.
+1773043722: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043722: New client connected from 192.168.65.1:37957 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043722: New connection from 192.168.65.1:21653 on port 1883.
+1773043722: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043722: New client connected from 192.168.65.1:21653 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043722: New connection from 192.168.65.1:25401 on port 1883.
+1773043722: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043722: New client connected from 192.168.65.1:25401 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043722: New connection from 192.168.65.1:64161 on port 1883.
+1773043722: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043722: New client connected from 192.168.65.1:64161 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043723: New connection from 192.168.65.1:36803 on port 1883.
+1773043723: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043723: New client connected from 192.168.65.1:36803 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043723: New connection from 192.168.65.1:48073 on port 1883.
+1773043723: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043723: New client connected from 192.168.65.1:48073 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043723: New connection from 192.168.65.1:34881 on port 1883.
+1773043723: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043723: New client connected from 192.168.65.1:34881 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043723: New connection from 192.168.65.1:59991 on port 1883.
+1773043723: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043723: New client connected from 192.168.65.1:59991 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043723: New connection from 192.168.65.1:29060 on port 1883.
+1773043723: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043723: New client connected from 192.168.65.1:29060 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043723: New connection from 192.168.65.1:26334 on port 1883.
+1773043723: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043723: New client connected from 192.168.65.1:26334 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043723: New connection from 192.168.65.1:34429 on port 1883.
+1773043723: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043723: New client connected from 192.168.65.1:34429 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043724: New connection from 192.168.65.1:47108 on port 1883.
+1773043724: Client c9136e387c154a28b0bafde3c8a9c0a6 already connected, closing old connection.
+1773043724: New client connected from 192.168.65.1:47108 as c9136e387c154a28b0bafde3c8a9c0a6 (p5, c1, k60).
+1773043724: Client c9136e387c154a28b0bafde3c8a9c0a6 closed its connection.
+1773044243: Client 56916028303847f29a4703c5189bd304 disconnected.
+1773044244: New connection from 192.168.65.1:50271 on port 1883.
+1773044244: New client connected from 192.168.65.1:50271 as ed552d998f1342c9a150df33ba0a6a75 (p5, c1, k60).
+1773044253: Client ed552d998f1342c9a150df33ba0a6a75 disconnected.
+1773044254: New connection from 192.168.65.1:32547 on port 1883.
+1773044254: New client connected from 192.168.65.1:32547 as 788fcf5e73eb4286b35de4b870050897 (p5, c1, k60).
+1773044505: Client 788fcf5e73eb4286b35de4b870050897 disconnected.
+1773044506: New connection from 192.168.65.1:20635 on port 1883.
+1773044506: New client connected from 192.168.65.1:20635 as 9d607e4e8bed4d24b0e45530fe720fdc (p5, c1, k60).
+1773044749: Client 9d607e4e8bed4d24b0e45530fe720fdc disconnected.
+1773044797: New connection from 192.168.65.1:52668 on port 1883.
+1773044797: New client connected from 192.168.65.1:52668 as c04834c8d3644562b5035dd094a7dc70 (p5, c1, k60).
+1773044829: Client c04834c8d3644562b5035dd094a7dc70 disconnected.
+1773044830: New connection from 192.168.65.1:29051 on port 1883.
+1773044830: New client connected from 192.168.65.1:29051 as e0d5362d706d4ad6a7e6d793c4c3ac50 (p5, c1, k60).
+1773044967: Client e0d5362d706d4ad6a7e6d793c4c3ac50 disconnected.
+1773044968: New connection from 192.168.65.1:24311 on port 1883.
+1773044968: New client connected from 192.168.65.1:24311 as 196258c4966948bb9e3da6d8a28c056f (p5, c1, k60).
+1773045070: Client 196258c4966948bb9e3da6d8a28c056f disconnected.
+1773045071: New connection from 192.168.65.1:16095 on port 1883.
+1773045071: New client connected from 192.168.65.1:16095 as 39d4c40322f44c80818468fbdbd5b95e (p5, c1, k60).
+1773045128: Client 39d4c40322f44c80818468fbdbd5b95e disconnected.
+1773045129: New connection from 192.168.65.1:44029 on port 1883.
+1773045129: New client connected from 192.168.65.1:44029 as be10d2a6c36a48a5b7273e154910bb99 (p5, c1, k60).
+1773045268: Client be10d2a6c36a48a5b7273e154910bb99 disconnected.
+1773045269: New connection from 192.168.65.1:24261 on port 1883.
+1773045269: New client connected from 192.168.65.1:24261 as 3aa4834addf642e9ae26877397e4d4b3 (p5, c1, k60).
+1773045500: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773045551: Client 3aa4834addf642e9ae26877397e4d4b3 disconnected.
+1773045552: New connection from 192.168.65.1:38999 on port 1883.
+1773045552: New client connected from 192.168.65.1:38999 as fba157051cad4c128762c29c82250992 (p5, c1, k60).
+1773045615: Client fba157051cad4c128762c29c82250992 disconnected.
+1773045616: New connection from 192.168.65.1:47808 on port 1883.
+1773045616: New client connected from 192.168.65.1:47808 as 007634dae89e48a0b0eb6892ddbf10ba (p5, c1, k60).

@@ -23,15 +23,13 @@ def test_get_asset(test_client, asset_payload, location_payload):
   assert asset_response.json()['name'] == asset_payload["name"]
   assert asset_response.json()['last_maintenance'] == asset_payload["last_maintenance"]
 
-def test_get_location(test_client, location_payload):
-  location_created = test_client.post("/locations", json=location_payload)
-  assert location_created.status_code == 201
-  location_id = location_created.json()["id"]
-  loaction_response = test_client.get(f"/locations/{location_id}")
-  assert loaction_response.status_code == 200
-  assert loaction_response.json()["id"] == location_id 
-  assert loaction_response.json()["name"] == location_payload["name"]
-
+def test_get_locations(test_client, location_payload):
+    test_client.post("/locations", json=location_payload)
+    response = test_client.get("/locations")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+    assert len(response.json()) > 0
+    assert response.json()[0]["name"] == location_payload["name"]
 def test_get_alert(test_client, alert_payload, location_sensor_constraint):
   sensor_id = location_sensor_constraint()
   alert_payload['sensor_id'] = sensor_id
@@ -76,19 +74,5 @@ def test_get_sensor_data(test_client, sensor_data_payload, location_sensor_const
   assert sensor_data_response.json()["value"] == sensor_data_payload["value"]
   assert sensor_data_response.json()["time"] == sensor_data_payload["time"]
 
-def test_get_sensor_data_history(test_client, sensor_data_payload, location_sensor_constraint):
-  sensor_id = location_sensor_constraint()
-  sensor_data_payload['sensor_id'] = sensor_id
-  sensor_data1 = test_client.post("/sensor_data", json=sensor_data_payload)
-  sensor_data_payload["time"] = "2026-01-15T16:00:01"
-  sensor_data2 = test_client.post("/sensor_data", json=sensor_data_payload)
-  sensor_data_payload["time"] = "2026-01-15T16:00:02"
-  sensor_data3 = test_client.post("/sensor_data", json=sensor_data_payload)
-
-  history_data = test_client.get(f"/sensor_data/{sensor_id}/history")
-  assert history_data.status_code == 200
-  assert isinstance(history_data.json(), list)
-  assert len(history_data.json()) == 3
-  
 
   

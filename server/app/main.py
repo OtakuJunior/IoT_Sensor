@@ -2,7 +2,7 @@ from fastapi import FastAPI, Response, WebSocket, WebSocketDisconnect
 from contextlib import asynccontextmanager
 from app import database
 from app import models
-from app.routes import users, sensors, sensor_data, locations, assets, alerts
+from app.routes import users, sensors, sensor_data, locations, assets, alerts, auth
 from app.config import settings
 from fastapi.middleware.cors import CORSMiddleware
 from app.timescale import init_timescale, init_continuous_aggregates
@@ -54,6 +54,7 @@ app.include_router(sensor_data.router)
 app.include_router(locations.router)
 app.include_router(assets.router)
 app.include_router(alerts.router)
+app.include_router(auth.router)
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():

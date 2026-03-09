@@ -8,6 +8,10 @@ class Settings(BaseSettings):
   MQTT_USER: str | None = None 
   MQTT_PASS: str | None = None 
   TOPIC_PREFIX: str ="factory/sensors/+/data"
+  KEYCLOAK_SERVER_URL: str
+  KEYCLOAK_REALM: str
+  KEYCLOAK_CLIENT_ID: str
+  KEYCLOAK_CLIENT_SECRET: str
 
 
   model_config = SettingsConfigDict(

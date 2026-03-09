@@ -7,7 +7,7 @@ def create_user(db: Session, user : UserCreate):
   db_user = user_model(
     name = user.name,
     email = user.email,
-    phone_number = user.phoneNumber,
+    phone_number = user.phone_number,
     role = user.role
   )
   db.add(db_user)
@@ -36,3 +36,8 @@ def get_users(db: Session, role: UserRole | None = None):
         query = query.filter(user_model.role == role)
     
     return query.all()
+
+def get_user_by_keycloak_id(db: Session, keycloak_id: str):
+    return db.query(user_model).filter(
+        user_model.keycloak_id == keycloak_id
+    ).first()

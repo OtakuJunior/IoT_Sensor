@@ -6,6 +6,7 @@ from app.main import app
 from app.database import Base, get_db
 from sqlalchemy.pool import StaticPool
 from app.services import enums
+from unittest.mock import patch, AsyncMock
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
 
@@ -36,6 +37,13 @@ def db_session():
         transaction.rollback()
     connection.close()
 
+@pytest.fixture(autouse=True)
+def mock_mqtt():
+    """Mock FastMQTT to avoid asyncio event loop conflicts during tests"""
+    with patch("app.services.mqtt_handler.mqtt.mqtt_startup", new_callable=AsyncMock), \
+         patch("app.services.mqtt_handler.mqtt.mqtt_shutdown", new_callable=AsyncMock):
+        yield
+
 @pytest.fixture(scope="function")
 def test_client(db_session):
     def override_get_db():
@@ -54,7 +62,7 @@ def user_payload():
       "name" : "John",
       "email" : "john.smith@gmail.com",
       "phone_number" : "0000000000",
-      "role" : "admin"
+      "role" : "Admin"
     }
 
 @pytest.fixture()

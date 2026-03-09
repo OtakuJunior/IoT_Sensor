@@ -31,8 +31,7 @@ class Units(str, enum.Enum):
 class UserRole(str, enum.Enum):
     MASTER = 'Master'
     ADMIN = 'Admin'
-    TECHNICIAN = 'Technician'
-    GUEST = 'Guest'
+    ANALYST = 'Analyst'
 
 
 

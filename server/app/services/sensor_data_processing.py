@@ -44,14 +44,18 @@ A new alert is triggered if :
   - the lastet alert is older than 24 hours (can be longer or shorter)
   - If the new alert is a critical one and the previous is a warning 
 """
-def check_alert_is_ok(severity : str, previous_alert : alert_model):
-  minutes_delay = 30
-  time_passed  = datetime.now(timezone.utc) - timedelta(minutes=minutes_delay)
-  if previous_alert.time < time_passed:
-    return True
-  if previous_alert.severity == "Warning" and severity == "Critical":
-    return True
-  return False
+def check_alert_is_ok(severity: str, previous_alert: alert_model):
+    minutes_delay = 30
+    time_passed = datetime.now(timezone.utc) - timedelta(minutes=minutes_delay)
+    alert_time = previous_alert.time
+    if alert_time.tzinfo is None:
+        alert_time = alert_time.replace(tzinfo=timezone.utc)
+    
+    if alert_time < time_passed:
+        return True
+    if previous_alert.severity == "Warning" and severity == "Critical":
+        return True
+    return False
 
 # The main orchestrator of the alert triggering system
 def create_alert_if_severity(db : Session, sensor : sensor_model) -> None:

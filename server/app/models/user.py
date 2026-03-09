@@ -12,3 +12,4 @@ class User(Base):
   email = Column(String, nullable=False, unique=True)
   phone_number = Column(String, nullable=False, unique=True)
   role = Column(Enum(UserRole), nullable=False)
+  keycloak_id = Column(String)
