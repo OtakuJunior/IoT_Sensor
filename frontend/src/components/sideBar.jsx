@@ -5,7 +5,8 @@ import { LuBellRing } from "react-icons/lu";
 import { MdOutlineMonitorHeart } from "react-icons/md";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { MdWebAsset } from "react-icons/md";
-
+import { MdOutlineLogout } from "react-icons/md";
+import { logout } from "../services/oidc";
 export default function SideBar() {
   {
     const items = [
@@ -38,9 +39,18 @@ export default function SideBar() {
                 }`}
               >
                 {it.label}
-              </span>
+              </span>{" "}
             </NavLink>
-          ))}
+          ))}{" "}
+          <button
+            onClick={logout}
+            className="flex flex-row items-center bg-slate-200 rounded-2xl w-1/2 mt-4 ml-2 transition-colors duration-200 hover:bg-red-500 cursor-pointer"
+          >
+            <span className="text-xl m-3">
+              <MdOutlineLogout />
+            </span>
+            <span classname="">Logout</span>
+          </button>
         </nav>
       </div>
     );

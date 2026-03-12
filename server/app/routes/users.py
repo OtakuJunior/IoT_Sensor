@@ -4,6 +4,7 @@ from app.database import get_db
 from app.crud import user as user_crud
 from app.schemas.user import UserCreate, User
 from app.services import enums
+from app.auth.dependencies import require_admin, require_master
 
 router = APIRouter(
   prefix="/users",
@@ -12,7 +13,7 @@ router = APIRouter(
 )
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def create_user(user : UserCreate, db : Session = Depends(get_db)):
+def create_user(user : UserCreate, db : Session = Depends(get_db), admin: dict = Depends(require_admin)):
   return user_crud.create_user(db = db, user = user)
 
 @router.get("/{user_id}")
@@ -23,7 +24,7 @@ def get_user(user_id : str, db : Session = Depends(get_db)):
   return db_user
 
 @router.delete("/{user_id}", status_code=204)
-def delete_user(user_id : str, db : Session = Depends(get_db)):
+def delete_user(user_id : str, db : Session = Depends(get_db), admin: dict = Depends(require_master)):
   deleteUser = user_crud.delete_user(db=db, user_id=user_id)
   if deleteUser is None:
     raise HTTPException(status_code=404, detail="User not found")
@@ -32,6 +33,6 @@ def delete_user(user_id : str, db : Session = Depends(get_db)):
   return False 
 
 @router.get("/", response_model=list[User])
-def read_users(role: enums.UserRole | None = None, db: Session = Depends(get_db)):
+def read_users(role: enums.UserRole | None = None, db: Session = Depends(get_db), admin: dict = Depends(require_admin)):
   users = user_crud.get_users(db, role=role)
   return users

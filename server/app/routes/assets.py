@@ -5,6 +5,7 @@ from app.crud import asset as asset_crud
 from app.schemas.asset import AssetCreate, Asset
 from app.schemas.sensor import Sensor
 from app.services.enums import AssetStatus
+from app.auth.dependencies import require_admin
 
 router = APIRouter(
   prefix="/assets",
@@ -13,7 +14,7 @@ router = APIRouter(
 )
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def create_asset(asset : AssetCreate, db : Session = Depends(get_db)):
+def create_asset(asset : AssetCreate, db : Session = Depends(get_db), admin: dict = Depends(require_admin)):
   return asset_crud.create_asset(db=db, asset=asset)
 
 @router.get('/{asset_id}', response_model=Asset)
@@ -25,13 +26,13 @@ def get_asset(asset_id : str, db : Session = Depends(get_db)):
   return db_asset
 
 @router.get('/qr/{qr_id}', response_model=Asset)
-def get_asset_by_qr(qr_id : str, db : Session = Depends(get_db)):
+def get_asset_by_qr(qr_id : str, db : Session = Depends(get_db), admin: dict = Depends(require_admin)):
   db_qr = asset_crud.get_asset_by_qr(db=db, qr_id=qr_id)
   if db_qr is None:
     raise HTTPException(status_code=404, detail="Qr not found")
   
 @router.post('/{asset_id}/assign/{sensor_id}', response_model=Sensor)
-def assign_sensor_to_asset(asset_id : str, sensor_id : str, db : Session = Depends(get_db)):
+def assign_sensor_to_asset(asset_id : str, sensor_id : str, db : Session = Depends(get_db), admin: dict = Depends(require_admin)):
   assigned_sensor = asset_crud.assign_sensor_to_asset(db=db, sensor_id=sensor_id, asset_id=asset_id)
   if assigned_sensor is None : 
     raise HTTPException(status_code=404, detail='Sensor or Asset not Found')

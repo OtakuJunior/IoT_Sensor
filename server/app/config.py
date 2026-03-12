@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pathlib import Path
 
 class Settings(BaseSettings):
   PRODUCTION : bool = "False"
@@ -12,12 +13,14 @@ class Settings(BaseSettings):
   KEYCLOAK_REALM: str
   KEYCLOAK_CLIENT_ID: str
   KEYCLOAK_CLIENT_SECRET: str
+  SEED_USERNAME: str
+  SEED_PASSWORD: str
 
 
   model_config = SettingsConfigDict(
 
     # Load environment variables from .env
-    env_file="../.env",
+    env_file = Path(__file__).parent.parent / ".env",
 
     # If a variable is empty in the .env file, ignore it and use the default value
     env_ignore_empty=True, 

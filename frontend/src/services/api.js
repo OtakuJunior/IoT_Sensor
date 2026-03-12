@@ -1,9 +1,17 @@
 import axios from "axios";
-import { Await } from "react-router-dom";
+import { getAccessToken } from "./oidc";
 
 const apiC = axios.create({
   baseURL: "http://localhost:8000",
   timeout: 5000,
+});
+
+apiC.interceptors.request.use((config) => {
+  const token = getAccessToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export const api = {

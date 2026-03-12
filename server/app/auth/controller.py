@@ -3,7 +3,7 @@ from fastapi.security import HTTPAuthorizationCredentials
 from keycloak.exceptions import KeycloakAuthenticationError
 from jose import jwt, JWTError, ExpiredSignatureError
 from app.auth.keycloak import keycloak_openid, get_public_key
-from app.schemas.auth import TokenResponse, UserInfo
+from app.auth.auth_schema import TokenResponse, UserInfo
 from app.config import settings
 
 class AuthController:
@@ -28,9 +28,11 @@ class AuthController:
             )
         except ExpiredSignatureError:
             raise HTTPException(status_code=401, detail="Token expired")
-        except JWTError:
+        except JWTError as e:
+            print(e)
             raise HTTPException(status_code=401, detail="Invalid token")
-        except Exception:
+        except Exception as e:
+            print(e)
             raise HTTPException(status_code=401, detail="Authentication failed")
 
     @staticmethod

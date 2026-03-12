@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import Optional
 
 class TokenRequest(BaseModel):
     username: str
@@ -14,4 +13,4 @@ class UserInfo(BaseModel):
     sub: str
     preferred_username: str
     email: str
-    realm_access: Optional[dict] = None
+    realm_access: dict | None = None

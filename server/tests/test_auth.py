@@ -118,7 +118,7 @@ def test_dependency_get_current_user_success(db_session):
     mock_user_info.sub = "user-uuid-123"
 
     with patch("app.auth.dependencies.AuthController.get_current_user", return_value=mock_user_info), \
-         patch("app.auth.dependencies.crud.user.get_user_by_keycloak_id", return_value=mock_user):
+         patch("app.auth.dependencies.crud_user.get_user_by_keycloak_id", return_value=mock_user):
         result = get_current_user(credentials=mock_credentials, db=db_session)
         assert result.keycloak_id == "user-uuid-123"
         assert result.role == UserRole.ADMIN
@@ -131,13 +131,15 @@ def test_dependency_get_current_user_not_found(db_session):
     )
     mock_user_info = MagicMock()
     mock_user_info.sub = "unknown-uuid"
+    mock_user_info.email = "unknown@test.com"
 
     with patch("app.auth.dependencies.AuthController.get_current_user", return_value=mock_user_info), \
-         patch("app.auth.dependencies.crud.user.get_user_by_keycloak_id", return_value=None):
+         patch("app.auth.dependencies.crud_user.get_user_by_keycloak_id", return_value=None), \
+         patch("app.auth.dependencies.crud_user.get_user_by_email", return_value=None):
         with pytest.raises(HTTPException) as exc:
             get_current_user(credentials=mock_credentials, db=db_session)
-        assert exc.value.status_code == 404
-        assert exc.value.detail == "User not found in database"
+        assert exc.value.status_code == 403
+        assert exc.value.detail == "User not authorized"
 
 # ================================
 # dependencies.require_admin tests

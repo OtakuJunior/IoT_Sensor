@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.crud import location as location_crud
 from app.schemas.location import LocationCreate
+from app.auth.dependencies import require_master
 
 router = APIRouter(
   prefix="/locations",
@@ -11,7 +12,7 @@ router = APIRouter(
 )
 
 @router.post("", status_code=status.HTTP_201_CREATED)
-def create_location(location : LocationCreate, db : Session = Depends(get_db)):
+def create_location(location : LocationCreate, db : Session = Depends(get_db), admin: dict = Depends(require_master)):
   return location_crud.create_location(db=db, location=location)
 
 @router.get("")

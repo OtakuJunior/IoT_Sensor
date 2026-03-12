@@ -6,18 +6,27 @@ import DevicesPage from "./pages/DevicesPage";
 import AlertsPage from "./pages/AlertsPage";
 import DeviceDetail from "./pages/DeviceDetails";
 import AssetsPage from "./pages/AssetsPage";
+import AuthCallbackView from "./components/AuthCallbackView";
 import { useSensorData } from "./state/sensorData";
 import { useAlerts } from "./state/alert";
 import { initSocket } from "./services/socket";
 import { ToastContainer, toast } from "react-toastify";
 import { useSensor } from "./state/sensor";
+import { useAuth } from "./services/useAuth";
 
 export default function App() {
   const addSensorValue = useSensorData((state) => state.addSensorValue);
   const push = useAlerts((state) => state.push);
   const loadSensors = useSensor((state) => state.loadSensors);
+  const { isAuthenticated, login } = useAuth();
 
   useEffect(() => {
+    if (location.pathname === "/auth/callback") return;
+    if (!isAuthenticated()) {
+      login({ redirectTo: "/" });
+      return;
+    }
+
     loadSensors();
     const socket = initSocket((data) => {
       if (data.is_data === true) {
@@ -52,7 +61,17 @@ export default function App() {
       }
     });
     return () => socket?.disconnect?.();
-  }, [loadSensors, addSensorValue, push]);
+  }, [isAuthenticated, login, loadSensors, addSensorValue, push]);
+
+  if (location.pathname === "/auth/callback") {
+    return (
+      <Routes>
+        <Route path="/auth/callback" element={<AuthCallbackView />} />
+      </Routes>
+    );
+  }
+
+  if (!isAuthenticated()) return null;
 
   return (
     <div className="flex min-h-screen bg-slate-50">
@@ -61,6 +80,7 @@ export default function App() {
 
       <main className="flex-1 min-w-0 p-8 transition-all duration-300">
         <Routes>
+          <Route path="/auth/callback" element={<AuthCallbackView />} />
           <Route path="/" element={<Dashboard />} />
           <Route path="/devices" element={<DevicesPage />} />
           <Route path="/device/:id" element={<DeviceDetail />} />

@@ -9,8 +9,6 @@ keycloak_openid = KeycloakOpenID(
 )
 
 def get_public_key() -> str:
-    try:
-        return keycloak_openid.public_key()
-    except Exception as e:
-        print(e)
+    public_key = keycloak_openid.public_key()
+    return f"-----BEGIN PUBLIC KEY-----\n{public_key}\n-----END PUBLIC KEY-----"
 

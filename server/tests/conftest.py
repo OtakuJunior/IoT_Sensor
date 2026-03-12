@@ -6,7 +6,10 @@ from app.main import app
 from app.database import Base, get_db
 from sqlalchemy.pool import StaticPool
 from app.services import enums
-from unittest.mock import patch, AsyncMock
+from unittest.mock import patch, AsyncMock, MagicMock
+from app.auth.dependencies import get_current_user
+from app.models.user import User as user_model
+from app.services.enums import UserRole
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
 
@@ -119,3 +122,14 @@ def location_sensor_constraint(test_client, location_payload, sensor_payload):
         sensor_id = sensor_created.json()["id"]
         return sensor_id
     return make_location_sensor_constraint
+
+@pytest.fixture(autouse=True)
+def mock_auth():
+    mock_user = MagicMock(spec=user_model)
+    mock_user.role = UserRole.MASTER
+    mock_user.id = "test-user-id"
+    mock_user.email = "admin@test.com"
+    
+    app.dependency_overrides[get_current_user] = lambda: mock_user
+    yield
+    app.dependency_overrides.pop(get_current_user, None)

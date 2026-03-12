@@ -41,3 +41,6 @@ def get_user_by_keycloak_id(db: Session, keycloak_id: str):
     return db.query(user_model).filter(
         user_model.keycloak_id == keycloak_id
     ).first()
+
+def get_user_by_email(db: Session, email: str):
+    return db.query(user_model).filter(user_model.email == email).first()
