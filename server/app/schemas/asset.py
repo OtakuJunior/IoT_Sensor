@@ -25,3 +25,10 @@ class Asset(AssetBase):
   sensors_asset: list[SensorAsset] = []
 
   model_config = ConfigDict(from_attributes=True)
+
+class AssetUpdate(AssetBase):
+  name : str | None = None
+  status : AssetStatus = AssetStatus.OPERATIONAL
+  last_maintenance : datetime | None = None 
+  location_id : str | None = None
+

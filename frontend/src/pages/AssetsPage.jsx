@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSensor } from "../state/sensor";
 import { api } from "../services/api";
-import { SensorType, SensorUnit } from "../lib/enums";
+import {
+  SensorType,
+  SensorUnit,
+  AssetStatus,
+  DeviceStatus,
+} from "../lib/enums";
 import { toast } from "react-toastify";
 import { MdOutlineWarningAmber } from "react-icons/md";
 import { MdOutlineClose } from "react-icons/md";
+import { MdDeleteOutline } from "react-icons/md";
 
 export default function AssetsPage() {
   const [activeTab, setActiveTab] = useState("devices");
@@ -22,7 +28,14 @@ export default function AssetsPage() {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [isSensorModalOpen, setIsSensorModalOpen] = useState(false);
   const [isAddLocationModalOpen, setIsAddLocationModalOpen] = useState(false);
+  const [isAssetModalOpen, setIsAssetModalOpen] = useState(false);
+  const [selectedAsset, setSelectedAsset] = useState(null);
 
+  const [assetFormData, setAssetFormData] = useState({
+    name: "",
+    location_id: "",
+    status: "Operational",
+  });
   const [sensorFormData, setsensorFormData] = useState({
     name: "",
     sensor_type: "",
@@ -66,6 +79,16 @@ export default function AssetsPage() {
           : "",
     });
     setIsSensorModalOpen(true);
+  };
+  const openAssetEditModal = (asset) => {
+    setIsEditMode(true);
+    setSelectedAsset(asset);
+    setAssetFormData({
+      name: asset.name,
+      location_id: asset.location_id ?? "",
+      status: asset.status ?? "",
+    });
+    setIsAssetModalOpen(true);
   };
 
   const getLocationStats = (locationId) => {
@@ -119,6 +142,62 @@ export default function AssetsPage() {
       console.error(err);
     }
   };
+
+  const handleDeleteUser = async (userId) => {
+    if (!window.confirm("Are you sure you want to delete this user?")) return;
+    try {
+      await api.deleteUser(userId);
+      toast.success("User deleted successfully!");
+      const userRes = await api.getUsers();
+      setUsers(userRes || []);
+    } catch (err) {
+      console.error("Delete user failed:", err);
+      toast.error("Failed to delete user.");
+    }
+  };
+
+  const handleDeleteAsset = async () => {
+    if (!window.confirm("Delete this asset?")) return;
+    try {
+      await api.deleteAsset(selectedAsset.id);
+      toast.success("Asset deleted successfully!");
+      const assetRes = await api.getAssets();
+      setAssets(assetRes || []);
+      setIsAssetModalOpen(false);
+      setIsEditMode(false);
+      setSelectedAsset(null);
+    } catch (err) {
+      toast.error("Failed to delete asset.");
+      console.error("Failed to delete asset:", err);
+    }
+  };
+  const handleSubmitAsset = async (e) => {
+    e.preventDefault();
+    try {
+      if (isEditMode && selectedAsset) {
+        await api.updateAsset(selectedAsset.id, assetFormData);
+        toast.info(`Asset "${assetFormData.name}" updated!`, {
+          theme: "colored",
+        });
+      } else {
+        await api.addAsset(assetFormData);
+        toast.success(`Asset "${assetFormData.name}" created successfully!`, {
+          theme: "colored",
+        });
+      }
+      const assetRes = await api.getAssets();
+      setAssets(assetRes || []);
+      setIsAssetModalOpen(false);
+      setIsEditMode(false);
+      setSelectedAsset(null);
+    } catch (err) {
+      toast.error(
+        isEditMode ? "Failed to update asset." : "Failed to create asset."
+      );
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     document.body.style.overflow = isSensorModalOpen ? "hidden" : "unset";
     document.body.style.paddingRight = isSensorModalOpen ? "15px" : "0px";
@@ -173,6 +252,16 @@ export default function AssetsPage() {
     if (activeTab === "locations") {
       return locations.filter((l) => l.name?.toLowerCase().includes(q));
     }
+    if (activeTab === "assets") {
+      return assets.filter((a) => {
+        const locationObj = locations.find((l) => l.id === a.location_id);
+        return (
+          a.name?.toLowerCase().includes(q) ||
+          a.id?.toLowerCase().includes(q) ||
+          locationObj?.name?.toLowerCase().includes(q)
+        );
+      });
+    }
     if (activeTab === "users") {
       return users.filter(
         (u) =>
@@ -183,7 +272,7 @@ export default function AssetsPage() {
     return [];
   }, [activeTab, search, sensors, locations, users, assets]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmitDevice = async (e) => {
     e.preventDefault();
     const payload = {
       ...sensorFormData,
@@ -275,7 +364,7 @@ export default function AssetsPage() {
         </div>
 
         <div className="flex bg-slate-100 p-1 rounded-xl">
-          {["devices", "locations", "users"].map((t) => (
+          {["devices", "locations", "assets", "users"].map((t) => (
             <button
               key={t}
               onClick={() => setActiveTab(t)}
@@ -323,6 +412,15 @@ export default function AssetsPage() {
                 if (activeTab === "locations") {
                   setLocationFormData({ name: "" });
                   setIsAddLocationModalOpen(true);
+                }
+                if (activeTab === "assets") {
+                  setSelectedAsset(null);
+                  setAssetFormData({
+                    name: "",
+                    location_id: "",
+                    status: AssetStatus.OPERATIONAL,
+                  });
+                  setIsAssetModalOpen(true);
                 }
               }}
               className="px-4 py-2 bg-slate-800 text-white rounded-xl text-sm font-bold hover:bg-slate-700 transition-colors"
@@ -378,8 +476,31 @@ export default function AssetsPage() {
                   </th>
                 </>
               )}
+              {activeTab === "assets" && (
+                <>
+                  <th className="p-4 text-xs text-center font-bold text-slate-400 uppercase">
+                    Asset Name
+                  </th>
+                  <th className="p-4 text-xs text-center font-bold text-slate-400 uppercase">
+                    ID
+                  </th>
+                  <th className="p-4 text-xs text-center font-bold text-slate-400 uppercase">
+                    Location
+                  </th>
+                  <th className="p-4 text-xs text-center font-bold text-slate-400 uppercase">
+                    Status
+                  </th>
+                  <th className="p-4 text-xs text-center font-bold text-slate-400 uppercase">
+                    Total devices
+                  </th>
+                  <th className="p-4 text-xs text-center font-bold text-slate-400 uppercase">
+                    Action
+                  </th>
+                </>
+              )}
               {activeTab === "users" && (
                 <>
+                  <th className="p-4 w-10"></th>
                   <th className="p-4 text-xs text-center font-bold text-slate-400 uppercase">
                     User
                   </th>
@@ -455,8 +576,42 @@ export default function AssetsPage() {
                     })()}
                   </>
                 )}
+                {activeTab === "assets" && (
+                  <>
+                    <td className="p-4 font-semibold text-slate-700 text-center">
+                      {item.name}
+                    </td>
+                    <td className="p-4 text-sm font-mono text-slate-500 text-center">
+                      {item.id}
+                    </td>
+                    <td className="p-4 text-sm text-slate-600 text-center">
+                      {locations.find((l) => l.id === item.location_id)?.name ||
+                        "Unassigned"}
+                    </td>
+                    <td className="p-4 font-semibold text-slate-700 text-center">
+                      {item.status}
+                    </td>
+                    <td className="p-4 text-sm text-center text-slate-600">
+                      {
+                        sensors.filter(
+                          (s) => String(s.asset_id) === String(item.id)
+                        ).length
+                      }{" "}
+                      sensor(s)
+                    </td>
+                  </>
+                )}
                 {activeTab === "users" && (
                   <>
+                    <td className="p-4">
+                      <button
+                        onClick={() => handleDeleteUser(item.id)}
+                        className="text-slate-300 hover:text-red-600 transition-colors p-1 rounded-lg hover:bg-red-100"
+                        title="Delete User"
+                      >
+                        <MdDeleteOutline size={20} className="text-red-600" />
+                      </button>
+                    </td>
                     <td className="p-4">
                       <div className="font-semibold text-slate-700 text-center">
                         {item.name}
@@ -471,8 +626,8 @@ export default function AssetsPage() {
                     <td className="p-4 text-sm font-mono text-slate-500 text-center">
                       {item.phone_number}
                     </td>
-                    <td className="p-4">
-                      <span className="p-4 text-sm font-mono text-slate-500 text-center">
+                    <td className="p-4 text-center">
+                      <span className="p-4 text-sm font-mono text-slate-500">
                         {item.role || "User"}
                       </span>
                     </td>
@@ -485,6 +640,9 @@ export default function AssetsPage() {
                       onClick={() => {
                         if (activeTab === "devices") openSensorEditModal(item);
                         if (activeTab === "locations") openLocationModal(item);
+                        if (activeTab === "assets") {
+                          openAssetEditModal(item);
+                        }
                       }}
                     >
                       Edit
@@ -524,7 +682,7 @@ export default function AssetsPage() {
                 <MdOutlineClose />
               </button>
             </div>
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            <form onSubmit={handleSubmitDevice} className="p-6 space-y-4">
               <div>
                 <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
                   Name
@@ -622,6 +780,27 @@ export default function AssetsPage() {
                   {assets.map((a) => (
                     <option key={a.id} value={a.id}>
                       {a.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                  Status
+                </label>
+                <select
+                  className="w-full px-3 py-2 bg-slate-50 border rounded-lg outline-none"
+                  value={sensorFormData.status}
+                  onChange={(e) =>
+                    setsensorFormData({
+                      ...sensorFormData,
+                      status: e.target.value,
+                    })
+                  }
+                >
+                  {Object.values(DeviceStatus).map((status) => (
+                    <option key={status} value={status}>
+                      {status}
                     </option>
                   ))}
                 </select>
@@ -952,6 +1131,123 @@ export default function AssetsPage() {
                 >
                   Save Location
                 </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      {/*=================== ASSET MODAL =======================*/}
+      {isAssetModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm">
+            <div className="p-6 border-b flex justify-between items-center">
+              <div>
+                <h2 className="text-xl font-bold text-slate-800">
+                  {isEditMode ? assetFormData.name : "New Asset"}
+                </h2>
+                {isEditMode && (
+                  <p className="text-xs text-slate-400 font-mono mt-0.5">
+                    {selectedAsset?.id}
+                  </p>
+                )}
+              </div>
+              <button
+                onClick={() => setIsAssetModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600"
+              >
+                <MdOutlineClose />
+              </button>
+            </div>
+            <form onSubmit={handleSubmitAsset} className="p-6 space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                  Name
+                </label>
+                <input
+                  className="w-full px-3 py-2 bg-slate-50 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+                  value={assetFormData.name}
+                  onChange={(e) =>
+                    setAssetFormData({ ...assetFormData, name: e.target.value })
+                  }
+                  maxLength={50}
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                  Location
+                </label>
+                <select
+                  className="w-full px-3 py-2 bg-slate-50 border rounded-lg outline-none"
+                  value={assetFormData.location_id}
+                  onChange={(e) =>
+                    setAssetFormData({
+                      ...assetFormData,
+                      location_id: e.target.value,
+                    })
+                  }
+                >
+                  <option value="">None</option>
+                  {locations.map((l) => (
+                    <option key={l.id} value={l.id}>
+                      {l.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                  Status
+                </label>
+                <select
+                  className="w-full px-3 py-2 bg-slate-50 border rounded-lg outline-none"
+                  value={assetFormData.status}
+                  onChange={(e) =>
+                    setAssetFormData({
+                      ...assetFormData,
+                      status: e.target.value,
+                    })
+                  }
+                >
+                  {Object.values(AssetStatus).map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex justify-between items-center gap-3 pt-2 border-t border-slate-100">
+                <div>
+                  {isEditMode && (
+                    <button
+                      type="button"
+                      onClick={handleDeleteAsset}
+                      className="px-6 py-2 rounded-xl font-bold bg-red-600 text-white hover:bg-red-700 shadow-md shadow-red-200"
+                    >
+                      Delete Asset
+                    </button>
+                  )}
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsAssetModalOpen(false)}
+                    className="px-6 py-2 border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={!assetFormData.name.trim()}
+                    className={`px-6 py-2 rounded-xl font-bold transition-all ${
+                      assetFormData.name.trim()
+                        ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-200"
+                        : "bg-slate-200 text-slate-400 cursor-not-allowed"
+                    }`}
+                  >
+                    {isEditMode ? "Update Asset" : "Save Asset"}
+                  </button>
+                </div>
               </div>
             </form>
           </div>

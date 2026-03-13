@@ -13,6 +13,7 @@ import { initSocket } from "./services/socket";
 import { ToastContainer, toast } from "react-toastify";
 import { useSensor } from "./state/sensor";
 import { useAuth } from "./services/useAuth";
+import { api } from "./services/api";
 
 export default function App() {
   const addSensorValue = useSensorData((state) => state.addSensorValue);
@@ -26,8 +27,16 @@ export default function App() {
       login({ redirectTo: "/" });
       return;
     }
+    const userAndLoad = async () => {
+      try {
+        await api.getMe();
+        await loadSensors();
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    userAndLoad();
 
-    loadSensors();
     const socket = initSocket((data) => {
       if (data.is_data === true) {
         if (data.value === undefined || data.value === null) {

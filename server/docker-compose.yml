@@ -24,5 +24,24 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.7
+    command: start-dev
+    environment:
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8090
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    ports:
+      - "8090:8080"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    depends_on:
+      - db
+
 volumes:
   postgres_data:
+  keycloak_data:
+    external: true

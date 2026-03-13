@@ -16,7 +16,9 @@ export const UserRole = {
 export const DeviceStatus = {
   ACTIVE: "Active",
   INACTIVE: "Inactive",
-  MAINTENANCE: "Maintenance",
+  BYPASS: "Bypass",
+  DEREGISTERED: "Deregisted",
+  ERROR: "Error",
 };
 
 export const Units = {
@@ -32,4 +34,13 @@ export const SensorUnit = {
   [SensorType.GAZ]: Units.PARTS_PER_MILLION,
   [SensorType.PRESSURE]: Units.HECTOPASCAL,
   [SensorType.SMOKE]: Units.PARTS_PER_MILLION,
+};
+
+export const AssetStatus = {
+  OPERATIONAL: "Operational",
+  MAINTENANCE: "Maintenance",
+  STOPPED: "Stopped",
+  LOST: "Lost",
+  BROKEN: "Broken",
+  ARCHIVED: "Archived",
 };

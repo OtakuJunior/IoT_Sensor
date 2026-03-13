@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from app.schemas.asset import AssetCreate
 from app.models.asset import Asset as asset_model 
 from app.models.sensor import Sensor as sensor_model
-from app.services.enums import AssetStatus
+from app.schemas.asset import AssetUpdate
 
 def create_asset(db : Session, asset : AssetCreate):
 
@@ -53,5 +53,29 @@ def assign_sensor_to_asset(db : Session, sensor_id : str, asset_id : str):
 
   return db_sensor
 
+def update_asset(db: Session, asset_id: str, updated_asset: AssetUpdate):
+    db_asset = db.query(asset_model).filter(asset_model.id == asset_id).first()
+    if not db_asset:
+        return None
+    try:
+        update_data = updated_asset.model_dump(exclude_unset=True)
+        for key, value in update_data.items():
+            setattr(db_asset, key, value)
+        db.commit()
+        db.refresh(db_asset)
+        return db_asset
+    except Exception as e:
+        db.rollback()
+        raise e
+    
+def delete_asset(db: Session, asset_id : str):
+  db_asset = db.query(asset_model).filter(asset_model.id == asset_id).first()
+  
+  if db_asset:
+    db.delete(db_asset)
+    db.commit()
+    return True
+  
+  return False
     
   

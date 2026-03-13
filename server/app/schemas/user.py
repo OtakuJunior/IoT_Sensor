@@ -9,6 +9,7 @@ class UserBase(BaseModel):
   role : UserRole
 # Model to create an user
 class UserCreate(UserBase): 
+  id : str
   pass
 
 # Model to read an user

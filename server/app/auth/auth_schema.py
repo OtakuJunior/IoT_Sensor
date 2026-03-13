@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field
 
 class TokenRequest(BaseModel):
     username: str
@@ -10,7 +10,9 @@ class TokenResponse(BaseModel):
     token_type: str = "Bearer"
 
 class UserInfo(BaseModel):
-    sub: str
-    preferred_username: str
+    id: str = Field(alias="sub")
+    name: str = Field(alias="preferred_username")
     email: str
     realm_access: dict | None = None
+
+    model_config = ConfigDict(from_attributes=True)

@@ -12,7 +12,7 @@ class Asset(Base):
   qr_id = Column(String, nullable=False, default=lambda: str(uuid.uuid4())[:8])
   name = Column(String)
   status = Column(Enum(AssetStatus))
-  last_maintenance = Column(DateTime(timezone=True), nullable=False)
+  last_maintenance = Column(DateTime(timezone=True), nullable=True)
   location_id = Column(String, ForeignKey("locations.id")) 
 
   asset_location = relationship("Location", back_populates="assets")

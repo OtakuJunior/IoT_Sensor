@@ -72,10 +72,6 @@ export const api = {
     return await apiC.post("/locations", payload);
   },
 
-  addUser: async (payload) => {
-    return await apiC.post("/users", payload);
-  },
-
   updateSensor: async (id, payload) => {
     return await apiC.patch(`/sensors/${id}`, payload);
   },
@@ -83,5 +79,25 @@ export const api = {
   getUsers: async () => {
     const response = await apiC.get("/users");
     return response.data;
+  },
+
+  deleteUser: async (id) => {
+    return await apiC.delete(`/users/${id}}`);
+  },
+
+  getMe: async () => {
+    return await apiC.get("/auth/me");
+  },
+
+  addAsset: async (payload) => {
+    return await apiC.post("/assets", payload);
+  },
+
+  updateAsset: async (id, payload) => {
+    return await apiC.patch(`/assets/${id}`, payload);
+  },
+
+  deleteAsset: async (id) => {
+    return await apiC.delete(`/assets/${id}`);
   },
 };

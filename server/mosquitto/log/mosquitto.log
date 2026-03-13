@@ -4730,3 +4730,313 @@
 1773283413: Client 8ea5a6a8098c469793b64cf95889aa47 disconnected.
 1773283415: New connection from 192.168.65.1:43318 on port 1883.
 1773283415: New client connected from 192.168.65.1:43318 as 3a9670fdcef14e9f82326792eb6f95ca (p5, c1, k60).
+1773283892: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773285101: New connection from 192.168.65.1:32655 on port 1883.
+1773285101: New client connected from 192.168.65.1:32655 as auto-0455661F-14A8-00AA-E1BE-CDA30FCB3BAE (p2, c1, k60).
+1773285141: Client auto-0455661F-14A8-00AA-E1BE-CDA30FCB3BAE disconnected.
+1773285693: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773286226: Client 3a9670fdcef14e9f82326792eb6f95ca disconnected.
+1773286578: New connection from 192.168.65.1:20051 on port 1883.
+1773286578: New client connected from 192.168.65.1:20051 as 752303aea2d347f8a4a1ca011dd98f62 (p5, c1, k60).
+1773286624: Client 752303aea2d347f8a4a1ca011dd98f62 disconnected.
+1773286626: New connection from 192.168.65.1:50552 on port 1883.
+1773286626: New client connected from 192.168.65.1:50552 as 4cf9124872c84987a6df7b37a8df6240 (p5, c1, k60).
+1773286761: Client 4cf9124872c84987a6df7b37a8df6240 disconnected.
+1773286762: New connection from 192.168.65.1:54957 on port 1883.
+1773286762: New client connected from 192.168.65.1:54957 as bb5d775264814c07a5d9b726ab0b53d0 (p5, c1, k60).
+1773286771: Client bb5d775264814c07a5d9b726ab0b53d0 disconnected.
+1773286771: New connection from 192.168.65.1:54162 on port 1883.
+1773286771: New client connected from 192.168.65.1:54162 as 753c48611c2941dca909b5ec5805ef01 (p5, c1, k60).
+1773286843: Client 753c48611c2941dca909b5ec5805ef01 disconnected.
+1773286845: New connection from 192.168.65.1:26148 on port 1883.
+1773286845: New client connected from 192.168.65.1:26148 as e447b4a17d3941858340e8c147aa4c33 (p5, c1, k60).
+1773286863: Client e447b4a17d3941858340e8c147aa4c33 disconnected.
+1773286864: New connection from 192.168.65.1:19892 on port 1883.
+1773286864: New client connected from 192.168.65.1:19892 as 76513616997243bba5c039a358216b9d (p5, c1, k60).
+1773286981: Client 76513616997243bba5c039a358216b9d disconnected.
+1773286982: New connection from 192.168.65.1:59936 on port 1883.
+1773286982: New client connected from 192.168.65.1:59936 as dc7b67cc268d40b9abacd7c09686fd39 (p5, c1, k60).
+1773287052: Client dc7b67cc268d40b9abacd7c09686fd39 disconnected.
+1773287053: New connection from 192.168.65.1:46494 on port 1883.
+1773287053: New client connected from 192.168.65.1:46494 as 98e466e4dc1c4e93a26700e6de5e6b7c (p5, c1, k60).
+1773287086: Client 98e466e4dc1c4e93a26700e6de5e6b7c disconnected.
+1773287142: New connection from 192.168.65.1:21070 on port 1883.
+1773287142: New client connected from 192.168.65.1:21070 as 75bd0fe2eb524fa0b36d6845bd5a7c94 (p5, c1, k60).
+1773287284: Client 75bd0fe2eb524fa0b36d6845bd5a7c94 disconnected.
+1773287285: New connection from 192.168.65.1:26598 on port 1883.
+1773287285: New client connected from 192.168.65.1:26598 as feff6a44f7bd4af3929d89feeb7848e2 (p5, c1, k60).
+1773287366: Client feff6a44f7bd4af3929d89feeb7848e2 disconnected.
+1773287368: New connection from 192.168.65.1:57040 on port 1883.
+1773287368: New client connected from 192.168.65.1:57040 as 67c8dc3754d7464f81a32964942368a1 (p5, c1, k60).
+1773287435: Client 67c8dc3754d7464f81a32964942368a1 disconnected.
+1773287436: New connection from 192.168.65.1:51814 on port 1883.
+1773287436: New client connected from 192.168.65.1:51814 as 6b25d15f34f74b17953db5d5af16d16d (p5, c1, k60).
+1773287496: Client 6b25d15f34f74b17953db5d5af16d16d disconnected.
+1773287497: New connection from 192.168.65.1:33407 on port 1883.
+1773287497: New client connected from 192.168.65.1:33407 as 191342e66f2f4215b9041b9fcda1c99c (p5, c1, k60).
+1773287520: Client 191342e66f2f4215b9041b9fcda1c99c disconnected.
+1773287522: New connection from 192.168.65.1:32306 on port 1883.
+1773287522: New client connected from 192.168.65.1:32306 as 65ec027e59a9459ab47ad5eec49a4a45 (p5, c1, k60).
+1773287700: Client 65ec027e59a9459ab47ad5eec49a4a45 disconnected.
+1773287701: New connection from 192.168.65.1:29434 on port 1883.
+1773287701: New client connected from 192.168.65.1:29434 as 964f9a971180423fb53ecd07fd193f2f (p5, c1, k60).
+1773287703: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773288196: Client 964f9a971180423fb53ecd07fd193f2f disconnected.
+1773288197: New connection from 192.168.65.1:49522 on port 1883.
+1773288197: New client connected from 192.168.65.1:49522 as 80a11dd8e7e842309182b0ed9b82aa8d (p5, c1, k60).
+1773288197: Client 80a11dd8e7e842309182b0ed9b82aa8d closed its connection.
+1773288201: New connection from 192.168.65.1:40140 on port 1883.
+1773288201: New client connected from 192.168.65.1:40140 as f7bc7db0ecf54c438a586375fb6b37dc (p5, c1, k60).
+1773288718: Client f7bc7db0ecf54c438a586375fb6b37dc disconnected.
+1773288721: New connection from 192.168.65.1:45709 on port 1883.
+1773288721: New client connected from 192.168.65.1:45709 as ef6f7451adaf415486b58626ce07ab97 (p5, c1, k60).
+1773288942: Client ef6f7451adaf415486b58626ce07ab97 disconnected.
+1773288943: New connection from 192.168.65.1:39231 on port 1883.
+1773288943: New client connected from 192.168.65.1:39231 as 1ccddfe941db4b5a866ff481314fcf41 (p5, c1, k60).
+1773291800: mosquitto version 2.0.22 starting
+1773291800: Config loaded from /mosquitto/config/mosquitto.conf.
+1773291800: Opening ipv4 listen socket on port 1883.
+1773291800: Opening ipv6 listen socket on port 1883.
+1773291800: mosquitto version 2.0.22 running
+1773292030: New connection from 192.168.65.1:42471 on port 1883.
+1773292030: New client connected from 192.168.65.1:42471 as d4967a2d6d42434b9ead689d9210e3f0 (p5, c1, k60).
+1773293914: mosquitto version 2.0.22 starting
+1773293914: Config loaded from /mosquitto/config/mosquitto.conf.
+1773293914: Opening ipv4 listen socket on port 1883.
+1773293914: Opening ipv6 listen socket on port 1883.
+1773293914: mosquitto version 2.0.22 running
+1773293955: mosquitto version 2.0.22 terminating
+1773293955: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773293970: mosquitto version 2.0.22 starting
+1773293970: Config loaded from /mosquitto/config/mosquitto.conf.
+1773293970: Opening ipv4 listen socket on port 1883.
+1773293970: Opening ipv6 listen socket on port 1883.
+1773293970: mosquitto version 2.0.22 running
+1773294024: mosquitto version 2.0.22 terminating
+1773294024: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773294037: mosquitto version 2.0.22 starting
+1773294037: Config loaded from /mosquitto/config/mosquitto.conf.
+1773294037: Opening ipv4 listen socket on port 1883.
+1773294037: Opening ipv6 listen socket on port 1883.
+1773294037: mosquitto version 2.0.22 running
+1773294048: New connection from 192.168.65.1:41328 on port 1883.
+1773294048: New client connected from 192.168.65.1:41328 as 09b8407db0644490be171656bc377e4e (p5, c1, k60).
+1773294659: mosquitto version 2.0.22 starting
+1773294659: Config loaded from /mosquitto/config/mosquitto.conf.
+1773294659: Opening ipv4 listen socket on port 1883.
+1773294659: Opening ipv6 listen socket on port 1883.
+1773294659: mosquitto version 2.0.22 running
+1773294728: New connection from 192.168.65.1:28764 on port 1883.
+1773294728: New client connected from 192.168.65.1:28764 as b804d12b8e884f639e9c3924edfa80a0 (p5, c1, k60).
+1773296314: Client b804d12b8e884f639e9c3924edfa80a0 disconnected.
+1773296316: New connection from 192.168.65.1:46524 on port 1883.
+1773296316: New client connected from 192.168.65.1:46524 as 908ab62ba27647a8a25819a9fc97a3ff (p5, c1, k60).
+1773296459: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773296490: Client 908ab62ba27647a8a25819a9fc97a3ff disconnected.
+1773296493: New connection from 192.168.65.1:41390 on port 1883.
+1773296493: New client connected from 192.168.65.1:41390 as 8899b3fd88e947b88a2bc8044b0ba4e2 (p5, c1, k60).
+1773297232: Client 8899b3fd88e947b88a2bc8044b0ba4e2 disconnected.
+1773297233: New connection from 192.168.65.1:59091 on port 1883.
+1773297233: New client connected from 192.168.65.1:59091 as 92817e9e3a1b43caa6e342bd6c0dad32 (p5, c1, k60).
+1773298245: Client 92817e9e3a1b43caa6e342bd6c0dad32 disconnected.
+1773298246: New connection from 192.168.65.1:34550 on port 1883.
+1773298246: New client connected from 192.168.65.1:34550 as 5966b79a5a194c4e9239d97807061f5e (p5, c1, k60).
+1773298260: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773298840: Client 5966b79a5a194c4e9239d97807061f5e disconnected.
+1773298843: New connection from 192.168.65.1:33265 on port 1883.
+1773298843: New client connected from 192.168.65.1:33265 as 7583d0b6351049d7a1c77dca18c45197 (p5, c1, k60).
+1773299013: Client 7583d0b6351049d7a1c77dca18c45197 disconnected.
+1773299015: New connection from 192.168.65.1:41374 on port 1883.
+1773299015: New client connected from 192.168.65.1:41374 as 9fa195a1efca493e9f5bda9f0762f0ac (p5, c1, k60).
+1773299058: Client 9fa195a1efca493e9f5bda9f0762f0ac disconnected.
+1773299059: New connection from 192.168.65.1:20146 on port 1883.
+1773299059: New client connected from 192.168.65.1:20146 as ca257f3a7b814a9a8476b8d3bef72049 (p5, c1, k60).
+1773299723: Client ca257f3a7b814a9a8476b8d3bef72049 disconnected.
+1773299726: New connection from 192.168.65.1:35330 on port 1883.
+1773299726: New client connected from 192.168.65.1:35330 as 773c041e914949548b276ca119db40fd (p5, c1, k60).
+1773299876: Client 773c041e914949548b276ca119db40fd disconnected.
+1773299878: New connection from 192.168.65.1:22050 on port 1883.
+1773299878: New client connected from 192.168.65.1:22050 as be4e63551a2d42089572a245b2fb19ab (p5, c1, k60).
+1773299929: Client be4e63551a2d42089572a245b2fb19ab disconnected.
+1773299930: New connection from 192.168.65.1:54585 on port 1883.
+1773299930: New client connected from 192.168.65.1:54585 as 35f70f48e0ff4cfda88b4a2fc24495fc (p5, c1, k60).
+1773299998: Client 35f70f48e0ff4cfda88b4a2fc24495fc disconnected.
+1773299999: New connection from 192.168.65.1:20998 on port 1883.
+1773299999: New client connected from 192.168.65.1:20998 as 39adf7375f0b4009863db11cf0d6de12 (p5, c1, k60).
+1773300029: Client 39adf7375f0b4009863db11cf0d6de12 disconnected.
+1773300030: New connection from 192.168.65.1:28322 on port 1883.
+1773300030: New client connected from 192.168.65.1:28322 as 1f5207db5b48420b906dbd045cd266f7 (p5, c1, k60).
+1773300057: Client 1f5207db5b48420b906dbd045cd266f7 disconnected.
+1773300059: New connection from 192.168.65.1:30091 on port 1883.
+1773300059: New client connected from 192.168.65.1:30091 as c1f88568a7b948dbac67b33f4324a3cc (p5, c1, k60).
+1773300062: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773300292: Client c1f88568a7b948dbac67b33f4324a3cc disconnected.
+1773300295: New connection from 192.168.65.1:50340 on port 1883.
+1773300295: New client connected from 192.168.65.1:50340 as 640009bf80564da6830cd4fb3dbc1b66 (p5, c1, k60).
+1773300544: Client 640009bf80564da6830cd4fb3dbc1b66 disconnected.
+1773300545: New connection from 192.168.65.1:30365 on port 1883.
+1773300545: New client connected from 192.168.65.1:30365 as a4592308f52f446f878f406bc9a8de7c (p5, c1, k60).
+1773300632: Client a4592308f52f446f878f406bc9a8de7c disconnected.
+1773300635: New connection from 192.168.65.1:45614 on port 1883.
+1773300635: New client connected from 192.168.65.1:45614 as 001d41c83eb54f669f4a3d3dffec1129 (p5, c1, k60).
+1773300721: Client 001d41c83eb54f669f4a3d3dffec1129 disconnected.
+1773300722: New connection from 192.168.65.1:63148 on port 1883.
+1773300722: New client connected from 192.168.65.1:63148 as 09c9bd75885d49edb0bd16b39ddc1b3b (p5, c1, k60).
+1773300754: Client 09c9bd75885d49edb0bd16b39ddc1b3b disconnected.
+1773300756: New connection from 192.168.65.1:25021 on port 1883.
+1773300756: New client connected from 192.168.65.1:25021 as 3d1e6affa77b42fd864dc4b7efc0c6e5 (p5, c1, k60).
+1773300791: Client 3d1e6affa77b42fd864dc4b7efc0c6e5 disconnected.
+1773300792: New connection from 192.168.65.1:46189 on port 1883.
+1773300792: New client connected from 192.168.65.1:46189 as 9eabb5fc511548e384d7b17112dffc0e (p5, c1, k60).
+1773300838: Client 9eabb5fc511548e384d7b17112dffc0e disconnected.
+1773300840: New connection from 192.168.65.1:39010 on port 1883.
+1773300840: New client connected from 192.168.65.1:39010 as c0b3eb647baa4aa79049bf50098ceeba (p5, c1, k60).
+1773300907: Client c0b3eb647baa4aa79049bf50098ceeba disconnected.
+1773300909: New connection from 192.168.65.1:50080 on port 1883.
+1773300909: New client connected from 192.168.65.1:50080 as c3632ff042364d4380bfa8793e818c56 (p5, c1, k60).
+1773300959: Client c3632ff042364d4380bfa8793e818c56 disconnected.
+1773300963: New connection from 192.168.65.1:55419 on port 1883.
+1773300963: New client connected from 192.168.65.1:55419 as 1ff82bb06c92433fbe3e2bb82b6e551c (p5, c1, k60).
+1773301144: Client 1ff82bb06c92433fbe3e2bb82b6e551c disconnected.
+1773301145: New connection from 192.168.65.1:43125 on port 1883.
+1773301145: New client connected from 192.168.65.1:43125 as d44bd5ecf16f40e5910c7ef1004473ed (p5, c1, k60).
+1773301244: Client d44bd5ecf16f40e5910c7ef1004473ed disconnected.
+1773301245: New connection from 192.168.65.1:62438 on port 1883.
+1773301245: New client connected from 192.168.65.1:62438 as 93dcffd6cd5f4eeb99fe9bcea54f203b (p5, c1, k60).
+1773301262: Client 93dcffd6cd5f4eeb99fe9bcea54f203b disconnected.
+1773301264: New connection from 192.168.65.1:61915 on port 1883.
+1773301264: New client connected from 192.168.65.1:61915 as 7b5f4d8653f0496a9c35e87fed3685d0 (p5, c1, k60).
+1773301268: Client 7b5f4d8653f0496a9c35e87fed3685d0 disconnected.
+1773301271: New connection from 192.168.65.1:28164 on port 1883.
+1773301271: New client connected from 192.168.65.1:28164 as d401366873a1441a8190ae23af9af436 (p5, c1, k60).
+1773301367: Client d401366873a1441a8190ae23af9af436 disconnected.
+1773301369: New connection from 192.168.65.1:20939 on port 1883.
+1773301369: New client connected from 192.168.65.1:20939 as 25608cbe278b4b82a0f41e9674495cea (p5, c1, k60).
+1773301513: Client 25608cbe278b4b82a0f41e9674495cea disconnected.
+1773301516: New connection from 192.168.65.1:24806 on port 1883.
+1773301516: New client connected from 192.168.65.1:24806 as 74cc426f76664ee4a5f22f328e4f2dbe (p5, c1, k60).
+1773301678: Client 74cc426f76664ee4a5f22f328e4f2dbe disconnected.
+1773301682: New connection from 192.168.65.1:44748 on port 1883.
+1773301682: New client connected from 192.168.65.1:44748 as 673e58d50e7d4423a5836dc69544557c (p5, c1, k60).
+1773301863: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773301974: Client 673e58d50e7d4423a5836dc69544557c disconnected.
+1773301975: New connection from 192.168.65.1:20863 on port 1883.
+1773301975: New client connected from 192.168.65.1:20863 as c15762662cbe4cdf9d57fb527fa07ec8 (p5, c1, k60).
+1773302019: Client c15762662cbe4cdf9d57fb527fa07ec8 disconnected.
+1773302022: New connection from 192.168.65.1:37154 on port 1883.
+1773302022: New client connected from 192.168.65.1:37154 as 2ab34729e78d4278871c6758c99de460 (p5, c1, k60).
+1773302157: Client 2ab34729e78d4278871c6758c99de460 disconnected.
+1773302158: New connection from 192.168.65.1:37763 on port 1883.
+1773302158: New client connected from 192.168.65.1:37763 as 0c18eac857f542609eda239b16430684 (p5, c1, k60).
+1773302205: Client 0c18eac857f542609eda239b16430684 disconnected.
+1773302206: New connection from 192.168.65.1:47915 on port 1883.
+1773302206: New client connected from 192.168.65.1:47915 as 14cca5b8a1ef4bb481f69cfb34454bec (p5, c1, k60).
+1773303664: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773303863: Client 14cca5b8a1ef4bb481f69cfb34454bec disconnected.
+1773303864: New connection from 192.168.65.1:39674 on port 1883.
+1773303864: New client connected from 192.168.65.1:39674 as badf92789a2c43759a6d5ec980abbe55 (p5, c1, k60).
+1773306519: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773308320: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773310121: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773311922: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773313723: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773315524: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773317325: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773319126: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773320927: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773322728: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773323103: Client badf92789a2c43759a6d5ec980abbe55 disconnected.
+1773323160: New connection from 192.168.65.1:33548 on port 1883.
+1773323160: New client connected from 192.168.65.1:33548 as 9f04ba49aeda4fa18624d0f4c8342ee0 (p5, c1, k60).
+1773323178: Client 9f04ba49aeda4fa18624d0f4c8342ee0 disconnected.
+1773323273: New connection from 192.168.65.1:32345 on port 1883.
+1773323273: New client connected from 192.168.65.1:32345 as bebb888f3a8c4014ae774009e43a1f2e (p5, c1, k60).
+1773323279: Client bebb888f3a8c4014ae774009e43a1f2e disconnected.
+1773323280: New connection from 192.168.65.1:23553 on port 1883.
+1773323280: New client connected from 192.168.65.1:23553 as 4d208e0e19fd469e87e47216f9e1f16a (p5, c1, k60).
+1773324214: Client 4d208e0e19fd469e87e47216f9e1f16a disconnected.
+1773324216: New connection from 192.168.65.1:30571 on port 1883.
+1773324216: New client connected from 192.168.65.1:30571 as bc6e1acff6604f5bbe469053dd32a98f (p5, c1, k60).
+1773324255: Client bc6e1acff6604f5bbe469053dd32a98f disconnected.
+1773324256: New connection from 192.168.65.1:34724 on port 1883.
+1773324256: New client connected from 192.168.65.1:34724 as 3daaaa1f4e3248bd9e87ec2577196bad (p5, c1, k60).
+1773324302: Client 3daaaa1f4e3248bd9e87ec2577196bad disconnected.
+1773324303: New connection from 192.168.65.1:19519 on port 1883.
+1773324303: New client connected from 192.168.65.1:19519 as 7d145a451c564f8492ec6f5d68dd39b1 (p5, c1, k60).
+1773324529: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773324766: Client 7d145a451c564f8492ec6f5d68dd39b1 disconnected.
+1773324767: New connection from 192.168.65.1:38124 on port 1883.
+1773324767: New client connected from 192.168.65.1:38124 as 7270f32b513a43f8b51029c24320050a (p5, c1, k60).
+1773324857: Client 7270f32b513a43f8b51029c24320050a disconnected.
+1773324859: New connection from 192.168.65.1:36250 on port 1883.
+1773324859: New client connected from 192.168.65.1:36250 as 478fd9944ec34e67be108d645e3e3923 (p5, c1, k60).
+1773324871: Client 478fd9944ec34e67be108d645e3e3923 disconnected.
+1773324872: New connection from 192.168.65.1:24795 on port 1883.
+1773324872: New client connected from 192.168.65.1:24795 as 2b08c300095948089fe714a8779ac9a8 (p5, c1, k60).
+1773324975: Client 2b08c300095948089fe714a8779ac9a8 disconnected.
+1773324976: New connection from 192.168.65.1:19073 on port 1883.
+1773324976: New client connected from 192.168.65.1:19073 as 291b981f23bb405c90d1c3522a3a4414 (p5, c1, k60).
+1773324979: Client 291b981f23bb405c90d1c3522a3a4414 disconnected.
+1773324991: New connection from 192.168.65.1:24450 on port 1883.
+1773324991: New client connected from 192.168.65.1:24450 as 12ccadedadaf408698b719e32d31afbe (p5, c1, k60).
+1773325003: Client 12ccadedadaf408698b719e32d31afbe disconnected.
+1773325004: New connection from 192.168.65.1:24370 on port 1883.
+1773325004: New client connected from 192.168.65.1:24370 as 69a4e21f541145b8ba81455b0463441c (p5, c1, k60).
+1773325077: Client 69a4e21f541145b8ba81455b0463441c disconnected.
+1773325078: New connection from 192.168.65.1:63341 on port 1883.
+1773325078: New client connected from 192.168.65.1:63341 as ba132c98f9a1424cb8c3772029d8f8a5 (p5, c1, k60).
+1773325081: Client ba132c98f9a1424cb8c3772029d8f8a5 disconnected.
+1773325081: New connection from 192.168.65.1:32110 on port 1883.
+1773325081: New client connected from 192.168.65.1:32110 as c699f4e857f24e03bf53fddc76fa30ce (p5, c1, k60).
+1773325341: Client c699f4e857f24e03bf53fddc76fa30ce disconnected.
+1773325463: New connection from 192.168.65.1:22186 on port 1883.
+1773325463: New client connected from 192.168.65.1:22186 as 85fb372879b845d7ad6aa51ea5602035 (p5, c1, k60).
+1773325478: Client 85fb372879b845d7ad6aa51ea5602035 disconnected.
+1773325479: New connection from 192.168.65.1:21136 on port 1883.
+1773325479: New client connected from 192.168.65.1:21136 as 04d85e8d65f44de2865c8062b93f03ee (p5, c1, k60).
+1773325704: Client 04d85e8d65f44de2865c8062b93f03ee disconnected.
+1773325705: New connection from 192.168.65.1:32016 on port 1883.
+1773325705: New client connected from 192.168.65.1:32016 as c3a176026ea842c1a341ef25bd7bd2b3 (p5, c1, k60).
+1773326330: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773328131: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773329932: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773331733: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773333534: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773335335: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773337136: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773366031: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773367832: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773369153: Client c3a176026ea842c1a341ef25bd7bd2b3 disconnected.
+1773369395: New connection from 192.168.65.1:27624 on port 1883.
+1773369395: New client connected from 192.168.65.1:27624 as 7d863822ef8347de81a461c4ed8ec6e7 (p5, c1, k60).
+1773369633: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773370157: Client 7d863822ef8347de81a461c4ed8ec6e7 disconnected.
+1773370159: New connection from 192.168.65.1:26360 on port 1883.
+1773370159: New client connected from 192.168.65.1:26360 as f3e9b9fd799f4e77a7334f322e8759ce (p5, c1, k60).
+1773370251: Client f3e9b9fd799f4e77a7334f322e8759ce disconnected.
+1773370253: New connection from 192.168.65.1:44584 on port 1883.
+1773370253: New client connected from 192.168.65.1:44584 as a8044d20dd8b4e2c851238e6987109f3 (p5, c1, k60).
+1773371743: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773373544: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773375345: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773377146: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773378917: Client a8044d20dd8b4e2c851238e6987109f3 disconnected.
+1773378919: New connection from 192.168.65.1:40863 on port 1883.
+1773378919: New client connected from 192.168.65.1:40863 as 872da5061e914f3381ee68eedf43ee96 (p5, c1, k60).
+1773378947: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773378956: Client 872da5061e914f3381ee68eedf43ee96 disconnected.
+1773378960: New connection from 192.168.65.1:43874 on port 1883.
+1773378960: New client connected from 192.168.65.1:43874 as 5e378111f11a4c48b74f400004d11f00 (p5, c1, k60).
+1773380907: Client 5e378111f11a4c48b74f400004d11f00 disconnected.
+1773380909: New connection from 192.168.65.1:23709 on port 1883.
+1773380909: New client connected from 192.168.65.1:23709 as 2979db0ddca24e59a4b8abbab333e80c (p5, c1, k60).
+1773380958: Client 2979db0ddca24e59a4b8abbab333e80c disconnected.
+1773380959: New connection from 192.168.65.1:58286 on port 1883.
+1773380959: New client connected from 192.168.65.1:58286 as 50691c9dbee7439298acfba4b267a369 (p5, c1, k60).
+1773380969: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1773380988: Client 50691c9dbee7439298acfba4b267a369 disconnected.
+1773380991: New connection from 192.168.65.1:52352 on port 1883.
+1773380991: New client connected from 192.168.65.1:52352 as 82b1e60da6504fa6bb474d79cc0a1a50 (p5, c1, k60).
+1773382441: Client 82b1e60da6504fa6bb474d79cc0a1a50 disconnected.
+1773382444: New connection from 192.168.65.1:56341 on port 1883.
+1773382444: New client connected from 192.168.65.1:56341 as 2de004d6c1044d09b34332529bd8e94b (p5, c1, k60).

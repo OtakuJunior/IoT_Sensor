@@ -29,9 +29,9 @@ class Units(str, enum.Enum):
   PARTS_PER_MILLION = 'ppm'
 
 class UserRole(str, enum.Enum):
-    MASTER = 'Master'
-    ADMIN = 'Admin'
-    ANALYST = 'Analyst'
+    MASTER = 'MASTER'
+    ADMIN = 'ADMIN'
+    ANALYST = 'ANALYST'
 
 
 

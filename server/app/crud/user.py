@@ -3,8 +3,11 @@ from app.schemas.user import UserCreate
 from app.models.user import User as user_model
 from app.services.enums import UserRole
 
+# Used in auth/dependencies for get_current_user 
+# We use keycloak id to create an user on the database and not with endpoint
 def create_user(db: Session, user : UserCreate):
   db_user = user_model(
+     id = user.id,
     name = user.name,
     email = user.email,
     phone_number = user.phone_number,
@@ -36,11 +39,6 @@ def get_users(db: Session, role: UserRole | None = None):
         query = query.filter(user_model.role == role)
     
     return query.all()
-
-def get_user_by_keycloak_id(db: Session, keycloak_id: str):
-    return db.query(user_model).filter(
-        user_model.keycloak_id == keycloak_id
-    ).first()
 
 def get_user_by_email(db: Session, email: str):
     return db.query(user_model).filter(user_model.email == email).first()

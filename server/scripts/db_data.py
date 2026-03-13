@@ -19,7 +19,6 @@ if not existing:
         email="admin@test.com",
         phone_number="0601020304",
         role=UserRole.MASTER,
-        keycloak_id=None
     )
     db.add(admin)
     db.commit()

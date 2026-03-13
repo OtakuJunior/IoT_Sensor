@@ -2,10 +2,9 @@ from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.crud import asset as asset_crud
-from app.schemas.asset import AssetCreate, Asset
+from app.schemas.asset import AssetCreate, Asset, AssetUpdate
 from app.schemas.sensor import Sensor
-from app.services.enums import AssetStatus
-from app.auth.dependencies import require_admin
+from app.auth.dependencies import require_admin, require_master
 
 router = APIRouter(
   prefix="/assets",
@@ -41,3 +40,14 @@ def assign_sensor_to_asset(asset_id : str, sensor_id : str, db : Session = Depen
 @router.get('/', response_model=list[Asset])
 def get_assets(db : Session = Depends(get_db)):
   return asset_crud.get_assets(db=db)
+
+@router.patch("/{asset_id}", response_model=AssetUpdate)
+def update_asset(updated_asset : AssetUpdate, asset_id : str, db : Session = Depends(get_db), admin: dict = Depends(require_admin)):
+  db_asset = asset_crud.update_asset(db=db, asset_id=asset_id, updated_asset=updated_asset)
+  if db_asset is None:
+        raise HTTPException(status_code=404, detail="Sensor not found")
+  return db_asset
+
+@router.delete("/{asset_id}")
+def delete_sensor(asset_id: str, db:Session = Depends(get_db), admin: dict = Depends(require_master)):
+  return asset_crud.delete_asset(db=db, asset_id=asset_id)

@@ -49,7 +49,7 @@ export default function SideBar() {
             <span className="text-xl m-3">
               <MdOutlineLogout />
             </span>
-            <span classname="">Logout</span>
+            <span className="">Logout</span>
           </button>
         </nav>
       </div>
