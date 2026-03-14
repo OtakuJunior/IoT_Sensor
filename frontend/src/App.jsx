@@ -14,6 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useSensor } from "./state/sensor";
 import { useAuth } from "./services/useAuth";
 import { api } from "./services/api";
+import { getAccessToken, getExp, refreshAccessToken } from "./services/oidc";
 
 export default function App() {
   const addSensorValue = useSensorData((state) => state.addSensorValue);
@@ -28,8 +29,22 @@ export default function App() {
       login({ redirectTo: "/" });
       return;
     }
+
     const userAndLoad = async () => {
       try {
+        const token = getAccessToken();
+        if (token) {
+          const exp = getExp(token);
+          const nowSec = Math.floor(Date.now() / 1000);
+          if (exp && nowSec >= exp) {
+            const refreshed = await refreshAccessToken();
+            if (!refreshed) {
+              login({ redirectTo: window.location.pathname });
+              return;
+            }
+          }
+        }
+
         await api.getMe();
         await loadSensors();
         await sync(() => api.getAlerts());
@@ -41,9 +56,7 @@ export default function App() {
 
     const socket = initSocket((data) => {
       if (data.is_data === true) {
-        if (data.value === undefined || data.value === null) {
-          return;
-        }
+        if (data.value === undefined || data.value === null) return;
         addSensorValue(data.sensor_id, {
           time: data.time
             ? new Date(data.time).toLocaleTimeString([], {
@@ -56,25 +69,38 @@ export default function App() {
           rawTime: data.time,
         });
       }
+
       if (data.is_alert === true) {
         push(data);
-        const toast_severity = {
-          Critical: toast.error,
-          Warning: toast.warning,
-        };
-        const alert_notif =
-          toast_severity[data.severity] || (() => toast.info("Alert Error"));
-        const [title, detail] = data.message.split(",");
-        alert_notif(
-          <div>
-            <div className="font-bold">{title}</div>
-            {detail && <div className="text-sm mt-1">{detail.trim()}</div>}
-          </div>
-        );
+        if (document.visibilityState === "visible") {
+          const toast_severity = {
+            Critical: toast.error,
+            Warning: toast.warning,
+          };
+          const alert_notif =
+            toast_severity[data.severity] || (() => toast.info("Alert Error"));
+          const [title, detail] = data.message.split(",");
+          alert_notif(
+            <div>
+              <div className="font-bold">{title}</div>
+              {detail && <div className="text-sm mt-1">{detail.trim()}</div>}
+            </div>
+          );
+        }
       }
     });
-    return () => socket?.disconnect?.();
-  }, [isAuthenticated, login, loadSensors, addSensorValue, push]);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        toast.dismiss();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      socket?.disconnect?.();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [isAuthenticated, login, loadSensors, addSensorValue, push, sync]);
 
   if (location.pathname === "/auth/callback") {
     return (

@@ -15,7 +15,7 @@ class Settings(BaseSettings):
   KEYCLOAK_CLIENT_SECRET: str
   SEED_USERNAME: str
   SEED_PASSWORD: str
-
+  REDIS_URL: str
 
   model_config = SettingsConfigDict(
 

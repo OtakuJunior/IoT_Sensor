@@ -7,6 +7,7 @@ from app.schemas.query_series import QuerySeriesBase
 from app.timescale import query_series
 from app.schemas.sensor_data import SensorDataCreate, SensorData
 from datetime import datetime, timedelta, timezone
+from app.cache import cache_get, cache_set, make_key
 
 router = APIRouter(
   prefix="/sensor_data",
@@ -33,14 +34,28 @@ def get_sensor_data_history(
     from_time = params.from_time if params.from_time else now - timedelta(minutes=30)
     end_time = params.end_time if params.end_time else now
 
+    key = make_key("history", {
+        "sensor_id": sensor_id,
+        "from": str(from_time),
+        "to": str(end_time),
+        "bucket_ms": params.bucket_ms or 0,
+    })
+
+    cached = cache_get(key)
+    if cached:
+        return cached
+
     result = query_series(
         sensor_id=sensor_id,
         bucket_ms=params.bucket_ms or 0,
         from_time=from_time,
         end_time=end_time
     )
-    
-    return [dict(row._mapping) for row in result] 
+    data = [dict(row._mapping) for row in result]
+
+    cache_set(key, data, ttl_sec=30)
+
+    return data
 
 @router.get('/{sensor_id}/kpis')
 def get_sensor_kpis(sensor_id : str, from_time : datetime | None = None, to_time : datetime | None = None, db : Session = Depends(get_db)):

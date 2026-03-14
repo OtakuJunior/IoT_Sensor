@@ -90,7 +90,7 @@ export function getUser() {
   return s && s.id_token ? decodeJwt(s.id_token) : null;
 }
 
-function getExp(token) {
+export function getExp(token) {
   try {
     const p = decodeJwt(token);
     return p && p.exp ? Number(p.exp) : 0;
