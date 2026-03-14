@@ -1,6 +1,8 @@
 from sqlalchemy import text
 from app.database import engine
 from datetime import datetime
+import math
+
 def init_timescale():
     try:
       with engine.begin() as connection:
@@ -72,50 +74,62 @@ def refresh_cagg(from_time : datetime | None = None, end_time : datetime | None 
       connection.execute(text("call refresh_continuous_aggregate('cagg_hour', :from_time, :end_time);"), {"from_time" : from_time, "end_time" : end_time})
       connection.execute(text("call refresh_continuous_aggregate('cagg_day', :from_time, :end_time);"), {"from_time" : from_time, "end_time" : end_time})
 
-def query_series(sensor_id : str, bucket_ms : int = 0, from_time : datetime | None = None, end_time : datetime | None = None) :
-  if bucket_ms and bucket_ms >= 86400000: # 1 day
-    with engine.begin() as connection:
-      return connection.execute(text("""
-        SELECT bucket as ts, avg, min, max, count 
-        FROM cagg_day 
-        WHERE sensor_id = :sensor_id AND bucket 
-        BETWEEN :from_time AND :end_time 
-        ORDER BY bucket ASC;
-      """), {"sensor_id" : sensor_id, "from_time" : from_time, "end_time" : end_time}).fetchall()
+def downsample(data, max_points=150):
+    if len(data) <= max_points:
+        return data
+    stride = math.ceil(len(data) / max_points)
+    result = data[::stride]
+    if result[-1] != data[-1]:
+        result = list(result) + [data[-1]]
+    return result
 
-  elif bucket_ms and bucket_ms >= 3600000: # 1 hour
-    with engine.begin() as connection:
-      return connection.execute(text("""
-        SELECT bucket as ts, avg, min, max, count 
-        FROM cagg_hour 
-        WHERE sensor_id = :sensor_id AND bucket 
-        BETWEEN :from_time AND :end_time 
-        ORDER BY bucket ASC;
-      """), {"sensor_id" : sensor_id, "from_time" : from_time, "end_time" : end_time}).fetchall()
+def query_series(sensor_id: str, bucket_ms: int = 0, from_time: datetime | None = None, end_time: datetime | None = None):
+    if bucket_ms and bucket_ms >= 86400000:
+        with engine.begin() as connection:
+            rows = connection.execute(text("""
+                SELECT bucket as ts, avg, min, max, count 
+                FROM cagg_day 
+                WHERE sensor_id = :sensor_id AND bucket 
+                BETWEEN :from_time AND :end_time 
+                ORDER BY bucket ASC;
+            """), {"sensor_id": sensor_id, "from_time": from_time, "end_time": end_time}).fetchall()
+            return downsample(rows)
 
-  elif bucket_ms and bucket_ms > 0:
-    seconds = int(bucket_ms/1000)
-    with engine.connect() as connection:
-      return connection.execute(text(f"""
-        SELECT time_bucket('{seconds} seconds'::interval, time) AS ts,
-        count(*) AS count, avg(value) AS avg, min(value) AS min, max(value) AS max 
-        FROM sensor_data 
-        WHERE sensor_id = :sensor_id 
-        AND time BETWEEN :from_time AND :end_time 
-        GROUP BY ts 
-        ORDER BY ts ASC
-      """), {"sensor_id" : sensor_id, "from_time" : from_time, "end_time" : end_time}).fetchall()
-  
-  else:
-    print(f"query_series: sensor_id={sensor_id}, from_time={from_time}, end_time={end_time}")
-    with engine.connect() as connection :
-      return connection.execute(text("""
-          SELECT extract(epoch FROM time)*1000 AS ts, value 
-          FROM sensor_data
-          WHERE sensor_id = :sensor_id 
-          AND time BETWEEN :from_time AND :end_time 
-          ORDER BY time ASC 
-          LIMIT 100000; 
-      """), {"sensor_id" : sensor_id, "from_time" : from_time, "end_time" : end_time}).fetchall()
-    
-  return []
+    elif bucket_ms and bucket_ms >= 3600000:
+        with engine.begin() as connection:
+            rows = connection.execute(text("""
+                SELECT bucket as ts, avg, min, max, count 
+                FROM cagg_hour 
+                WHERE sensor_id = :sensor_id AND bucket 
+                BETWEEN :from_time AND :end_time 
+                ORDER BY bucket ASC;
+            """), {"sensor_id": sensor_id, "from_time": from_time, "end_time": end_time}).fetchall()
+            return downsample(rows)
+
+    elif bucket_ms and bucket_ms > 0:
+        seconds = int(bucket_ms / 1000)
+        with engine.connect() as connection:
+            rows = connection.execute(text(f"""
+                SELECT time_bucket('{seconds} seconds'::interval, time) AS ts,
+                count(*) AS count, avg(value) AS avg, min(value) AS min, max(value) AS max 
+                FROM sensor_data 
+                WHERE sensor_id = :sensor_id 
+                AND time BETWEEN :from_time AND :end_time 
+                GROUP BY ts 
+                ORDER BY ts ASC
+            """), {"sensor_id": sensor_id, "from_time": from_time, "end_time": end_time}).fetchall()
+            return downsample(rows)
+
+    else:
+        with engine.connect() as connection:
+            rows = connection.execute(text("""
+                SELECT extract(epoch FROM time)*1000 AS ts, value 
+                FROM sensor_data
+                WHERE sensor_id = :sensor_id 
+                AND time BETWEEN :from_time AND :end_time 
+                ORDER BY time ASC
+                LIMIT 100000;
+            """), {"sensor_id": sensor_id, "from_time": from_time, "end_time": end_time}).fetchall()
+            return downsample(rows)
+
+    return []

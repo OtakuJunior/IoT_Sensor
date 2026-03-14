@@ -35,16 +35,19 @@ export const useAlerts = create(
           return { acked: prev, audit };
         });
       },
-      clear: (user) => {
-        const ts = Date.now();
-        set((s) => ({
-          log: [],
-          acked: [],
-          audit: [
-            { action: "clear", id: null, user, ts },
-            ...(s.audit || []),
-          ].slice(0, 500),
-        }));
+
+      sync: async (fetchFromDB) => {
+        const dbAlerts = await fetchFromDB();
+        const currentIds = new Set((get().log || []).map((a) => a.id));
+        const missing = dbAlerts.filter((a) => !currentIds.has(a.id));
+        if (missing.length === 0) return;
+        const merged = [...missing, ...(get().log || [])]
+          .sort(
+            (a, b) =>
+              new Date(b.time || b.timestamp) - new Date(a.time || a.timestamp)
+          )
+          .slice(0, 200);
+        set({ log: merged });
       },
     }),
     { name: "alerts-log" }

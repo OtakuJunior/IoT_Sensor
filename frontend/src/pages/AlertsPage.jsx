@@ -3,6 +3,7 @@ import { useAlerts } from "../state/alert";
 import { useSensor } from "../state/sensor";
 import { getSensorInfos } from "../lib/sensorInfos";
 import KpiCard from "../components/kpiCard";
+import { useAuth } from "../services/useAuth";
 
 const windowLabels = {
   0: "All time",
@@ -13,37 +14,44 @@ const windowLabels = {
   10080: "1 week",
 };
 
+const PAGE_SIZE = 20;
+
 export default function AlertsLog() {
+  const { user } = useAuth();
+
   const sensors = useSensor((state) => state.sensors);
-  const { log, acked, audit, ack, clear } = useAlerts();
+  const { log, acked, audit, ack } = useAlerts();
 
   const [q, setQ] = useState("");
   const [severityFilter, setSeverityFilter] = useState("");
   const [windowMin, setWindowMin] = useState(0);
   const [now, setNow] = useState(() => Date.now());
+  const [page, setPage] = useState(1);
+
   const ackedSet = useMemo(() => new Set(acked), [acked]);
+
   useEffect(() => {
     const interval = setInterval(() => setNow(Date.now()), 30000);
     return () => clearInterval(interval);
   }, []);
+
   const filtered = useMemo(() => {
     return log.filter((item) => {
       const matchesSearch =
         item.sensor_id?.toLowerCase().includes(q.toLowerCase()) ||
         item.message?.toLowerCase().includes(q.toLowerCase());
-
       const matchesSeverity = severityFilter
         ? item.severity === severityFilter
         : true;
-
       const itemTime = new Date(item.time || item.timestamp).getTime();
-
       const matchesTime =
         windowMin === 0 ? true : now - itemTime < windowMin * 60 * 1000;
-
       return matchesSearch && matchesSeverity && matchesTime;
     });
   }, [log, q, severityFilter, windowMin, now]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   const summary = {
     total: filtered.length,
@@ -114,29 +122,35 @@ export default function AlertsLog() {
       <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-[0_8px_20px_rgba(15,23,42,0.06)]">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
           <h2 className="text-lg font-bold text-slate-800">Alerts Log</h2>
-
           <div className="flex flex-wrap gap-3 w-full md:w-auto">
             <input
               className="bg-white border border-slate-200 text-slate-900 text-sm rounded-[10px] px-3 py-2.5 focus:outline-blue-600 focus:border-blue-600 w-full md:w-64 transition-shadow"
               placeholder="Filter device/metric..."
               value={q}
-              onChange={(e) => setQ(e.target.value)}
+              onChange={(e) => {
+                setQ(e.target.value);
+                setPage(1);
+              }}
             />
-
             <select
               className="bg-white border border-slate-200 text-slate-900 text-sm rounded-[10px] px-3 py-2.5 focus:outline-blue-600 focus:border-blue-600 cursor-pointer"
               value={severityFilter}
-              onChange={(e) => setSeverityFilter(e.target.value)}
+              onChange={(e) => {
+                setSeverityFilter(e.target.value);
+                setPage(1);
+              }}
             >
               <option value="">All Levels</option>
               <option value="Critical">Critical</option>
               <option value="Warning">Warning</option>
             </select>
-
             <select
               className="bg-white border border-slate-200 text-slate-900 text-sm rounded-[10px] px-3 py-2.5 focus:outline-blue-600 focus:border-blue-600 cursor-pointer"
               value={windowMin}
-              onChange={(e) => setWindowMin(Number(e.target.value))}
+              onChange={(e) => {
+                setWindowMin(Number(e.target.value));
+                setPage(1);
+              }}
             >
               <option value={0}>Window: All</option>
               <option value={15}>15 min</option>
@@ -147,14 +161,7 @@ export default function AlertsLog() {
             </select>
           </div>
         </div>
-
         <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t border-slate-50">
-          <button
-            onClick={() => clear("Operator")}
-            className="bg-slate-50 border border-slate-200 text-red-600 hover:bg-red-50 hover:border-red-200 rounded-[10px] px-3.5 py-2.5 text-sm font-medium transition-colors"
-          >
-            Clear Log
-          </button>
           <div className="grow"></div>
           <button
             onClick={exportCSV}
@@ -187,7 +194,19 @@ export default function AlertsLog() {
       </div>
 
       <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-[0_8px_20px_rgba(15,23,42,0.06)] overflow-hidden">
-        <h3 className="text-lg font-bold text-slate-800 mb-4">All Alerts</h3>
+        {/* Header + info page */}
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-bold text-slate-800">All Alerts</h3>
+          <span className="text-xs text-slate-400">
+            {filtered.length === 0
+              ? "No results"
+              : `${(page - 1) * PAGE_SIZE + 1}–${Math.min(
+                  page * PAGE_SIZE,
+                  filtered.length
+                )} of ${filtered.length}`}
+          </span>
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-full">
             <thead>
@@ -213,7 +232,7 @@ export default function AlertsLog() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
-              {filtered.length === 0 ? (
+              {paginated.length === 0 ? (
                 <tr>
                   <td
                     colSpan="6"
@@ -223,7 +242,7 @@ export default function AlertsLog() {
                   </td>
                 </tr>
               ) : (
-                filtered.map((a) => (
+                paginated.map((a) => (
                   <tr
                     key={a.id}
                     className="hover:bg-slate-50/80 transition-colors"
@@ -262,7 +281,12 @@ export default function AlertsLog() {
                     </td>
                     <td className="p-3">
                       <button
-                        onClick={() => ack(a.id, "Operator")}
+                        onClick={() =>
+                          ack(
+                            a.id,
+                            user?.name || user?.preferred_username || "Operator"
+                          )
+                        }
                         disabled={ackedSet.has(a.id)}
                         className={`px-3 py-1.5 rounded-[10px] text-xs font-medium transition-colors border ${
                           ackedSet.has(a.id)
@@ -279,6 +303,67 @@ export default function AlertsLog() {
             </tbody>
           </table>
         </div>
+
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-4 pt-4 border-t border-slate-100">
+            <button
+              onClick={() => setPage(1)}
+              disabled={page === 1}
+              className="px-2.5 py-1.5 rounded-lg text-xs font-medium border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            >
+              «
+            </button>
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="px-2.5 py-1.5 rounded-lg text-xs font-medium border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            >
+              ‹
+            </button>
+
+            {(() => {
+              const delta = 2;
+              const total = 5;
+              let start = Math.max(1, page - delta);
+              let end = start + total - 1;
+              if (end > totalPages) {
+                end = totalPages;
+                start = Math.max(1, end - total + 1);
+              }
+              return Array.from(
+                { length: end - start + 1 },
+                (_, i) => start + i
+              ).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setPage(p)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+                    p === page
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "border-slate-200 text-slate-600 hover:bg-slate-50"
+                  }`}
+                >
+                  {p}
+                </button>
+              ));
+            })()}
+
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              className="px-2.5 py-1.5 rounded-lg text-xs font-medium border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            >
+              ›
+            </button>
+            <button
+              onClick={() => setPage(totalPages)}
+              disabled={page === totalPages}
+              className="px-2.5 py-1.5 rounded-lg text-xs font-medium border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            >
+              »
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-[0_8px_20px_rgba(15,23,42,0.06)]">

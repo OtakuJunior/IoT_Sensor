@@ -82,7 +82,7 @@ export const api = {
   },
 
   deleteUser: async (id) => {
-    return await apiC.delete(`/users/${id}}`);
+    return await apiC.delete(`/users/${id}`);
   },
 
   getMe: async () => {

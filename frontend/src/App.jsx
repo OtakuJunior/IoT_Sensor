@@ -18,6 +18,7 @@ import { api } from "./services/api";
 export default function App() {
   const addSensorValue = useSensorData((state) => state.addSensorValue);
   const push = useAlerts((state) => state.push);
+  const sync = useAlerts((state) => state.sync);
   const loadSensors = useSensor((state) => state.loadSensors);
   const { isAuthenticated, login } = useAuth();
 
@@ -31,6 +32,7 @@ export default function App() {
       try {
         await api.getMe();
         await loadSensors();
+        await sync(() => api.getAlerts());
       } catch (err) {
         console.error(err);
       }
@@ -43,11 +45,13 @@ export default function App() {
           return;
         }
         addSensorValue(data.sensor_id, {
-          time: new Date(data.time).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          }),
+          time: data.time
+            ? new Date(data.time).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              })
+            : "--",
           value: data.value,
           rawTime: data.time,
         });

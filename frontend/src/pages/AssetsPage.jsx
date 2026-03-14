@@ -414,6 +414,7 @@ export default function AssetsPage() {
                   setIsAddLocationModalOpen(true);
                 }
                 if (activeTab === "assets") {
+                  setIsEditMode(false);
                   setSelectedAsset(null);
                   setAssetFormData({
                     name: "",

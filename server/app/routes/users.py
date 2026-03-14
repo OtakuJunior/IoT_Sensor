@@ -19,7 +19,7 @@ def get_user(user_id : str, db : Session = Depends(get_db)):
     raise HTTPException(status_code=404, detail="User not found")
   return db_user
 
-@router.delete("/{user_id}", status_code=204)
+@router.delete("/{user_id}", status_code=200)
 def delete_user(user_id : str, db : Session = Depends(get_db), master: dict = Depends(require_master)):
   deleteUser = user_crud.delete_user(db=db, user_id=user_id)
   if deleteUser is None:

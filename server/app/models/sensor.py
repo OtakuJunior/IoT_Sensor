@@ -13,13 +13,13 @@ class Sensor(Base):
   sensor_type = Column(Enum(SensorType), nullable=False)
   unit = Column(Enum(Units), nullable=False)
   status = Column(Enum(SensorStatus), nullable=False)
-  min_warning = Column(Float)
-  max_warning = Column(Float)
-  min_critical = Column(Float)
-  max_critical = Column(Float)
+  min_warning = Column(Float, nullable=True)
+  max_warning = Column(Float, nullable=True)
+  min_critical = Column(Float, nullable=False)
+  max_critical = Column(Float, nullable = False)
   location_id = Column(String, ForeignKey("locations.id"), nullable= True)
   asset_id = Column(String, ForeignKey("assets.id"), nullable= True)
-
+  
   alerts = relationship("Alert", back_populates="message_sensor")
   sensor_location = relationship("Location", back_populates="sensors")
   data = relationship("SensorData", back_populates="sensor")

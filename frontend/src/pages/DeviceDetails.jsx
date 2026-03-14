@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSensorData } from "../state/sensorData";
 import { api } from "../services/api";
@@ -30,6 +36,19 @@ function DetailTile({ title, children }) {
   );
 }
 
+const HISTORY_WINDOWS = [
+  { label: "1h", value: 60 },
+  { label: "6h", value: 360 },
+  { label: "12h", value: 720 },
+  { label: "24h", value: 1440 },
+];
+
+function getBucketMs(historyWindow) {
+  if (historyWindow <= 60) return 0;
+  if (historyWindow <= 720) return 60_000;
+  return 300_000;
+}
+
 export default function DeviceDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -41,22 +60,24 @@ export default function DeviceDetail() {
   const sensors = useSensor((state) => state.sensors);
   const sensorInfo = getSensorInfos(sensors, id);
   const [locations, setLocations] = useState([]);
+  const [historyWindow, setHistoryWindow] = useState(60);
+
   const sensorData = useSensorData((state) => state.dataBySensor[id]);
   const setInitialHistory = useSensorData((state) => state.setInitialHistory);
-  const clear = useSensorData((state) => state.clear);
-  const loading = sensorData?.history === undefined;
-  //const [kpis, setKpis] = useState(null);
+  const clearSensor = useSensorData((state) => state.clearSensor);
+
+  const [isFetching, setIsFetching] = useState(false);
+  const loading = sensorData?.history === undefined && !isFetching;
+
   const localKpis = useMemo(() => {
     const history = sensorData?.history;
     if (!history || history.length === 0) {
       return { min: null, max: null, avg: null };
     }
     const values = history.map((item) => item.value);
-
     const min = Math.min(...values);
     const max = Math.max(...values);
     const avg = values.reduce((acc, curr) => acc + curr, 0) / values.length;
-
     return {
       min: Number(min.toFixed(2)),
       max: Number(max.toFixed(2)),
@@ -80,62 +101,54 @@ export default function DeviceDetail() {
         })
       : "--";
 
+  const fetchingRef = useRef(false);
+
   const fetchSensorAndHistory = useCallback(async () => {
-    if (sensorData?.history !== undefined) {
-      return;
-    }
+    if (fetchingRef.current) return;
+    fetchingRef.current = true;
+    setIsFetching(true); // ← indique qu'un fetch est en cours
     try {
-      const historyData = await api.getSensorHistory(id);
+      clearSensor(id);
+      const now = new Date();
+      const fromTime = new Date(now - historyWindow * 60 * 1000);
+      const bucketMs = getBucketMs(historyWindow);
+
+      const historyData = await api.getSensorHistory(id, {
+        fromTime: fromTime.toISOString(),
+        endTime: now.toISOString(),
+        ...(bucketMs > 0 && { bucketMs }),
+      });
+
       const formattedHistory = historyData.map((point) => ({
         time: new Date(point.ts).toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
           second: "2-digit",
         }),
-        value: point.value,
+        value: point.value ?? point.avg,
         rawTime: point.ts,
       }));
-      setInitialHistory(id, formattedHistory);
+      setInitialHistory(id, formattedHistory, bucketMs > 0);
     } catch (error) {
       console.error(error);
       setInitialHistory(id, []);
+    } finally {
+      fetchingRef.current = false;
+      setIsFetching(false); // ← fetch terminé
     }
-  }, [id, setInitialHistory, sensorData?.history]);
-
-  /* const fetchkpis = async () => {
-      const startOfDay = new Date();
-      startOfDay.setHours(0, 0, 0, 0);
-      try {
-        const data = await api.getSensorKpis(id, {
-          fromTime: startOfDay.toISOString(),
-          endTime: new Date().toISOString(),
-        });
-        setKpis(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }; */
-
-  //fetchkpis();
+  }, [id, setInitialHistory, clearSensor, historyWindow]);
 
   useEffect(() => {
     fetchSensorAndHistory();
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
-        clear();
         fetchSensorAndHistory();
       }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
     return () =>
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, [fetchSensorAndHistory, clear]);
-
-  const locationName = useMemo(() => {
-    if (!sensorInfo || !locations.length) return "Unassigned";
-    const loc = locations.find((l) => l.id === sensorInfo.location_id);
-    return loc ? loc.name : "Unknown Location";
-  }, [sensorInfo, locations]);
+  }, [fetchSensorAndHistory]);
 
   useEffect(() => {
     async function fetchLocations() {
@@ -149,12 +162,20 @@ export default function DeviceDetail() {
     fetchLocations();
   }, []);
 
+  const locationName = useMemo(() => {
+    if (!sensorInfo || !locations.length) return "Unassigned";
+    const loc = locations.find((l) => l.id === sensorInfo.location_id);
+    return loc ? loc.name : "Unknown Location";
+  }, [sensorInfo, locations]);
+
   if (loading)
     return <div className="p-8 text-slate-500">Loading details...</div>;
   if (!sensorInfo)
     return <div className="p-8 text-red-500">Sensor not found.</div>;
+
   const currentValue = sensorData?.current || null;
   const history = sensorData?.history || [];
+  console.log("history points:", sensorData?.history?.length ?? 0);
 
   return (
     <div className="space-y-6">
@@ -201,8 +222,25 @@ export default function DeviceDetail() {
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <div className=" bg-white p-2 rounded-xl shadow-sm border border-slate-200">
-          <h3 className="text-lg font-bold text-slate-800 mb-6 p-2">History</h3>
+        <div className="bg-white p-2 rounded-xl shadow-sm border border-slate-200">
+          <div className="flex items-center justify-between p-2 mb-4">
+            <h3 className="text-lg font-bold text-slate-800">History</h3>
+            <div className="flex gap-2">
+              {HISTORY_WINDOWS.map(({ label, value }) => (
+                <button
+                  key={value}
+                  onClick={() => setHistoryWindow(value)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+                    historyWindow === value
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "border-slate-200 text-slate-600 hover:bg-slate-50"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={history}>
@@ -225,7 +263,6 @@ export default function DeviceDetail() {
                   tickLine={false}
                 />
                 <Tooltip />
-
                 {sensorInfo?.min_critical && (
                   <ReferenceLine
                     y={sensorInfo.min_critical}
@@ -252,7 +289,6 @@ export default function DeviceDetail() {
                     }}
                   />
                 )}
-
                 {sensorInfo?.max_warning && (
                   <ReferenceLine
                     y={sensorInfo.max_warning}
@@ -279,7 +315,6 @@ export default function DeviceDetail() {
                     }}
                   />
                 )}
-
                 <Line
                   type="monotone"
                   dataKey="value"
@@ -302,7 +337,6 @@ export default function DeviceDetail() {
             max={100}
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-            {" "}
             <KpiCard
               title="Min Value"
               value={localKpis?.min ? localKpis.min : "--"}

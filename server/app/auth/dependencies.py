@@ -45,7 +45,7 @@ def get_current_user(
                 user = crud_user.create_user(db, user=new_user_data)
             except Exception:
                 db.rollback() 
-                user = crud_user.get_user(db, user_info.sub)
+                user = crud_user.get_user(db, user_info.id)
                 if not user:
                     raise HTTPException(status_code=500, detail="User creation conflict")
     return user

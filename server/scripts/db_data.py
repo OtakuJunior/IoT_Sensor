@@ -1,29 +1,10 @@
 import random
 import requests
 from datetime import datetime, timedelta
-from app.database import session_local
-from app.models.user import User
-from app.services.enums import UserRole
-import uuid
 from app.config import settings
+import sys
 
 API_URL = "http://127.0.0.1:8000"
-
-db = session_local()
-
-existing = db.query(User).filter(User.email == "admin@test.com").first()
-if not existing:
-    admin = User(
-        id=str(uuid.uuid4()),
-        name="Admin",
-        email="admin@test.com",
-        phone_number="0601020304",
-        role=UserRole.MASTER,
-    )
-    db.add(admin)
-    db.commit()
-
-db.close()
 
 LOCATIONS = [
   "Lab 1",
@@ -145,17 +126,23 @@ SENSORS_CONFIG = [
 ]
 
 def get_token():
-    res = requests.post(
-        f"{settings.KEYCLOAK_SERVER_URL}realms/{settings.KEYCLOAK_REALM}/protocol/openid-connect/token",
-        data={
-            "grant_type": "password",
-            "client_id": settings.KEYCLOAK_CLIENT_ID,
-            "client_secret": settings.KEYCLOAK_CLIENT_SECRET,
-            "username": settings.SEED_USERNAME,
-            "password": settings.SEED_PASSWORD
-        }
-    )
-    return res.json()["access_token"]
+    try:
+        res = requests.post(
+            f"{settings.KEYCLOAK_SERVER_URL}realms/{settings.KEYCLOAK_REALM}/protocol/openid-connect/token",
+            data={
+                "grant_type": "password",
+                "client_id": settings.KEYCLOAK_CLIENT_ID,
+                "client_secret": settings.KEYCLOAK_CLIENT_SECRET,
+                "username": settings.SEED_USERNAME,
+                "password": settings.SEED_PASSWORD
+            },
+            timeout=10
+        )
+        res.raise_for_status()
+        return res.json()["access_token"]
+    except Exception as e:
+        print(f"Erreur d'authentification Keycloak : {e}")
+        sys.exit(1)
 
 def run_seed():
     token = get_token()
