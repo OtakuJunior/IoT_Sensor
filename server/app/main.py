@@ -9,24 +9,27 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.timescale import init_timescale, init_continuous_aggregates
 from app.services.ws import manager
 from app.services.mqtt_handler import mqtt
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 
+limiter = Limiter(
+    key_func=get_remote_address, 
+    default_limits=[f"{settings.RATE_LIMIT}/{settings.RATE_LIMIT_WINDOW}seconds"],
+    storage_uri=settings.REDIS_URL 
+    )
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await mqtt.mqtt_startup()
-    try:
-        database.Base.metadata.create_all(bind=database.engine)
-        init_timescale()
-        init_continuous_aggregates()
-    except Exception as e:
-        print(f"Error: {e}")
-    
-    try:
-        mqtt.mqtt_startup
-    except Exception as e:
-        print(f"Error: {e}")
-    
-    yield
+    database.Base.metadata.create_all(bind=database.engine)
+    init_timescale()
+    init_continuous_aggregates()
+
+
+    yield  
     await mqtt.mqtt_shutdown()
     print("Shutting down the app")
 
@@ -34,8 +37,12 @@ app = FastAPI(
     docs_url= None if settings.PRODUCTION else '/docs',
     redoc_url= None if settings.PRODUCTION else '/redoc',
     openapi_url= None if settings.PRODUCTION else "/openapi.json",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware) 
+
 origins = [
     "http://localhost:8080",
     "http://localhost:5173"
@@ -47,6 +54,10 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+)
+app.add_middleware(
+    TrustedHostMiddleware,
+    allowed_hosts=["localhost", "127.0.0.1"]
 )
 
 app.include_router(users.router)

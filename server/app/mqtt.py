@@ -18,37 +18,35 @@ def on_connect(client, userdata, flags, reason_code, properties = None):
     client.subscribe(settings.TOPIC_PREFIX, qos=1)
 
 def on_message(client, userdata, msg):
-  db : Session = session_local()
-
-  try:
-    payload_str = msg.payload.decode()
-    payload = json.loads(payload_str)
-        
-    sensor_data = SensorDataCreate(
-      sensor_id=payload['sensor_id'],
-      value=payload['value'],
-      time=payload['time']
-    )
-    _, alert_created = sensor_data_crud.create_sensor_data(db=db, sensor_data=sensor_data)
-    print(f"Saved: {sensor_data.value} at {sensor_data.time}")
-    if alert_created:
-      alert = {
-        "id" : alert_created.id,
-        "sensor_id" : alert_created.sensor_id,
-        "severity" : alert_created.severity,
-        "direction" : alert_created.direction,
-        "message" : alert_created.message,
-        "time" : alert_created.time.isoformat(),
-        "is_resolved" : alert_created.is_resolved
-       }
-      alert_topic = f"alerts/{alert_created.sensor_id}"
-      client.publish(alert_topic, json.dumps(alert), qos=1)
-      print(f"🚨 Alert published to {alert_topic}: {alert_created.severity}")
-
-  except Exception as e:
-    print(f"Error: {e}")
-  finally:
-    db.close()
+    db = session_local()
+    try:
+        payload_str = msg.payload.decode()
+        payload = json.loads(payload_str)
+        sensor_data = SensorDataCreate(
+            sensor_id=payload['sensor_id'],
+            value=payload['value'],
+            time=payload['time']
+        )
+        _, alert_created = sensor_data_crud.create_sensor_data(db=db, sensor_data=sensor_data)
+        print(f"Saved: {sensor_data.value} at {sensor_data.time}")
+        if alert_created:
+            alert = {
+                "id": alert_created.id,
+                "sensor_id": alert_created.sensor_id,
+                "severity": alert_created.severity,
+                "direction": alert_created.direction,
+                "message": alert_created.message,
+                "time": alert_created.time.isoformat(),
+                "is_resolved": alert_created.is_resolved
+            }
+            alert_topic = f"alerts/{alert_created.sensor_id}"
+            client.publish(alert_topic, json.dumps(alert), qos=1)
+            print(f"Alert published to {alert_topic}: {alert_created.severity}")
+    except Exception as e:
+        print(f"Error processing message: {e}")
+        db.rollback()
+    finally:
+        db.close()
 
 def start_mqtt_listener():
     client = mqtt.Client(CallbackAPIVersion.VERSION2, client_id="Backend_Worker",clean_session=False)    

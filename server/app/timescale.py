@@ -4,15 +4,12 @@ from datetime import datetime
 import math
 
 def init_timescale():
-    try:
       with engine.begin() as connection:
         connection.execute(text("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;"))
         connection.execute(text("SELECT create_hypertable('sensor_data', 'time', if_not_exists => TRUE, migrate_data => TRUE);"))        
-    except Exception as e:
-        print(f"{e}")
+
 
 def init_continuous_aggregates() :
-  try: 
     with engine.begin() as connection:
       connection.execute(text("""
         CREATE MATERIALIZED VIEW IF NOT EXISTS cagg_hour
@@ -65,8 +62,6 @@ def init_continuous_aggregates() :
         create index if not exists idx_cagg_hour on cagg_day(sensor_id, bucket DESC);
       """))
 
-  except Exception as e:
-    print(f"{e}")
 
 # Manual refresh 
 def refresh_cagg(from_time : datetime | None = None, end_time : datetime | None = None):

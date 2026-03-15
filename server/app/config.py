@@ -16,6 +16,8 @@ class Settings(BaseSettings):
   SEED_USERNAME: str
   SEED_PASSWORD: str
   REDIS_URL: str
+  RATE_LIMIT: int = 1000 #Default 1000
+  RATE_LIMIT_WINDOW: int = 60  #Default 60s 
 
   model_config = SettingsConfigDict(
 
