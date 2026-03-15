@@ -62,10 +62,11 @@ def test_client(db_session):
 @pytest.fixture()
 def user_payload():
     return {
-      "name" : "John",
-      "email" : "john.smith@gmail.com",
-      "phone_number" : "0000000000",
-      "role" : "Admin"
+    "id": "user-id",
+    "name" : "John",
+    "email" : "john.smith@gmail.com",
+    "phone_number" : "0000000000",
+    "role" : "ADMIN"
     }
 
 @pytest.fixture()
@@ -129,7 +130,9 @@ def mock_auth():
     mock_user.role = UserRole.MASTER
     mock_user.id = "test-user-id"
     mock_user.email = "admin@test.com"
-    
+    mock_user.name = "Admin User"
+    mock_user.phone_number = "0000000000"
+
     app.dependency_overrides[get_current_user] = lambda: mock_user
     yield
     app.dependency_overrides.pop(get_current_user, None)

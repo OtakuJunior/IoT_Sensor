@@ -12,6 +12,10 @@ router = APIRouter(
   responses={404: {"description": "Not found"}}
 )
 
+@router.post("/", status_code=201, response_model=User)
+def create_user(user: UserCreate, db: Session = Depends(get_db), admin: dict = Depends(require_master)):
+    return user_crud.create_user(db=db, user=user)
+
 @router.get("/{user_id}")
 def get_user(user_id : str, db : Session = Depends(get_db)):
   db_user = user_crud.get_user(db=db, user_id=user_id)
@@ -19,7 +23,7 @@ def get_user(user_id : str, db : Session = Depends(get_db)):
     raise HTTPException(status_code=404, detail="User not found")
   return db_user
 
-@router.delete("/{user_id}", status_code=200)
+@router.delete("/{user_id}", status_code=204)
 def delete_user(user_id : str, db : Session = Depends(get_db), master: dict = Depends(require_master)):
   deleteUser = user_crud.delete_user(db=db, user_id=user_id)
   if deleteUser is None:

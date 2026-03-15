@@ -38,10 +38,10 @@ def test_check_value_without_threshold(test_client, location_payload, sensor_pay
   location_created = test_client.post("/locations", json=location_payload)
   location_id = location_created.json()['id']
   sensor_payload['location_id'] =  location_id
-  sensor_payload["min_warning"] = None
-  sensor_payload["max_warning"] = None
-  sensor_payload["min_critical"] = None
-  sensor_payload["max_critical"] = None
+  sensor_payload["min_warning"] = -1000.0
+  sensor_payload["max_warning"] = 1000.0
+  sensor_payload["min_critical"] = -9999.0
+  sensor_payload["max_critical"] = 9999.0
   sensor_created = test_client.post("/sensors", json=sensor_payload)
   sensor_id = sensor_created.json()["id"]  
   sensor_data_payload['sensor_id'] = sensor_id

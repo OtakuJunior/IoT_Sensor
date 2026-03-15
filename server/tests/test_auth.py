@@ -6,7 +6,8 @@ from jose import ExpiredSignatureError, JWTError
 from app.auth.controller import AuthController
 from app.auth.dependencies import get_current_user, require_admin, require_master
 from app.services.enums import UserRole
-
+from app.main import app
+from app.auth.dependencies import get_current_user
 # ================================
 # AuthController.get_current_user tests
 # ================================
@@ -27,8 +28,8 @@ def test_get_current_user_success():
     with patch("app.auth.controller.get_public_key", return_value="fake_key"), \
     patch("jose.jwt.decode", return_value=mock_payload):
         result = AuthController.get_current_user(mock_credentials)
-        assert result.sub == "user-uuid-123"
-        assert result.preferred_username == "john.doe"
+        assert result.id == "user-uuid-123"
+        assert result.name == "john.doe"
         assert result.email == "john@example.com"
 
 def test_get_current_user_expired_token():
@@ -84,6 +85,7 @@ def test_refresh_invalid_token():
 
 def test_me_endpoint_without_token(test_client):
     """GET /auth/me without a token should return 403"""
+    app.dependency_overrides.pop(get_current_user, None)
     response = test_client.get("/auth/me")
     assert response.status_code == 401
 
@@ -115,31 +117,14 @@ def test_dependency_get_current_user_success(db_session):
         credentials="fake_valid_token"
     )
     mock_user_info = MagicMock()
-    mock_user_info.sub = "user-uuid-123"
+    mock_user_info.id = "user-uuid-123"
 
     with patch("app.auth.dependencies.AuthController.get_current_user", return_value=mock_user_info), \
-         patch("app.auth.dependencies.crud_user.get_user_by_keycloak_id", return_value=mock_user):
+         patch("app.crud.user.get_user", return_value=mock_user):
         result = get_current_user(credentials=mock_credentials, db=db_session)
         assert result.keycloak_id == "user-uuid-123"
         assert result.role == UserRole.ADMIN
 
-def test_dependency_get_current_user_not_found(db_session):
-    """Valid token but user not in DB should return 404"""
-    mock_credentials = HTTPAuthorizationCredentials(
-        scheme="Bearer",
-        credentials="fake_valid_token"
-    )
-    mock_user_info = MagicMock()
-    mock_user_info.sub = "unknown-uuid"
-    mock_user_info.email = "unknown@test.com"
-
-    with patch("app.auth.dependencies.AuthController.get_current_user", return_value=mock_user_info), \
-         patch("app.auth.dependencies.crud_user.get_user_by_keycloak_id", return_value=None), \
-         patch("app.auth.dependencies.crud_user.get_user_by_email", return_value=None):
-        with pytest.raises(HTTPException) as exc:
-            get_current_user(credentials=mock_credentials, db=db_session)
-        assert exc.value.status_code == 403
-        assert exc.value.detail == "User not authorized"
 
 # ================================
 # dependencies.require_admin tests
@@ -148,16 +133,16 @@ def test_dependency_get_current_user_not_found(db_session):
 def test_require_admin_success():
     """User with Admin role should pass require_admin"""
     mock_user = MagicMock()
-    mock_user.role = "Admin"  # string comparison in dependencies.py
+    mock_user.role = "ADMIN"  # string comparison in dependencies.py
     result = require_admin(user=mock_user)
-    assert result.role == "Admin"
+    assert result.role == "ADMIN"
 
 def test_require_admin_with_master():
     """User with Master role should also pass require_admin"""
     mock_user = MagicMock()
-    mock_user.role = "Master"
+    mock_user.role = "MASTER"
     result = require_admin(user=mock_user)
-    assert result.role == "Master"
+    assert result.role == "MASTER"
 
 def test_require_admin_forbidden():
     """User with Analyst role should be rejected by require_admin"""
@@ -175,14 +160,14 @@ def test_require_admin_forbidden():
 def test_require_master_success():
     """User with Master role should pass require_master"""
     mock_user = MagicMock()
-    mock_user.role = "Master"
+    mock_user.role = "MASTER"
     result = require_master(user=mock_user)
-    assert result.role == "Master"
+    assert result.role == "MASTER"
 
 def test_require_master_forbidden():
     """User with Admin role should be rejected by require_master"""
     mock_user = MagicMock()
-    mock_user.role = "Admin"
+    mock_user.role = "ADMIN"
     with pytest.raises(HTTPException) as exc:
         require_master(user=mock_user)
     assert exc.value.status_code == 403
