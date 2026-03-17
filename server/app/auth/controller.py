@@ -32,7 +32,7 @@ class AuthController:
             print(e)
             raise HTTPException(status_code=401, detail="Invalid token")
         except Exception as e:
-            print(e)
+            print(f"Auth error: {type(e).__name__}: {e}")  # ← remplace le print existant
             raise HTTPException(status_code=401, detail="Authentication failed")
 
     @staticmethod

@@ -12,7 +12,7 @@ router = APIRouter(
   responses={404: {"description": "Not found"}}
 )
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("", status_code=status.HTTP_201_CREATED)
 def create_sensor(sensor : SensorCreate, db : Session = Depends(get_db), admin: dict = Depends(require_admin)):
   return sensor_crud.create_sensor(db = db, sensor = sensor)
 
@@ -30,7 +30,7 @@ def get_sensor(sensor_id : str, db : Session = Depends(get_db)):
     raise HTTPException(status_code=404, detail="Sensor not found")
   return db_sensor
 
-@router.get("/", response_model=list[Sensor])
+@router.get("", response_model=list[Sensor])
 def get_sensors(sensor_type : enums.SensorType | None = None, sensor_status: enums.SensorStatus | None = None, db : Session = Depends(get_db)):
   return sensor_crud.get_sensors(db=db, sensor_type=sensor_type, sensor_status=sensor_status)
 

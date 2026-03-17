@@ -23,6 +23,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.0.7
@@ -34,6 +39,7 @@ services:
       KC_HTTP_ENABLED: "true"
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+
     ports:
       - "8090:8080"
     volumes:
@@ -54,6 +60,62 @@ services:
       interval: 10s
       timeout: 3s
       retries: 5
+
+  server:
+    build:
+      context: ./server
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - REDIS_URL=redis://redis:6379
+      - MQTT_BROKER=mosquitto
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mosquitto:
+        condition: service_started
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./frontend/dist:/usr/share/nginx/html
+    depends_on:
+      - server
+      - keycloak
+
+  data-generator:
+    build:
+      context: .
+      dockerfile: ./server/scripts/Dockerfile_gen
+    restart: unless-stopped
+    environment:
+      - API_URL=http://server:8000
+      - MQTT_BROKER=mosquitto
+    depends_on:
+      server:
+        condition: service_started
+      mosquitto:
+        condition: service_started
+
+  worker:
+    build:
+      context: ./server
+    command: python -m app.mqtt
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - MQTT_BROKER=mosquitto
+    depends_on:
+      db:
+        condition: service_healthy
+      mosquitto:
+        condition: service_started
 
 volumes:
   postgres_data:

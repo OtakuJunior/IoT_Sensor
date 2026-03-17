@@ -15,7 +15,7 @@ router = APIRouter(
   responses={404: {"description": "Not found"}}
 )
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=SensorData)
+@router.post("", status_code=status.HTTP_201_CREATED, response_model=SensorData)
 def create_sensor_data(sensor_data : SensorDataCreate, db : Session = Depends(get_db)):
   sensor_data, alert = sensor_data_crud.create_sensor_data(db=db, sensor_data=sensor_data)
   return sensor_data

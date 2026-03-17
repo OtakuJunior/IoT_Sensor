@@ -10,5 +10,6 @@ keycloak_openid = KeycloakOpenID(
 
 def get_public_key() -> str:
     public_key = keycloak_openid.public_key()
+    print(f"Connecting to Keycloak: {settings.KEYCLOAK_SERVER_URL}")  # ← ajoute
     return f"-----BEGIN PUBLIC KEY-----\n{public_key}\n-----END PUBLIC KEY-----"
 

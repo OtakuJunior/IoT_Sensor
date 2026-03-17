@@ -12,7 +12,7 @@ router = APIRouter(
   responses={404: {"description": "Not found"}}
 )
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("", status_code=status.HTTP_201_CREATED)
 def create_alert(alert : AlertCreate, db : Session = Depends(get_db)):
   return alert_crud.create_alert(db=db, alert=alert)
 
@@ -30,7 +30,7 @@ def get_alert(alert_id : str, db : Session = Depends(get_db)):
     raise HTTPException(status_code=404, detail="Alert not found")
   return db_alert
 
-@router.get("/", response_model= list[Alert])
+@router.get("", response_model= list[Alert])
 def get_alerts(sensor_id: str | None = None, skip : int = 0, limit : int = 100, is_resolved : bool | None = None, db: Session = Depends(get_db)):
    return alert_crud.get_alerts(db=db, skip=skip, limit=limit, is_resolved=is_resolved, sensor_id=sensor_id)
 

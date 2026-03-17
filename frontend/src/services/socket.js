@@ -11,7 +11,7 @@ export const initSocket = (onMessage) => {
   ) {
     return;
   }
-  socket = new WebSocket("ws://localhost:8000/ws");
+  socket = new WebSocket(import.meta.env.VITE_WS_URL);
   socket.addEventListener("open", () => {
     console.log("CONNECTED");
   });

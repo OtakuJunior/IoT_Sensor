@@ -38,6 +38,7 @@ app = FastAPI(
     redoc_url= None if settings.PRODUCTION else '/redoc',
     openapi_url= None if settings.PRODUCTION else "/openapi.json",
     lifespan=lifespan,
+    redirect_slashes=False
 )
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
@@ -45,7 +46,9 @@ app.add_middleware(SlowAPIMiddleware)
 
 origins = [
     "http://localhost:8080",
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "http://localhost",
+    "http://localhost:80"
 ]
 
 app.add_middleware(
@@ -54,10 +57,6 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
-app.add_middleware(
-    TrustedHostMiddleware,
-    allowed_hosts=["localhost", "127.0.0.1","testserver"]
 )
 
 app.include_router(users.router)

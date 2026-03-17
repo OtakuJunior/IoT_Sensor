@@ -20,7 +20,7 @@ class Sensor(Base):
   location_id = Column(String, ForeignKey("locations.id"), nullable= True)
   asset_id = Column(String, ForeignKey("assets.id"), nullable= True)
   
-  alerts = relationship("Alert", back_populates="message_sensor")
+  alerts = relationship("Alert", back_populates="message_sensor", cascade="all, delete-orphan")
   sensor_location = relationship("Location", back_populates="sensors")
-  data = relationship("SensorData", back_populates="sensor")
+  data = relationship("SensorData", back_populates="sensor", cascade="all, delete-orphan")
   asset = relationship("Asset", back_populates='sensors_asset')

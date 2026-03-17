@@ -12,7 +12,7 @@ router = APIRouter(
   responses={404: {"description": "Not found"}}
 )
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("", status_code=status.HTTP_201_CREATED)
 def create_asset(asset : AssetCreate, db : Session = Depends(get_db), admin: dict = Depends(require_admin)):
   return asset_crud.create_asset(db=db, asset=asset)
 
@@ -37,7 +37,7 @@ def assign_sensor_to_asset(asset_id : str, sensor_id : str, db : Session = Depen
     raise HTTPException(status_code=404, detail='Sensor or Asset not Found')
   return assigned_sensor
 
-@router.get('/', response_model=list[Asset])
+@router.get('', response_model=list[Asset])
 def get_assets(db : Session = Depends(get_db)):
   return asset_crud.get_assets(db=db)
 

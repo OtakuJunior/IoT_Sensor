@@ -17,7 +17,7 @@ export default function SideBar() {
     ];
 
     return (
-      <div className="w-1/6 flex flex-col md:border-r">
+      <div className="w-1/6 flex flex-col md:border-r bg-blue-300">
         <div className="flex align-middle py-2 pt-4 text-2xl justify-center items-center">
           IoT Sensor
         </div>

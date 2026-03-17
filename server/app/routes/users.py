@@ -12,7 +12,7 @@ router = APIRouter(
   responses={404: {"description": "Not found"}}
 )
 
-@router.post("/", status_code=201, response_model=User)
+@router.post("", status_code=201, response_model=User)
 def create_user(user: UserCreate, db: Session = Depends(get_db), admin: dict = Depends(require_master)):
     return user_crud.create_user(db=db, user=user)
 
@@ -32,7 +32,7 @@ def delete_user(user_id : str, db : Session = Depends(get_db), master: dict = De
     return {'message' : 'User deleted'} 
   return False 
 
-@router.get("/", response_model=list[User])
+@router.get("", response_model=list[User])
 def read_users(role: enums.UserRole | None = None, db: Session = Depends(get_db), admin: dict = Depends(require_admin)):
   users = user_crud.get_users(db, role=role)
   return users

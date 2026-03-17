@@ -113,7 +113,7 @@ export default function App() {
   if (!isAuthenticated()) return null;
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-blue-100">
       <SideBar />
       <ToastContainer autoClose={5000} limit={3} />
 
