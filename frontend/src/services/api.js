@@ -5,7 +5,6 @@ const apiC = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   timeout: 5000,
 });
-console.log("API URL:", import.meta.env.VITE_API_URL); // ← ajoute ça
 apiC.interceptors.request.use((config) => {
   const token = getAccessToken();
   if (token) {

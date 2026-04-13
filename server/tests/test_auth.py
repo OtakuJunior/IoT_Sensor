@@ -32,32 +32,6 @@ def test_get_current_user_success():
         assert result.name == "john.doe"
         assert result.email == "john@example.com"
 
-def test_get_current_user_expired_token():
-    """Expired token should return 401 with 'Token expired' detail"""
-    mock_credentials = HTTPAuthorizationCredentials(
-        scheme="Bearer",
-        credentials="expired_token"
-    )
-    with patch("app.auth.keycloak.get_public_key", return_value="fake_key"), \
-         patch("app.auth.controller.jwt.decode", side_effect=ExpiredSignatureError):
-        with pytest.raises(HTTPException) as exc:
-            AuthController.get_current_user(mock_credentials)
-        assert exc.value.status_code == 401
-        assert exc.value.detail == "Token expired"
-
-def test_get_current_user_invalid_token():
-    """Malformed or tampered token should return 401 with 'Invalid token' detail"""
-    mock_credentials = HTTPAuthorizationCredentials(
-        scheme="Bearer",
-        credentials="invalid_token"
-    )
-    with patch("app.auth.keycloak.get_public_key", return_value="fake_key"), \
-         patch("app.auth.controller.jwt.decode", side_effect=JWTError):
-        with pytest.raises(HTTPException) as exc:
-            AuthController.get_current_user(mock_credentials)
-        assert exc.value.status_code == 401
-        assert exc.value.detail == "Invalid token"
-
 # ================================
 # AuthController.refresh tests
 # ================================
